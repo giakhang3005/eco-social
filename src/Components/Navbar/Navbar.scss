@@ -1,0 +1,13 @@
+.navPC {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 70px;
+    height: 100vh;
+    // justify-content: center;
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
+    border-right: 1px solid var(--border-color);
+    transition: all 0.12s linear;
+}

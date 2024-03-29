@@ -1,0 +1,58 @@
+/** @format */
+
+.themeToggleContainer {
+  position: absolute;
+  cursor: pointer;
+  width: 28px;
+  height: 22px;
+  height: 30px;
+  overflow: hidden;
+
+  .sun,
+  .moon {
+    font-size: 22px;
+    transition: all 0.05s linear !important;
+    animation: moveIn 0.15s linear;
+  }
+
+  .sun {
+    color: #f59e0b;
+
+    &:hover {
+      color: #d97706;
+    }
+  }
+
+  .moon {
+    color: #94a3b8;
+
+    &:hover {
+      color: #e2e8f0;
+    }
+  }
+
+  .cloud {
+    font-size: 25px;
+    position: absolute;
+    color: #e2e8f0;
+    bottom: -4px;
+  }
+}
+
+@keyframes moveOut {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(22px);
+  }
+}
+
+@keyframes moveIn {
+  0% {
+    transform: translateY(22px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

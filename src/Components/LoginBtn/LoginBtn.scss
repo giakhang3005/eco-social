@@ -1,0 +1,35 @@
+/** @format */
+
+.SignInBtn {
+  outline: none;
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  padding: 8px;
+  border-radius: 8px;
+  color: var(--text-color);
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1rem;
+  height: 32px;
+  padding: 4px 10px 4px 10px;
+  border-radius: 6px;
+  transition: all 0.12s linear;
+
+  &:hover {
+    background-color: var(--border-color);
+    scale: 1.05;
+  }
+
+  .space {
+    margin: 0 7px 0 0;
+  }
+
+  .GGLogo {
+    font-size: 20px;
+  }
+}
+
+.active {
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}

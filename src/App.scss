@@ -1,0 +1,34 @@
+body {
+    margin: 0;
+    padding: 0;
+    transition: all 0s linear;
+}
+
+* {
+    // transition: all 0.12s linear;
+}
+
+.app {
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    background-color: var(--background-color);
+}
+
+// message
+.ant-message-notice-content {
+    background-color: var(--background-hover-color) !important;
+    color: var(--text-color) !important;
+}
+
+// Spin
+.ant-spin-blur{
+    background-color: rgba(0, 0, 0, 0.62) !important;
+}
+.ant-spin-text {
+    color: var(--primary-color) !important;
+    text-shadow: none !important;
+}
+.ant-spin-dot-item {
+    background-color: var(--primary-color) !important;
+}
