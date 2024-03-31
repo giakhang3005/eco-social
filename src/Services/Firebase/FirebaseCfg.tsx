@@ -3,13 +3,13 @@ import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 import { collection, getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCIr6C50E5S1jX2JOI5NAXBt8GA211mZFY",
-    authDomain: "eco-social-f76a1.firebaseapp.com",
-    projectId: "eco-social-f76a1",
-    storageBucket: "eco-social-f76a1.appspot.com",
-    messagingSenderId: "291842583841",
-    appId: "1:291842583841:web:7c69d74f9123f2615f6260",
-    measurementId: "G-Z4TE7FVQSF"
+    apiKey: process.env.REACT_APP_FIRE_BASE_API_KEY,
+    authDomain: process.env.REACT_APP_FIRE_BASE_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_FIRE_BASE_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_FIRE_BASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_FIRE_BASE_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_FIRE_BASE_APP_ID,
+    measurementId: process.env.REACT_APP_FIRE_BASE_MEASUREMENT_ID
   };
 
 // Initialize Firebase

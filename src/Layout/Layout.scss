@@ -1,4 +1,9 @@
 .mainLayout {
     width: 100vw;
     height: 100vh;
+    display: flex;
+
+    .OutletContainer {
+        width: calc(100vw - 70px);
+    }
 }

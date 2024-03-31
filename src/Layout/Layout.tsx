@@ -5,13 +5,19 @@ import { useState, createContext, useLayoutEffect, useEffect } from "react"
 import { IContext, ILoading } from "../Model/Others"
 import { useTheme } from "../Services/CustomHooks/useTheme"
 import Navbar from "../Components/Navbar/Navbar"
+import { IUser } from "../Model/Users"
+import { useLocalStorage } from "../Services/CustomHooks/useLocalStorage"
+import { GlobalConstants } from "../Share/Constants"
 
 export const Data = createContext<IContext | null>(null)
 
 const Layout = () => {
     const { initTheme } = useTheme()
+    const { getFromLocalStorage } = useLocalStorage()
 
     const [loading, setLoading] = useState<ILoading>({ loading: false })
+
+    const [user, setUser] = useState<IUser | null>(getFromLocalStorage(GlobalConstants.localStorageKeys.user))
 
     // Load Theme before layout loaded
     useLayoutEffect(() => {
@@ -25,11 +31,13 @@ const Layout = () => {
         // TODO: else, update current time to session storage
     }
     return (
-        <Data.Provider value={{ loading, setLoading }}>
+        <Data.Provider value={{ loading, setLoading, user, setUser }}>
             <Spin size="large" spinning={loading.loading} tip={loading.tooltip}>
                 <div className="mainLayout" onPointerDown={handleUnActiveTimeTracking}>
                     <Navbar />
-                    {/* <Outlet /> */}
+                    <div className="OutletContainer">
+                        <Outlet />
+                    </div>
                 </div>
             </Spin>
         </Data.Provider>

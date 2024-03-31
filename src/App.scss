@@ -1,34 +1,57 @@
+/** @format */
+
 body {
-    margin: 0;
-    padding: 0;
-    transition: all 0s linear;
+  margin: 0;
+  padding: 0;
+  color: var(--text-color);
 }
 
 * {
-    // transition: all 0.12s linear;
+  // transition: all 0.12s linear;
 }
 
 .app {
-    width: 100vw;
-    height: 100vh;
-    box-sizing: border-box;
-    background-color: var(--background-color);
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  background-color: var(--background-color);
+  transition: all 0.12s linear;
 }
 
 // message
 .ant-message-notice-content {
-    background-color: var(--background-hover-color) !important;
-    color: var(--text-color) !important;
+  background-color: var(--background-hover-color) !important;
+  color: var(--text-color) !important;
 }
 
 // Spin
-.ant-spin-blur{
-    background-color: rgba(0, 0, 0, 0.62) !important;
+.ant-spin-blur {
+  background-color: rgba(0, 0, 0, 0.62) !important;
 }
 .ant-spin-text {
-    color: var(--primary-color) !important;
-    text-shadow: none !important;
+  color: var(--primary-color) !important;
+  text-shadow: none !important;
 }
 .ant-spin-dot-item {
-    background-color: var(--primary-color) !important;
+  background-color: var(--primary-color) !important;
+}
+
+// Popover
+.ant-popover-inner,
+.ant-popover-inner-content {
+  padding: 8px;
+  background-color: var(--background-hover-color) !important;
+  color: var(--text-color) !important;
+}
+// .ant-popover-inner {
+//     box-shadow: 0px 0px 1.5px var(--text-color) !important;
+// }
+
+.ant-popover-arrow, .ant-popover-arrow::before {
+//   background-color: var(--background-color) !important;
+}
+
+.ant-popover-arrow::after {
+    background-color: var(--background-hover-color) !important;
+    // border: 1px solid var(--text-color);
 }

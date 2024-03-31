@@ -9,7 +9,7 @@ import { useUsers } from "./useUsers"
 
 export const useAuth = () => {
     const { setLoading } = useContext(Data) as IContext
-    const { getUserById, updateUser } = useUsers()
+    const { getUserById, updateUser, addUserToBrowserAndState } = useUsers()
 
     const handleSigninWithGG = async () => {
         setLoading({ loading: true, tooltip: 'Đang đăng nhập...' })
@@ -40,36 +40,47 @@ export const useAuth = () => {
                 setLoading({ loading: false })
             })
 
-            if(!currUserId) return
-            const dbUser = await getUserById(currUserId)
-            if(dbUser) {
-                // User existed
+        if (!currUserId) return
+        const dbUser: IUser | null | void = await getUserById(currUserId)
 
+
+        if (dbUser) {
+            // User existed
+            if (dbUser) {
+                addUserToBrowserAndState(dbUser)
+                message.success(`Xin chào ${dbUser.name}`)
             } else {
-                // User is not existed
-                const currUser: IUser = {
-                    id: currUserId,
-                    name: googleUser.displayName,
-                    email: googleUser.email,
-                    mssv: null,
-                    permissions: [],
-                    imgUrl: googleUser.photoURL,
-                    points: 0,
-                    joinDate: `${new Date().getTime()}`
-                }
-
-                const updateStatus = await updateUser(currUser)
-                console.log(updateStatus)
+                message.error("Đã có lỗi xảy ra, vui lòng tải lại trang")
             }
-    }
 
-    const addUserToBrowserAndState = (user: IUser) => {
+        } else {
+            // User is not existed
+            const currUser: IUser = {
+                id: currUserId,
+                name: googleUser.displayName,
+                email: googleUser.email,
+                mssv: null,
+                permissions: [],
+                imgUrl: googleUser.photoURL,
+                points: 0,
+                joinDate: `${new Date().toLocaleString()}`
+            }
 
+            const updateStatus = await updateUser(currUser)
+
+            if (updateStatus) {
+                message.success(`Chào mừng ${currUser.name} gia nhập ECO`)
+                addUserToBrowserAndState(currUser)
+            } else {
+                message.error('Đã có lỗi xảy ra, vui lòng tải lại trang')
+            }
+        }
     }
 
 
     const handleLogout = () => {
-        // Todo: Implement clear local
+        addUserToBrowserAndState(null);
+        message.success('Đã đăng xuất');
     }
 
     return { handleSigninWithGG, handleLogout }

@@ -2,8 +2,19 @@ import { message } from "antd"
 import { usersCollectionRef, firestoreDB } from "../Firebase/FirebaseCfg"
 import { getDocs, setDoc, doc, getDoc } from "firebase/firestore"
 import { IUser } from "../../Model/Users"
+import { useLocalStorage } from "./useLocalStorage"
+import { GlobalConstants } from "../../Share/Constants"
+import { Data } from "../../Layout/Layout"
+import { useContext } from "react"
+import { IContext } from "../../Model/Others"
 
 export const useUsers = () => {
+    const { setUser, user } = useContext(Data) as IContext
+    const { setToLocalStorage, removeFromlocalStorage } = useLocalStorage();
+
+    const getCurrentUser = () => {
+        return user;
+    }
 
     const getAllUsers = () => {
         const users = getDocs(usersCollectionRef)
@@ -23,19 +34,27 @@ export const useUsers = () => {
         return users;
     }
 
-    const getUserById = (id: string) => {
+    const getUserById = (id: string): Promise<IUser | null | void> => {
 
         const docRef = doc(usersCollectionRef, id)
+
         const user = getDoc(docRef)
             .then(doc => {
                 const docData = doc.data()
+                console.log(docData)
                 return (
                     docData
                         ? {
-                            ...docData,
+                            name: docData?.name,
+                            email: docData?.email,
+                            mssv: docData?.mssv,
+                            permissions: docData?.permission,
+                            imgUrl: docData?.imgURL,
+                            points: docData?.points,
+                            joinDate: docData?.joinDate,
                             id: doc.id,
                         }
-                        : undefined
+                        : null
                 )
 
             })
@@ -70,5 +89,11 @@ export const useUsers = () => {
         return updateStatus;
     }
 
-    return { getAllUsers, updateUser, getUserById }
+    const addUserToBrowserAndState = (user: IUser | null) => {
+        const userLocalKey = GlobalConstants.localStorageKeys.user
+        setUser(user)
+        user ? setToLocalStorage(userLocalKey, user) : removeFromlocalStorage(userLocalKey)
+    }
+
+    return { getAllUsers, updateUser, getUserById, addUserToBrowserAndState, getCurrentUser }
 }

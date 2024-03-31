@@ -1,0 +1,22 @@
+/** @format */
+
+.avatarContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.12s linear;
+
+  .avatar {
+    border-radius: 50%;
+    width: 80%;
+  }
+}
+
+.hoverable {
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.75;
+  }
+}

@@ -8,5 +8,9 @@ export const useLocalStorage = () => {
         return value ? JSON.parse(value) : null;
     }
 
-    return { setToLocalStorage, getFromLocalStorage }
+    const removeFromlocalStorage = (key: string) => {
+        localStorage.removeItem(key);
+    }
+
+    return { setToLocalStorage, getFromLocalStorage, removeFromlocalStorage }
 }
