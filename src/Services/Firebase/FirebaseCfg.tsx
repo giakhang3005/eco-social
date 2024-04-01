@@ -22,5 +22,6 @@ const firestoreDB = getFirestore(app);
 
 // Ref to Collections
 const usersCollectionRef = collection(firestoreDB, 'Users')
+const pointsLogCollectionRef = collection(firestoreDB, 'PointsLog')
 
-export { auth, provider, firestoreDB, usersCollectionRef }
+export { auth, provider, firestoreDB, usersCollectionRef, pointsLogCollectionRef }

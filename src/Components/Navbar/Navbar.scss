@@ -10,4 +10,17 @@
     box-sizing: border-box;
     border-right: 1px solid var(--border-color);
     transition: all 0.12s linear;
+
+    .footer {
+        position: absolute;
+        bottom: 95px;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .navPC {
+        display: none;
+    }
 }

@@ -1,0 +1,33 @@
+/** @format */
+
+@use "../../App.scss";
+
+.Input,
+.Texarea {
+  padding: 10px;
+  border-radius: 9px;
+  font-size: 13px;
+  outline: none;
+  border: 1px solid var(--border-color);
+  background-color: var(--background-hover-color);
+  color: var(--text-color);
+  transition: all 0.1s linear;
+}
+
+.Input:focus,
+.Texarea:focus {
+  border: 1px solid var(--primary-hover-color);
+}
+
+.Texarea {
+  height: 60px;
+  overflow: scroll;
+  resize: none;
+}
+
+@media screen and (min-width: App.$mobile) {
+  .Input,
+  .Texarea {
+    font-size: 15px;
+  }
+}

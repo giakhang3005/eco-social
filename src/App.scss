@@ -1,9 +1,14 @@
 /** @format */
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:wght@100;500;600;700;800;900&display=swap");
+
+//Var
+$mobile: 768px;
 
 body {
   margin: 0;
   padding: 0;
   color: var(--text-color);
+  font-family: "EB Garamond", serif;
 }
 
 * {
@@ -47,11 +52,49 @@ body {
 //     box-shadow: 0px 0px 1.5px var(--text-color) !important;
 // }
 
-.ant-popover-arrow, .ant-popover-arrow::before {
-//   background-color: var(--background-color) !important;
+.ant-popover-arrow,
+.ant-popover-arrow::before {
+  //   background-color: var(--background-color) !important;
 }
 
 .ant-popover-arrow::after {
+  background-color: var(--background-hover-color) !important;
+  // border: 1px solid var(--text-color);
+}
+
+// Modal
+.ant-modal-content {
+  background-color: var(--background-color) !important;
+}
+
+.anticon-close {
+  color: var(--text-color) !important;
+}
+
+// Table
+.ant-table-wrapper {
+  height: 100% !important;
+  max-height: 100vh !important;
+  padding: 20px;
+  box-sizing: border-box;
+
+  .ant-table-cell {
     background-color: var(--background-hover-color) !important;
-    // border: 1px solid var(--text-color);
+    color: var(--text-color) !important;
+  }
+
+  .ant-pagination-item {
+    background-color: var(--background-hover-color) !important;
+  }
+
+  .ant-pagination-item-active {
+    border: 1px solid var(--primary-color) !important;
+    a {
+      color: var(--primary-color) !important;
+    }
+  }
+
+  .ant-pagination-item-link {
+    color: var(--text-color) !important;
+  }
 }

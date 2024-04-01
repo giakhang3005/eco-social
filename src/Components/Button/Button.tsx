@@ -15,14 +15,23 @@ type Props = {
     onClick?: MouseEventHandler<HTMLButtonElement> | undefined
     icon?: ReactNode,
     children?: ReactNode,
+
+    type?: "default" | "primary",
+    disabled?: boolean,
 }
 
-const Button = ({ tooltip, showText = true, showIcon = true, style, active = false, onClick, icon, children, danger = false, hideBorder = false }: Props) => {
+
+const Button = ({disabled = false, type = "default", tooltip, showText = true, showIcon = true, style, active = false, onClick, icon, children, danger = false, hideBorder = false }: Props) => {
+    const handleOnClick = (e: any) => {
+        if(disabled || !onClick) return
+
+        onClick(e)
+    }
     return (
         <Popover content={tooltip} placement="right">
-            <button onClick={onClick} className={`Btn ${active && "active"} ${danger && 'danger'} ${hideBorder && 'hideBorder'}`} style={style}>
+            <button onClick={handleOnClick} className={`Btn ${active && "active"} ${danger && 'danger'} ${hideBorder && 'hideBorder'} ${type} ${disabled && "disabled"}`} style={style}>
                 {icon && <div className="Btn_icon">{icon}</div>}
-                {showIcon && showText && <span className="space"></span>}
+                {(showIcon && showText && children) && <span className="space"></span>}
                 {showText && children}
             </button>
         </Popover>

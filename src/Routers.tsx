@@ -1,5 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "./Layout/Layout";
+import Points from "./Layout/Points/Points";
+import Log from "./Layout/Log/Log";
 
 export const routers = createBrowserRouter([
     {
@@ -15,11 +17,14 @@ export const routers = createBrowserRouter([
                 path: "/profile",
                 element: "Profile",
             },
-
-            // {
-            //     // path: "p/:postId",
-            //     // element: post
-            // }
+            {
+                path: "/points",
+                element: <Points />,
+            },
+            {
+                path: "/log",
+                element: <Log />,
+            },
         ]
     },
 ]);

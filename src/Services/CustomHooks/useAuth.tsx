@@ -6,13 +6,14 @@ import { Data } from "../../Layout/Layout"
 import { IContext } from "../../Model/Others"
 import { IUser, User } from "../../Model/Users"
 import { useUsers } from "./useUsers"
+import { useLoading } from "./UseLoading"
 
 export const useAuth = () => {
-    const { setLoading } = useContext(Data) as IContext
-    const { getUserById, updateUser, addUserToBrowserAndState } = useUsers()
+    const { updateLoading } = useLoading();
+    const { getUserById, updateUser, addUserToBrowserAndState, getUserByIdRealtime } = useUsers()
 
     const handleSigninWithGG = async () => {
-        setLoading({ loading: true, tooltip: 'Đang đăng nhập...' })
+        updateLoading(true, 'Đang đăng nhập...')
 
         let googleUser: any
         let currUserId: string | undefined
@@ -37,7 +38,7 @@ export const useAuth = () => {
                 )
             })
             .finally(() => {
-                setLoading({ loading: false })
+                updateLoading(false)
             })
 
         if (!currUserId) return
@@ -47,7 +48,8 @@ export const useAuth = () => {
         if (dbUser) {
             // User existed
             if (dbUser) {
-                addUserToBrowserAndState(dbUser)
+                // addUserToBrowserAndState(dbUser)
+                getUserByIdRealtime(dbUser.id)
                 message.success(`Xin chào ${dbUser.name}`)
             } else {
                 message.error("Đã có lỗi xảy ra, vui lòng tải lại trang")
@@ -70,7 +72,8 @@ export const useAuth = () => {
 
             if (updateStatus) {
                 message.success(`Chào mừng ${currUser.name} gia nhập ECO`)
-                addUserToBrowserAndState(currUser)
+                // addUserToBrowserAndState(currUser)
+                getUserByIdRealtime(currUser.id)
             } else {
                 message.error('Đã có lỗi xảy ra, vui lòng tải lại trang')
             }
