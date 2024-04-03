@@ -3,7 +3,7 @@ import { ITheme } from "../../Model/Others";
 export const LightTheme: ITheme = {
     name: 'lightTheme',
     theme: {
-        '--background-color': 'white',
+        '--background-color': '#ffffff',
         '--primary-hover-color': '#a3e635',
         '--text-color': 'black',
         '--primary-color': '#84cc16',
