@@ -1,7 +1,7 @@
 /** @format */
+@use "../../App.scss";
 
 .avatarContainer {
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,7 +9,12 @@
 
   .avatar {
     border-radius: 50%;
-    width: 60%;
+    width: 50%;
+  }
+
+  .active {
+    transition: all 0.12s linear;
+    border: 3px solid var(--primary-color);
   }
 }
 
@@ -18,5 +23,13 @@
 
   &:hover {
     opacity: 0.75;
+  }
+}
+
+@media screen and (max-width: App.$mobile) {
+  .avatarContainer {
+    .active {
+      border: 2px solid var(--primary-color);
+    }
   }
 }

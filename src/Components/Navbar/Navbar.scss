@@ -1,26 +1,57 @@
+/** @format */
+
 .navPC {
-    position: relative;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 70px;
+  height: 100vh;
+  // justify-content: center;
+  align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
+  border-right: 1px solid var(--border-color);
+  transition: all 0.12s linear;
+
+  .footer {
+    position: absolute;
+    bottom: 95px;
     display: flex;
     flex-direction: column;
-    width: 70px;
-    height: 100vh;
-    // justify-content: center;
-    align-items: center;
-    padding: 10px;
-    box-sizing: border-box;
-    border-right: 1px solid var(--border-color);
-    transition: all 0.12s linear;
+  }
+}
 
-    .footer {
-        position: absolute;
-        bottom: 95px;
-        display: flex;
-        flex-direction: column;
-    }
+.NavMobile {
+  visibility: hidden;
+
+  .NavMobileTop,
+  .NavMobileBottom {
+    width: 100vw;
+    height: 47px;
+    position: fixed;
+    background-color: var(--background-color);
+  }
+  .NavMobileTop {
+    top: 0;
+    box-shadow: 1px 1px 4px var(--background-hover-color);
+  }
+
+  .NavMobileBottom {
+    bottom: 0;
+    box-shadow: -1px -1px 4px var(--background-hover-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15vw 0 15vw;
+    box-sizing: border-box;
+  }
 }
 
 @media screen and (max-width: 768px) {
-    .navPC {
-        display: none;
-    }
+  .navPC {
+    visibility: hidden;
+  }
+  .NavMobile {
+    visibility: visible;
+  }
 }

@@ -1,5 +1,5 @@
 /** @format */
-
+@use "../../App.scss";
 .themeToggleContainer {
   position: absolute;
   cursor: pointer;
@@ -38,6 +38,12 @@
     position: absolute;
     color: #e2e8f0;
     bottom: -4px;
+  }
+}
+
+@media screen and (max-width: App.$mobile){
+  .themeToggleContainer {
+    scale: 0.7
   }
 }
 

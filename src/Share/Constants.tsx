@@ -8,5 +8,6 @@ export const GlobalConstants = {
         approval: 'approval', // approve posts
         log: 'log', // view points, approval, booth update log
         booth: 'booth', // Update status of booth (finished/not yet)
-    }
+    },
+    topNavHeight: 47,
 }

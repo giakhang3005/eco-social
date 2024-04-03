@@ -100,6 +100,8 @@ export const useUsers = () => {
                 console.log(err);
             }
         )
+
+
     }
 
     // Update realtime

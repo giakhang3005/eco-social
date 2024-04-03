@@ -2,20 +2,31 @@ import { useEffect, useState } from "react";
 import { useLog } from "../../Services/CustomHooks/useLog"
 import "./Log.scss"
 import { Col, Popover, Row, Table } from "antd";
+import { useUsers } from "../../Services/CustomHooks/useUsers";
+import { GlobalConstants } from "../../Share/Constants";
+import { useNavigate } from "react-router-dom";
 
-type Props = {}
-
-const Log = (props: Props) => {
+const Log = () => {
     const { getPointsLog } = useLog();
+    const { getCurrentUser } = useUsers();
+    const navigate = useNavigate();
+
     const [pointsLog, setPointsLog] = useState<any>();
 
     useEffect(() => {
         getLogs();
     }, []);
 
+    useEffect(() => {
+        const currentUser = getCurrentUser()
+        if (currentUser && currentUser?.permissions?.includes(GlobalConstants.permissionsKey.log)) return;
+
+        navigate('/')
+    }, [getCurrentUser()])
+
     const getLogs = async () => {
-        const log = await getPointsLog()
-        setPointsLog(log)
+        const log = await getPointsLog();
+        setPointsLog(log);
     }
 
     const columns = [
@@ -40,7 +51,7 @@ const Log = (props: Props) => {
                             <div><b>Email:</b> {log?.executedUser?.email}</div>
                         </div>}
                     >
-                        <div style={{cursor: 'help'}}>{log?.executedUser?.name}</div>
+                        <div style={{ cursor: 'help' }}>{log?.executedUser?.name}</div>
                     </Popover>
                 )
             }
@@ -57,7 +68,7 @@ const Log = (props: Props) => {
                             <div><b>Email:</b> {log?.targetUser?.email}</div>
                         </div>}
                     >
-                        <div style={{cursor: 'help'}}>{log?.targetUser?.name}</div>
+                        <div style={{ cursor: 'help' }}>{log?.targetUser?.name}</div>
                     </Popover>
                 )
             }
