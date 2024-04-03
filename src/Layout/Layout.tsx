@@ -93,9 +93,9 @@ const Layout = () => {
             </Modal>
 
             <Spin size="large" spinning={loading.loading} tip={loading.tooltip}>
-                <div className="mainLayout" onPointerDown={handleUnActiveTimeTracking} onScroll={(e) => handleScroll(e)}>
+                <div className="mainLayout" onPointerDown={handleUnActiveTimeTracking}>
                     <Navbar mobileTopNavBar={mobileTopNavBar} safeZone={safeZone} />
-                    <div className="OutletContainer" style={Object.assign({ marginTop: viewWidth > 768 ? 0 : `${GlobalConstants.topNavHeight - mobileTopNavBar}px`, height: viewWidth > 768 ? '100vh' : `calc(100vh - ${GlobalConstants.topNavHeight - mobileTopNavBar}px - 47px` })}>
+                    <div className="OutletContainer" onScroll={(e) => handleScroll(e)} style={Object.assign({ marginTop: viewWidth > 768 ? 0 : `${GlobalConstants.topNavHeight - mobileTopNavBar}px`, height: viewWidth > 768 ? '100vh' : `calc(100vh - ${GlobalConstants.topNavHeight - mobileTopNavBar}px - 47px` })}>
                         <div>123</div>
                         <div>123</div>
                         <div>123</div>

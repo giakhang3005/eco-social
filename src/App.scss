@@ -28,6 +28,7 @@ body {
   box-sizing: border-box;
   background-color: var(--background-color);
   transition: all 0.12s linear;
+  overflow: hidden;
 }
 
 // message

@@ -2,7 +2,7 @@ import { ISafeZone } from "../../Model/Others"
 import { GlobalConstants } from "../../Share/Constants"
 
 export const handleMainLayoutScroll = (e: any, mobileTopNavBar: number, lastPosition: number, safeZone: ISafeZone | undefined) => {
-    const mainLayout = document.querySelector('.mainLayout')
+    const mainLayout = document.querySelector('.OutletContainer')
     const newPosition = mainLayout?.scrollTop;
 
     const topSafezone = Number(safeZone?.top.replace('px', ''))
