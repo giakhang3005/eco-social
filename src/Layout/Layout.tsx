@@ -101,7 +101,7 @@ const Layout = () => {
                 <LoginModal />
             </Modal>
 
-            <BlockedScreen />
+            {isAccessByFacebookAndMessengerBrowser && <BlockedScreen />}
 
             <Spin size="large" spinning={loading.loading} tip={loading.tooltip}>
                 <div className="mainLayout" onPointerDown={handleUnActiveTimeTracking}>

@@ -10,7 +10,7 @@ const BlockedScreen = (props: Props) => {
     <div className="blockedScreen">
       <div className="title">CHÚ Ý</div>
       <div className="description">
-        Eco không hỗ trợ trình duyệt của Messenger & Facebook, bạn vui lòng copy link và truy cập từ trình duyệt của thiết bị (Browser/Google Chrome/...)
+        Eco không hỗ trợ trình duyệt của Messenger & Facebook, bạn vui lòng copy link và truy cập từ trình duyệt của thiết bị (Safari/Google Chrome/...)
         <div className="webUrl">
           {GlobalConstants.webUrl}
           <Button icon={<CopyFilled />} style={{ color: 'white' }} hideBorder onClick={() => writeToClipboard(GlobalConstants.webUrl)}></Button>
