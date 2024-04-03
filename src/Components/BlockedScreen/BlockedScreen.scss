@@ -1,28 +1,46 @@
+/** @format */
+
 .blockedScreen {
-    width: 100vw;
-    height: 100vh;
-    background-color: black;
-    z-index: 999;
-    transition: all 0s linear;
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  z-index: 999;
+  transition: all 0s linear;
 
-    .title, .description {
-        color: white;
-        position: absolute;
-    }
-    
-    .title {
-        top: 45%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 25px;
-        font-weight: 600;
-    }
+  .title,
+  .description,
+  .webUrl {
+    color: white;
+    position: absolute;
+  }
 
-    .description {
-        width: 100%;
-        top: 52%;
-        text-align: center;
-        font-size: 18px;
-        // transform: translate(-50%, -50%);
-    }
+  .title {
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 25px;
+    font-weight: 600;
+  }
+
+  .description {
+    width: 100%;
+    top: 48%;
+    text-align: center;
+    font-size: 15px;
+    padding: 0 10px 0 10px;
+    box-sizing: border-box;
+    // transform: translate(-50%, -50%);
+  }
+
+  .webUrl {
+    width: 100%;
+    margin: 15px 0 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
 }

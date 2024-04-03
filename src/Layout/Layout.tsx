@@ -10,7 +10,7 @@ import { useLocalStorage } from "../Services/CustomHooks/useLocalStorage"
 import { GlobalConstants } from "../Share/Constants"
 import { useUsers } from "../Services/CustomHooks/useUsers"
 import LoginModal from "../Components/LoginModal/LoginModal"
-import { handleMainLayoutScroll, validateOrientationTablet } from "../Services/Functions/ScreenMethods"
+import { handleMainLayoutScroll, isAccessUsingMessFBBrowser, validateOrientationTablet } from "../Services/Functions/DeviceMethods"
 import BlockedScreen from "../Components/BlockedScreen/BlockedScreen"
 
 export const Data = createContext<IContext | null>(null)
@@ -19,19 +19,21 @@ const Layout = () => {
     const { initTheme } = useTheme();
     const { getFromLocalStorage } = useLocalStorage();
 
-    const [loading, setLoading] = useState<ILoading>({ loading: false })
+    const [loading, setLoading] = useState<ILoading>({ loading: false });
 
-    const [user, setUser] = useState<IUser | null>(getFromLocalStorage(GlobalConstants.localStorageKeys.user))
+    const [user, setUser] = useState<IUser | null>(getFromLocalStorage(GlobalConstants.localStorageKeys.user));
 
-    const [showSigninModal, setShowSigninModal] = useState<boolean>(false)
+    const [showSigninModal, setShowSigninModal] = useState<boolean>(false);
 
-    const [mobileTopNavBar, setMobileTopNavBar] = useState<number>(0)
+    const [mobileTopNavBar, setMobileTopNavBar] = useState<number>(0);
 
-    const [lastPosition, setLastPosition] = useState<number>(0)
+    const [lastPosition, setLastPosition] = useState<number>(0);
 
-    const [viewWidth, setViewWidth] = useState<number>(window.innerWidth)
+    const [viewWidth, setViewWidth] = useState<number>(window.innerWidth);
 
-    const [safeZone, setSafeZone] = useState<ISafeZone | undefined>()
+    const [safeZone, setSafeZone] = useState<ISafeZone | undefined>();
+
+    const [isAccessByFacebookAndMessengerBrowser, setIsAccessByFacebookAndMessengerBrowser] = useState<boolean>(false);
 
     // Load Theme before layout loaded
     useLayoutEffect(() => {
@@ -50,8 +52,9 @@ const Layout = () => {
         }
 
         setSafeZone(safeZone);
-    }, [])
+    }, []);
 
+    // Resize & Orientation
     useEffect(() => {
         const handleSizeChange = (e: Event) => {
             const timeOutResize = setTimeout(() => {
@@ -67,7 +70,13 @@ const Layout = () => {
             window.removeEventListener('resize', handleSizeChange)
             // window.removeEventListener('orientationchange', handleSizeChange)
         }
-    })
+    });
+
+    // Blocking user access from Messenger/Facebook Browser
+    useEffect(() => {
+        const isFromMessAndFB = isAccessUsingMessFBBrowser();
+        setIsAccessByFacebookAndMessengerBrowser(isFromMessAndFB);
+    }, []);
 
     const handleUnActiveTimeTracking = () => {
         // TODO: Split to a hook
@@ -78,7 +87,7 @@ const Layout = () => {
 
     const handleScroll = (e: any) => {
         const newValue = handleMainLayoutScroll(e, mobileTopNavBar, lastPosition, safeZone)
-        
+
         if (newValue === null) return
 
         setLastPosition(newValue?.newLastPosition)
@@ -91,6 +100,8 @@ const Layout = () => {
             <Modal open={showSigninModal} onCancel={() => setShowSigninModal(false)} footer={null}>
                 <LoginModal />
             </Modal>
+
+            <BlockedScreen />
 
             <Spin size="large" spinning={loading.loading} tip={loading.tooltip}>
                 <div className="mainLayout" onPointerDown={handleUnActiveTimeTracking}>

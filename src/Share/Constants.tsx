@@ -11,4 +11,5 @@ export const GlobalConstants = {
         booth: 'booth', // Update status of booth (finished/not yet)
     },
     topNavHeight: 47,
+    webUrl: 'https://eco-social.vercel.app',
 }
