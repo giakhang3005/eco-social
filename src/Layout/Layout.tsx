@@ -10,6 +10,8 @@ import { useLocalStorage } from "../Services/CustomHooks/useLocalStorage"
 import { GlobalConstants } from "../Share/Constants"
 import { useUsers } from "../Services/CustomHooks/useUsers"
 import LoginModal from "../Components/LoginModal/LoginModal"
+import { handleMainLayoutScroll, validateOrientationTablet } from "../Services/Functions/ScreenMethods"
+import BlockedScreen from "../Components/BlockedScreen/BlockedScreen"
 
 export const Data = createContext<IContext | null>(null)
 
@@ -27,10 +29,31 @@ const Layout = () => {
 
     const [lastPosition, setLastPosition] = useState<number>(0)
 
+    const [viewWidth, setViewWidth] = useState<number>(window.innerWidth)
+
+    const [isMobileLandscape, setIsMobileLandScape] = useState<boolean>(validateOrientationTablet())
+
     // Load Theme before layout loaded
     useLayoutEffect(() => {
         initTheme();
     }, [])
+
+    useEffect(() => {
+        const handleSizeChange = (e: Event) => {
+            const timeOutResize = setTimeout(() => {
+                setViewWidth(window.innerWidth)
+                clearTimeout(timeOutResize)
+            }, 40)
+        }
+
+        window.addEventListener('resize', handleSizeChange)
+        window.addEventListener('orientationchange', handleSizeChange)
+
+        return () => {
+            window.removeEventListener('resize', handleSizeChange)
+            window.removeEventListener('orientationchange', handleSizeChange)
+        }
+    })
 
     const handleUnActiveTimeTracking = () => {
         // TODO: Split to a hook
@@ -40,42 +63,25 @@ const Layout = () => {
     }
 
     const handleScroll = (e: any) => {
-        const mainLayout = document.querySelector('.mainLayout')
-        const newPosition = mainLayout?.scrollTop
+        const newValue = handleMainLayoutScroll(e, mobileTopNavBar, lastPosition)
 
-        if (!newPosition) return
+        if (newValue === null) return
 
-        setLastPosition(newPosition)
-        let diffrence = newPosition - lastPosition
-
-        if (mobileTopNavBar + diffrence > GlobalConstants.topNavHeight) {
-            setMobileTopNavBar(GlobalConstants.topNavHeight)
-            return
-        }
-        if (mobileTopNavBar + diffrence < 0) {
-            setMobileTopNavBar(0)
-            return
-        }
-
-        setMobileTopNavBar(mobileTopNavBar + diffrence)
-        
-    }
-
-    const detectScroll = (e: any) => {
-        // console.log(e.movementY)
-        // setScrollDownPosition(e.movementY < 0)
+        setLastPosition(newValue?.newLastPosition)
+        setMobileTopNavBar(newValue.newPosition)
     }
 
     return (
         <Data.Provider value={{ loading, setLoading, user, setUser }}>
+            {/* {isMobileLandscape && <BlockedScreen />} */}
             <Modal open={showSigninModal} onCancel={() => setShowSigninModal(false)} footer={null}>
                 <LoginModal />
             </Modal>
 
             <Spin size="large" spinning={loading.loading} tip={loading.tooltip}>
-                <div className="mainLayout" onPointerDown={handleUnActiveTimeTracking} onScroll={(e) => handleScroll(e)} onPointerMove={(e) => detectScroll(e)}>
-                    <Navbar mobileTopNavBar={mobileTopNavBar} />
-                    <div className="OutletContainer" style={Object.assign({ marginTop: `${GlobalConstants.topNavHeight - mobileTopNavBar}px`, height: `calc(100vh - ${GlobalConstants.topNavHeight - mobileTopNavBar}px - 47px` })}>
+                <div className="mainLayout" onPointerDown={handleUnActiveTimeTracking} onScroll={(e) => handleScroll(e)}>
+                    <Navbar mobileTopNavBar={mobileTopNavBar} viewWidth={viewWidth} />
+                    <div className="OutletContainer" style={Object.assign({ marginTop: viewWidth > 768 ? 0 : `${GlobalConstants.topNavHeight - mobileTopNavBar}px`, height: viewWidth > 768 ? '100vh' : `calc(100vh - ${GlobalConstants.topNavHeight - mobileTopNavBar}px - 47px` })}>
                         <Outlet />
                     </div>
                 </div>
