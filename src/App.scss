@@ -4,6 +4,13 @@
 //Var
 $mobile: 768px;
 
+:root {
+  --safe-area-inset-bottom: env(safe-area-inset-bottom);
+  --safe-area-inset-top: env(safe-area-inset-top);
+  --safe-area-inset-right: env(safe-area-inset-right);
+  --safe-area-inset-left: env(safe-area-inset-left);
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -96,5 +103,13 @@ body {
 
   .ant-pagination-item-link {
     color: var(--text-color) !important;
+  }
+}
+
+@media screen and (max-width: $mobile) {
+  .ant-table-wrapper {
+    .ant-table-cell {
+      font-size: 10px;
+    }
   }
 }

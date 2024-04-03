@@ -1,19 +1,23 @@
+import { ISafeZone } from "../../Model/Others"
 import { GlobalConstants } from "../../Share/Constants"
 
-export const handleMainLayoutScroll = (e: any, mobileTopNavBar: number, lastPosition: number) => {
+export const handleMainLayoutScroll = (e: any, mobileTopNavBar: number, lastPosition: number, safeZone: ISafeZone | undefined) => {
     const mainLayout = document.querySelector('.mainLayout')
-    const newPosition = mainLayout?.scrollTop
+    const newPosition = mainLayout?.scrollTop;
+
+    const topSafezone = Number(safeZone?.top.replace('px', ''))
+    const bottomSafezone = Number(safeZone?.bottom.replace('px', ''))
 
     if (!newPosition) return null
     const newLastPosition = newPosition
 
     let diffrence = newPosition - lastPosition
 
-    if (mobileTopNavBar + diffrence > GlobalConstants.topNavHeight) {
+    if (mobileTopNavBar + diffrence > GlobalConstants.topNavHeight + topSafezone) {
         return { newLastPosition, newPosition: 40 }
     }
 
-    if (mobileTopNavBar + diffrence < 0) {
+    if (mobileTopNavBar + diffrence + topSafezone < 0) {
         return { newLastPosition, newPosition: 0 }
     }
 

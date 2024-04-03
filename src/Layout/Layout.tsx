@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom"
 import "./Layout.scss"
 import { Modal, Spin } from "antd"
 import { useState, createContext, useLayoutEffect, useEffect } from "react"
-import { IContext, ILoading } from "../Model/Others"
+import { IContext, ILoading, ISafeZone } from "../Model/Others"
 import { useTheme } from "../Services/CustomHooks/useTheme"
 import Navbar from "../Components/Navbar/Navbar"
 import { IUser } from "../Model/Users"
@@ -31,11 +31,25 @@ const Layout = () => {
 
     const [viewWidth, setViewWidth] = useState<number>(window.innerWidth)
 
-    const [isMobileLandscape, setIsMobileLandScape] = useState<boolean>(validateOrientationTablet())
+    const [safeZone, setSafeZone] = useState<ISafeZone | undefined>()
 
     // Load Theme before layout loaded
     useLayoutEffect(() => {
         initTheme();
+    }, [])
+
+    // Init safe zone
+    useEffect(() => {
+        const rootStyles = getComputedStyle(document.documentElement);
+
+        const safeZone: ISafeZone = {
+            top: rootStyles.getPropertyValue('--safe-area-inset-top'),
+            bottom: rootStyles.getPropertyValue('--safe-area-inset-bottom'),
+            left: rootStyles.getPropertyValue('--safe-area-inset-left'),
+            right: rootStyles.getPropertyValue('--safe-area-inset-right'),
+        }
+
+        setSafeZone(safeZone);
     }, [])
 
     useEffect(() => {
@@ -47,11 +61,11 @@ const Layout = () => {
         }
 
         window.addEventListener('resize', handleSizeChange)
-        window.addEventListener('orientationchange', handleSizeChange)
+        // window.addEventListener('orientationchange', handleSizeChange)
 
         return () => {
             window.removeEventListener('resize', handleSizeChange)
-            window.removeEventListener('orientationchange', handleSizeChange)
+            // window.removeEventListener('orientationchange', handleSizeChange)
         }
     })
 
@@ -63,7 +77,7 @@ const Layout = () => {
     }
 
     const handleScroll = (e: any) => {
-        const newValue = handleMainLayoutScroll(e, mobileTopNavBar, lastPosition)
+        const newValue = handleMainLayoutScroll(e, mobileTopNavBar, lastPosition, safeZone)
 
         if (newValue === null) return
 
@@ -80,8 +94,74 @@ const Layout = () => {
 
             <Spin size="large" spinning={loading.loading} tip={loading.tooltip}>
                 <div className="mainLayout" onPointerDown={handleUnActiveTimeTracking} onScroll={(e) => handleScroll(e)}>
-                    <Navbar mobileTopNavBar={mobileTopNavBar} viewWidth={viewWidth} />
+                    <Navbar mobileTopNavBar={mobileTopNavBar} safeZone={safeZone} />
                     <div className="OutletContainer" style={Object.assign({ marginTop: viewWidth > 768 ? 0 : `${GlobalConstants.topNavHeight - mobileTopNavBar}px`, height: viewWidth > 768 ? '100vh' : `calc(100vh - ${GlobalConstants.topNavHeight - mobileTopNavBar}px - 47px` })}>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
+                        <div>123</div>
                         <Outlet />
                     </div>
                 </div>

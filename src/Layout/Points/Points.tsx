@@ -15,9 +15,10 @@ import { useLog } from "../../Services/CustomHooks/useLog"
 type Props = {}
 
 const Points = (props: Props) => {
-    const { getUserByEmailRealtime, updateUser, getCurrentUser } = useUsers();
+    const { updateUser, getCurrentUser, getUserByEmail } = useUsers();
     const { LoggedPoints } = useLog();
     const { updateLoading } = useLoading();
+    const { checkHavePerm } = usePermissions();
 
     const navigate = useNavigate();
 
@@ -29,6 +30,8 @@ const Points = (props: Props) => {
 
     const [note, setNote] = useState<string>("");
 
+    const [targetUser, setTargetUser] = useState<IUser | undefined>(undefined);
+
 
     useEffect(() => {
         targetUser && setNewPointsValue(Number(targetUser.points) + Number(currentPointInput))
@@ -36,14 +39,12 @@ const Points = (props: Props) => {
 
     useEffect(() => {
         const currentUser = getCurrentUser()
-        if (currentUser && currentUser?.permissions?.includes(GlobalConstants.permissionsKey.points)) return;
+        if (currentUser && checkHavePerm(GlobalConstants.permissionsKey.points)) return;
 
         navigate('/')
     }, [getCurrentUser()])
 
-    const [targetUser, setTargetUser] = useState<IUser | undefined>(undefined);
-
-    const validateTargetUser = () => {
+    const validateTargetUser = async () => {
         setPreviousInput(currentInput)
         if (currentInput === previousInput) return
         if (currentInput.trim().length === 0 || !validateEmail(currentInput)) {
@@ -51,7 +52,13 @@ const Points = (props: Props) => {
             return;
         }
 
-        getUserByEmailRealtime(currentInput, setTargetUser);
+        const signal = await getUserByEmail(currentInput);
+        if (signal) {
+            setTargetUser(signal[0])
+        } else {
+            setTargetUser(undefined)
+            message.error('Đã có lỗi xảy ra, vui lòng kiểm tra lại')
+        }
     }
 
     const handleInteractWithPoints = async () => {

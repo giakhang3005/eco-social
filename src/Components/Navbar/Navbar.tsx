@@ -5,18 +5,21 @@ import "./Navbar.scss"
 import Button from "../Button/Button"
 import { GoogleOutlined, HomeFilled, LogoutOutlined, StarFilled, PlusOutlined, BookFilled } from "@ant-design/icons"
 import { useAuth } from "../../Services/CustomHooks/useAuth"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { GlobalConstants } from "../../Share/Constants"
+import { usePermissions } from "../../Services/CustomHooks/usePermissions"
+import { ISafeZone } from "../../Model/Others"
 
 type Props = {
   mobileTopNavBar: number;
-  viewWidth: number;
+  safeZone: ISafeZone | undefined;
 }
 
-const Navbar = ({ mobileTopNavBar, viewWidth }: Props) => {
+const Navbar = ({ mobileTopNavBar, safeZone }: Props) => {
   const { handleSigninWithGG, handleLogout } = useAuth();
   const { getCurrentUser, initUserWhenRefresh } = useUsers();
+  const { checkHavePerm, checkHaveAnyPerm } = usePermissions();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -27,29 +30,48 @@ const Navbar = ({ mobileTopNavBar, viewWidth }: Props) => {
 
   return (
     <div className="Navbar">
-      {
-        viewWidth > 768 ?
 
-          <div className="navPC">
-            {getCurrentUser() && (
-              <>
-                <Button tooltip="Bản tin" onClick={() => navigate('/')} style={{ margin: '0 0 14px 0' }} icon={<HomeFilled />} hideBorder active={location.pathname === "/"}></Button>
-                <Button tooltip="Đăng bài" onClick={() => navigate('/')} style={{ margin: '0 0 14px 0' }} icon={<PlusOutlined />} hideBorder></Button>
-              </>
-            )}
-            {
-              getCurrentUser()
-                ? <Avatar tooltip="Trang cá nhân" src={getCurrentUser()?.imgUrl} hoverable active={location.pathname === "/profile"}></Avatar>
-                : <Button onClick={handleSigninWithGG} icon={<GoogleOutlined />} tooltip="Đăng nhập" showText={false} hideBorder />
-            }
+      {/* Nav PC */}
+      <div className="navPC">
+        {getCurrentUser() && (
+          <>
+            <Button tooltip="Bản tin" onClick={() => navigate('/')} style={{ margin: '0 0 14px 0' }} icon={<HomeFilled />} hideBorder active={location.pathname === "/"}></Button>
+            <Button tooltip="Đăng bài" onClick={() => navigate('/')} style={{ margin: '0 0 14px 0' }} icon={<PlusOutlined />} hideBorder></Button>
+          </>
+        )}
+        {
+          getCurrentUser()
+            ? <Avatar tooltip="Trang cá nhân" src={getCurrentUser()?.imgUrl} hoverable active={location.pathname === "/profile"}></Avatar>
+            : <Button onClick={handleSigninWithGG} icon={<GoogleOutlined />} tooltip="Đăng nhập" showText={false} hideBorder />
+        }
 
-            {/* Footer */}
-            <div className="footer">
-              {(getCurrentUser() && getCurrentUser()?.permissions.includes(GlobalConstants.permissionsKey.log)) && <Button tooltip="Log" onClick={() => navigate('/log')} style={{ margin: '6px 0 0 0' }} icon={<BookFilled />} hideBorder active={location.pathname === "/log"}></Button>}
-              {(getCurrentUser() && getCurrentUser()?.permissions.includes(GlobalConstants.permissionsKey.points)) && <Button tooltip="Điểm tái chế" style={{ margin: '6px 0 0 0' }} onClick={() => navigate('/points')} icon={<StarFilled />} hideBorder active={location.pathname === "/points"}></Button>}
-            </div>
-            <ThemeToggle style={Object.assign({ bottom: getCurrentUser() ? '58px' : '20px' })} />
+        {/* Footer */}
+        <div className="footer">
+          {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.log)) && <Button tooltip="Log" onClick={() => navigate('/log')} style={{ margin: '6px 0 0 0' }} icon={<BookFilled />} hideBorder active={location.pathname === "/log"}></Button>}
+          {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.points)) && <Button tooltip="Điểm tái chế" style={{ margin: '6px 0 0 0' }} onClick={() => navigate('/points')} icon={<StarFilled />} hideBorder active={location.pathname === "/points"}></Button>}
+        </div>
+        <ThemeToggle style={Object.assign({ bottom: getCurrentUser() ? '58px' : '20px' })} />
 
+        {
+          getCurrentUser() && <Button
+            icon={<LogoutOutlined />}
+            danger hideBorder
+            showText={false}
+            tooltip="Đăng xuất"
+            onClick={handleLogout}
+            style={Object.assign({ position: 'absolute', bottom: '15px', transform: 'rotate(180deg)' })}
+          >
+          </Button>
+        }
+      </div>
+
+      {/* Nav Mobile */}
+      <div className="NavMobile">
+        {/* Top Navbar */}
+        <div className="NavMobileTop" style={Object.assign({height: `calc(${GlobalConstants.topNavHeight}px + ${safeZone?.top}` },{paddingTop: safeZone?.top },{ top: 0 - mobileTopNavBar }, { opacity: 1 - (mobileTopNavBar / (GlobalConstants.topNavHeight - 10)) })}>
+          <div>ECO</div>
+          <div className="button">
+            <ThemeToggle style={Object.assign({ right: getCurrentUser() ? '43px' : '8px' }, { top: '9px' })} />
             {
               getCurrentUser() && <Button
                 icon={<LogoutOutlined />}
@@ -57,44 +79,36 @@ const Navbar = ({ mobileTopNavBar, viewWidth }: Props) => {
                 showText={false}
                 tooltip="Đăng xuất"
                 onClick={handleLogout}
-                style={Object.assign({ position: 'absolute', bottom: '15px', transform: 'rotate(180deg)' })}
+                style={Object.assign({ position: 'absolute', top: '10px', right: '3px' })}
               >
               </Button>
             }
           </div>
-          :
-          <div className="NavMobile">
-            <div className="NavMobileTop" style={Object.assign({ top: 0 - mobileTopNavBar }, { opacity: 1 - (mobileTopNavBar / (GlobalConstants.topNavHeight - 10)) })}>
-              <div>ECO</div>
-              <div className="button">
-                <ThemeToggle style={Object.assign({ right: getCurrentUser() ? '43px' : '8px' }, { top: '9px' })} />
-                {
-                  getCurrentUser() && <Button
-                    icon={<LogoutOutlined />}
-                    danger hideBorder
-                    showText={false}
-                    tooltip="Đăng xuất"
-                    onClick={handleLogout}
-                    style={Object.assign({ position: 'absolute', top: '10px', right: '3px' })}
-                  >
-                  </Button>
-                }
-              </div>
-            </div>
-            <div className="NavMobileBottom">
-              {getCurrentUser() && (
-                <>
-                  <Button onClick={() => navigate('/')} icon={<HomeFilled />} hideBorder active={location.pathname === "/"}></Button>
-                  <Button onClick={() => navigate('/')} icon={<PlusOutlined />} ></Button>
-                  <Avatar src={getCurrentUser()?.imgUrl} style={{ width: '27px' }} active={location.pathname === "/profile"}></Avatar>
-                </>
-              )}
-              {
-                !getCurrentUser() && <Button onClick={handleSigninWithGG} icon={<GoogleOutlined />} showText={false} hideBorder />
-              }
-            </div>
+        </div>
+
+        {/* Bottom Sub-Menu */}
+        {
+          (getCurrentUser() && checkHaveAnyPerm()) &&
+          <div className="NavMobileBottom_SubMenu" style={Object.assign({ bottom: `calc(${47 - mobileTopNavBar}px + ${safeZone?.bottom})` }, { opacity: 1 - (mobileTopNavBar / (GlobalConstants.topNavHeight - 10)) })}>
+            {(checkHavePerm(GlobalConstants.permissionsKey.log)) && <Button onClick={() => navigate('/log')} icon={<BookFilled />} hideBorder active={location.pathname === "/log"}></Button>}
+            {(checkHavePerm(GlobalConstants.permissionsKey.points)) && <Button onClick={() => navigate('/points')} icon={<StarFilled />} hideBorder active={location.pathname === "/points"}></Button>}
           </div>
-      }
+        }
+
+        {/* Bottom Navbar */}
+        <div className="NavMobileBottom" style={Object.assign(!getCurrentUser() ? { justifyContent: 'center' } : {}, {paddingBottom: safeZone?.bottom }, {height: `calc(${GlobalConstants.topNavHeight}px + ${safeZone?.bottom}` })}>
+          {getCurrentUser() && (
+            <>
+              <Button onClick={() => navigate('/')} icon={<HomeFilled />} hideBorder active={location.pathname === "/"}></Button>
+              <Button onClick={() => navigate('/')} icon={<PlusOutlined />} ></Button>
+              <Avatar src={getCurrentUser()?.imgUrl} style={{ width: '27px' }} active={location.pathname === "/profile"}></Avatar>
+            </>
+          )}
+          {
+            !getCurrentUser() && <Button onClick={handleSigninWithGG} icon={<GoogleOutlined />} showText={false} hideBorder />
+          }
+        </div>
+      </div>
     </div>
   )
 }

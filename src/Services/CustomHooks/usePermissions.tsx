@@ -5,30 +5,22 @@ import { useUsers } from "./useUsers"
 export const usePermissions = () => {
     const { getCurrentUser, getUserById, addUserToBrowserAndState } = useUsers();
 
-    const validateUserHavePermission = async (permKey: string) => {
-        const currentUser = getCurrentUser();
-        
-        if (!currentUser) return 0;
+    const checkHavePerm = (perm: string): boolean => {
+        const user = getCurrentUser();
 
-        const validatedUser = await getUserById(currentUser.id);
+        if (!user) return false
 
-        
-        if(!validatedUser) return 0;
-
-        // Update users to browser and state
-        addUserToBrowserAndState(validatedUser)
-
-        // check permissions
-        return validatedUser.permissions.includes(permKey);
+        return user.permissions.includes(perm)
     }
 
-    const handleUpdatePoints = async (changeAmount: number, targetUser: IUser) => {
-        const pointsKey = GlobalConstants.permissionsKey.points;
-        const result = await validateUserHavePermission(pointsKey);
+    const checkHaveAnyPerm = (): boolean => {
+        const user = getCurrentUser();
 
-        // Todo: Implement update points
-        console.log(result)
+        if (user && user.permissions.length > 0) return true
+
+        return false
     }
 
-    return { validateUserHavePermission, handleUpdatePoints }
+
+    return { checkHavePerm, checkHaveAnyPerm }
 }

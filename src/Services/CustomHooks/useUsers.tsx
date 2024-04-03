@@ -126,6 +126,36 @@ export const useUsers = () => {
         }, 2000)
     }
 
+    const getUserByEmail = (email: string): Promise<IUser[] | undefined> => {
+        const queryColRef = query(usersCollectionRef, where("email", "==", email))
+
+        const user = getDocs(queryColRef)
+            .then((snapshot) => {
+                const userArr: IUser[] = []
+                snapshot.forEach(doc => {
+                    const newUser = {
+                        name: doc.data().name,
+                        email: doc.data().email,
+                        mssv: doc.data().mssv,
+                        permissions: doc.data().permissions,
+                        imgUrl: doc.data().imgUrl,
+                        points: doc.data().points,
+                        joinDate: doc.data().joinDate,
+                        id: doc.id
+                    }
+                    userArr.push(newUser)
+                })
+
+                return userArr;
+            })
+            .catch((err) => {
+                console.log(err)
+                return undefined;
+            })
+
+        return user;
+    }
+
     // If user not exist, create -> use to custom UID
     const updateUser = async (userData: IUser) => {
         updateLoading(true, 'Đang câp nhật...')
@@ -163,5 +193,5 @@ export const useUsers = () => {
         user ? setToLocalStorage(userLocalKey, user) : removeFromlocalStorage(userLocalKey)
     }
 
-    return { getAllUsers, updateUser, getUserById, getUserByIdRealtime, addUserToBrowserAndState, getCurrentUser, getUserByEmailRealtime, initUserWhenRefresh }
+    return { getUserByEmail, getAllUsers, updateUser, getUserById, getUserByIdRealtime, addUserToBrowserAndState, getCurrentUser, getUserByEmailRealtime, initUserWhenRefresh }
 }

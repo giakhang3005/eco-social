@@ -17,3 +17,10 @@ export interface ITheme {
     name: string;
     theme: any
 }
+
+export interface ISafeZone {
+    top: string;
+    bottom: string;
+    left: string;
+    right: string;
+}

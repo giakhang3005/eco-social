@@ -1,9 +1,10 @@
 import { IPointsLog } from "../../Model/Logs"
 import { IUser } from "../../Model/Users"
-import { addDoc, getDoc, getDocs } from "firebase/firestore"
+import { addDoc, getDoc, getDocs, orderBy, query } from "firebase/firestore"
 import { pointsLogCollectionRef } from "../Firebase/FirebaseCfg"
 
 export const useLog = () => {
+
     const LoggedPoints = async (executedUser: IUser, change: string, note: string, targetUser: IUser) => {
         const currLog: IPointsLog = {
             executedUser: {
@@ -18,7 +19,7 @@ export const useLog = () => {
                 name: targetUser.name,
                 email: targetUser.email,
             },
-            executeTime: new Date().toLocaleString()
+            executeTime: `${new Date().getTime()}`,
         }
 
         const addSignal = await addDoc(pointsLogCollectionRef, currLog)
@@ -34,11 +35,12 @@ export const useLog = () => {
     }
 
     const getPointsLog = () => {
-        const signal = getDocs(pointsLogCollectionRef)
+        const signal = getDocs(query(pointsLogCollectionRef, orderBy("executeTime", "desc")))
             .then((snapshot) => {
                 const logs: any[] = [];
                 snapshot.forEach((doc) => {
-                    logs.push(doc.data())
+                    const data = doc.data()
+                    logs.push({...data, executeTime: new Date(Number(data.executeTime)).toLocaleString()})
                 })
 
                 return logs;
