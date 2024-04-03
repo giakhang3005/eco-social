@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "./Layout/Layout";
 import Points from "./Layout/Points/Points";
 import Log from "./Layout/Log/Log";
+import NewFeed from "./Layout/NewFeed/NewFeed";
 
 export const routers = createBrowserRouter([
     {
@@ -11,7 +12,7 @@ export const routers = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: "New Feed",
+                element: <NewFeed />,
             },
             {
                 path: "/profile",
