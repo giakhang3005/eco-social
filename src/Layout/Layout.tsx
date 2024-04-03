@@ -78,7 +78,7 @@ const Layout = () => {
 
     const handleScroll = (e: any) => {
         const newValue = handleMainLayoutScroll(e, mobileTopNavBar, lastPosition, safeZone)
-
+        
         if (newValue === null) return
 
         setLastPosition(newValue?.newLastPosition)

@@ -9,7 +9,7 @@
     .OutletContainer {
         width: calc(100vw - 70px);
         height: 100vh;
-        overflow: scroll;
+        overflow-Y: scroll;
     }
 }
 
