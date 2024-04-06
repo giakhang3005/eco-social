@@ -22,7 +22,7 @@ export const useTheme = () => {
         })
 
         let browserMetaTheme = document.querySelector("meta[name=theme-color]")
-        browserMetaTheme && browserMetaTheme.setAttribute("content", activeTheme.theme["--background-color"]);
+        browserMetaTheme && browserMetaTheme.setAttribute("content", activeTheme.theme["--bg-color"]);
 
         // Save active theme to local storage
         setToLocalStorage(GlobalConstants.localStorageKeys.theme, activeTheme.name)
