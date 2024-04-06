@@ -10,13 +10,14 @@ const Fact = () => {
 
         const interval = setInterval(() => {
             changeQuote();
-        }, 1000 * 30);
+        }, 1000 * 28);
 
         return () => clearInterval(interval);
     }, []);
 
     const changeQuote = () => {
-        const randNum = Math.round(Math.round(Math.random() * Quote.length - 1));
+        const randNum = Math.round(Math.random() * (Quote.length - 1));
+        // console.log(randNum)
         setCurrQuote(Quote[randNum])
     }
 

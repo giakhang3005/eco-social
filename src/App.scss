@@ -35,8 +35,8 @@ body {
 
 // message
 .ant-message-notice-content {
-  background-color: var(--pill-color) !important;
-  color: var(--pill-text-color) !important;
+  background-color: var(--info-box-color) !important;
+  color: var(--info-text-color) !important;
 }
 
 // Spin
@@ -56,8 +56,8 @@ body {
 .ant-popover-inner,
 .ant-popover-inner-content {
   padding: 8px;
-  background-color: var(--pill-color) !important;
-  color: var(--pill-text-color) !important;
+  background-color: var(--info-box-color) !important;
+  color: var(--info-text-color) !important;
 }
 // .ant-popover-inner {
 //     box-shadow: 0px 0px 1.5px var(--text-color) !important;
@@ -69,7 +69,7 @@ body {
 }
 
 .ant-popover-arrow::after {
-  background-color: var(--pill-color) !important;
+  background-color: var(--info-box-color) !important;
   // border: 1px solid var(--text-color);
 }
 
@@ -79,7 +79,7 @@ body {
 }
 
 .anticon-close {
-  color: var(--text-color) !important;
+  color: var(--primary-text-color) !important;
 }
 
 // Table
@@ -90,12 +90,17 @@ body {
   box-sizing: border-box;
 
   .ant-table-cell {
-    background-color: var(--background-hover-color) !important;
-    color: var(--text-color) !important;
+    background-color: var(--info-box-color) !important;
+    color: var(--pill-text-color) !important;
+    border: 1px solid var(--bg-color) !important;
+
+    &::before {
+      background-color: transparent !important;
+    }
   }
 
   .ant-pagination-item {
-    background-color: var(--background-hover-color) !important;
+    background-color: var(--info-box-color) !important;
   }
 
   .ant-pagination-item-active {
@@ -106,7 +111,7 @@ body {
   }
 
   .ant-pagination-item-link {
-    color: var(--text-color) !important;
+    color: var(--secondary-text-color) !important;
   }
 }
 

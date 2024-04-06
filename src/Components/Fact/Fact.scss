@@ -1,28 +1,44 @@
 /** @format */
+@use "../../App.scss";
 
 .marqueeContainer {
-    width: 100%;
-    overflow: hidden;
-    padding: 3px 0 3px 0;
+  width: 100%;
+  overflow: hidden;
+  padding: 3px 0 3px 0;
 
   .marquee {
     text-wrap: nowrap;
     white-space: nowrap;
-    animation: run 30s infinite linear;
+    animation: run 28s infinite linear;
 
-    &:hover {
-        animation-play-state: paused;
+    // &:hover {
+    //     animation-play-state: paused;
+    // }
+  }
+}
+
+@media screen and (max-width: App.$mobile) {
+  .marqueeContainer {
+    .marquee {
+      animation: runMobile 28s infinite linear;
     }
   }
 }
 
 @keyframes run {
-    0% {
-        transform: translateX(100%);
-    }
-    100% {
-        transform: translateX(-100%);
-    }
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
 
-
+@keyframes runMobile {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-120%);
+  }
+}

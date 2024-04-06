@@ -12,7 +12,7 @@ const LoginPopup = (props: Props) => {
         <div className="Background"></div>
         <div className="LoginContainer">
             <div className="text">Bạn chưa tham gia, vui lòng tham gia để tiếp tục</div>
-            <Button style={Object.assign({position: 'absolute'}, {top: '70px'}, {left: '50%'}, {transform: 'translateX(-50%)'})} onClick={handleSigninWithGG} icon={<GoogleOutlined />} hideBorder={false}>Tham gia với Google</Button>
+            <Button style={Object.assign({position: 'absolute'}, {top: '80px'}, {left: '50%'}, {transform: 'translateX(-50%)'})} onClick={handleSigninWithGG} icon={<GoogleOutlined />} hideBorder={false}>Tham gia với Google</Button>
         </div>
     </div>
   )

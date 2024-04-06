@@ -9,14 +9,14 @@
   font-size: 13px;
   outline: none;
   border: 1px solid var(--border-color);
-  background-color: var(--secondary-text-color);
+  background-color: var(--info-box-color);
   color: var(--text-color);
   transition: all 0.1s linear;
 }
 
 .Input:focus,
 .Texarea:focus {
-  border: 1px solid var(--banner-color);
+  border: 1px solid var(--banner-text-color);
 }
 
 .Texarea {

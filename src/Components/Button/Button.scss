@@ -20,7 +20,7 @@
   z-index: 1;
 
   &:hover {
-    background-color: var(--secondary-text-color);
+    background-color: var(--info-box-color);
     // scale: 1.03;
   }
 
@@ -35,11 +35,11 @@
 }
 
 .active {
-  color: var(--pill-color);
-  border: 1px solid var(--pill-color);
+  color: var(--active-icon-color);
+  border: 1px solid var(--active-icon-color);
 
   .Btn_icon {
-    color: var(--pill-color);
+    color: var(--active-icon-color);
   }
 }
 
@@ -61,12 +61,14 @@
 }
 
 .disabled {
-  background-color: var(--border-color);
+  background-color: transparent;
+  color: var(--disabled-color);
+  border: 1px solid var(--disabled-color);
   opacity: 0.7;
   cursor: not-allowed;
 
   &:hover {
-    background-color: var(--border-color);
+    background-color: transparent;
     opacity: 0.7;
     cursor: not-allowed;
     scale: 1;
@@ -78,6 +80,9 @@
     font-size: 12px;
     padding: 5px 9px 5px 9px;
 
+    &:hover {
+      background-color: transparent;
+    }
     .Btn_icon {
       font-size: 17px;
     }
