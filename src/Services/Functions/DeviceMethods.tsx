@@ -44,7 +44,7 @@ export const checkScrollFromTop = (setDistanceFromTop: any, user: IUser | null) 
         const newPosition = outletContainer.scrollTop;
         setDistanceFromTop(newPosition);
 
-        if(newPosition > 47 && !user) {
+        if(newPosition > GlobalConstants.unLoggedInMaximumScroll && !user) {
             // outletContainer.scrollTo(0, 0);
             updateScrollForOutlet(false);
         }
@@ -55,7 +55,7 @@ export const updateScrollForOutlet = (allowScroll: boolean) => {
     const outletContainer = document.querySelector('.OutletContainer') as HTMLElement;
 
     if (outletContainer) {
-        outletContainer.style.overflow = allowScroll ? 'scroll' : 'hidden';
+        outletContainer.style.overflowY = allowScroll ? 'scroll' : 'hidden';
     }
 }
 

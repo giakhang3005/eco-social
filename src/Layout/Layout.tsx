@@ -106,7 +106,7 @@ const Layout = () => {
                 <LoginModal />
             </Modal>
 
-            {(!user && distanceFromTop >= 47) && <LoginPopup />}
+            {(!user && distanceFromTop >= GlobalConstants.unLoggedInMaximumScroll) && <LoginPopup />}
 
             <Spin size="large" spinning={loading.loading} tip={loading.tooltip}>
                 <div className="mainLayout" onPointerDown={handleUnActiveTimeTracking}>

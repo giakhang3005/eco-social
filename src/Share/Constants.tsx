@@ -10,6 +10,7 @@ export const GlobalConstants = {
         log: 'log', // view points, approval, booth update log
         booth: 'booth', // Update status of booth (finished/not yet)
     },
-    topNavHeight: 47,
+    topNavHeight: 47, //px
+    unLoggedInMaximumScroll: 47, //px
     webUrl: 'https://eco-social.vercel.app',
 }
