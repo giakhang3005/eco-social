@@ -1,0 +1,97 @@
+/** @format */
+
+@use "../../App.scss";
+
+.newFeed {
+  .postsZone {
+    padding: 20px 2vw 0 2vw;
+
+    .quoteOnTop {
+      font-size: 15px;
+      padding: 5px;
+      background-color: var(--banner-color);
+      color: var(--banner-text-color);
+      display: none;
+    }
+
+    .bannerImg {
+      display: none;
+      position: relative;
+      width: 100%;
+      height: 120px;
+      background-color: rgb(210, 210, 210);
+
+      .moreBtn {
+        position: absolute;
+        bottom: 8px;
+        right: 10px;
+        outline: none;
+        border: none;
+        background-color: var(--pill-color);
+        color: var(--pill-text-color);
+        padding: 5px 15px 5px 15px;
+        border-radius: 12px;
+        font-size: 12px;
+        box-shadow: 2px 2px 5px var(--secondary-text-color);
+        cursor: pointer;
+      }
+    }
+
+    .postsContainer {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+
+      .post {
+        width: calc(100% / 3);
+        padding: 1px;
+        box-sizing: border-box;
+      }
+    }
+  }
+
+  .bannerSection {
+    box-sizing: border-box;
+    padding: 20px 10px 0 0;
+
+    .bannerImg {
+      display: block;
+      position: relative;
+      width: 100%;
+      height: 120px;
+      background-color: rgb(210, 210, 210);
+      border-radius: 7px;
+      margin: 0 0 15px 0;
+
+      .moreBtn {
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+        outline: none;
+        border: none;
+        background-color: var(--pill-color);
+        color: var(--pill-text-color);
+        padding: 5px 15px 5px 15px;
+        border-radius: 12px;
+        font-size: 12px;
+        box-shadow: 2px 2px 5px var(--secondary-text-color);
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: App.$mobile) {
+  .newFeed {
+    .postsZone {
+      padding: 0;
+
+      .quoteOnTop,
+      .bannerImg {
+        display: block;
+      }
+    }
+  }
+}

@@ -11,6 +11,7 @@
         height: 100vh;
         overflow-Y: scroll;
         box-sizing: border-box;
+        z-index: 1;
     }
 }
 
@@ -18,7 +19,7 @@
     .mainLayout {
         .OutletContainer {
             width: 100vw;
-            height: calc(100vh - 47px - 47px);
+            height: calc(100vh - 47px);
         }
     }
 }

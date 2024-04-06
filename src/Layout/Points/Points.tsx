@@ -6,7 +6,7 @@ import { validateEmail } from "../../Services/Functions/StringValidation"
 import { useUsers } from "../../Services/CustomHooks/useUsers"
 import Input from "../../Components/Input/Input"
 import Button from "../../Components/Button/Button"
-import { Col, Row, message } from "antd"
+import { message } from "antd"
 import { GlobalConstants } from "../../Share/Constants"
 import { useNavigate } from "react-router-dom"
 import { useLoading } from "../../Services/CustomHooks/UseLoading"
@@ -76,6 +76,11 @@ const Points = (props: Props) => {
             permissions: targetUser.permissions,
             points: newPointsValue,
             joinDate: targetUser.joinDate,
+            minigame: {
+                game1: targetUser.minigame.game1,
+                game2: targetUser.minigame.game2,
+                game3: targetUser.minigame.game3,
+            }
         }
 
         const change = `${targetUser.points} ${currentPointInput > 0 ? `+ ${currentPointInput}` : currentPointInput} = ${newTargetUser.points}`

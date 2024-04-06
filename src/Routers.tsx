@@ -3,6 +3,7 @@ import Layout from "./Layout/Layout";
 import Points from "./Layout/Points/Points";
 import Log from "./Layout/Log/Log";
 import NewFeed from "./Layout/NewFeed/NewFeed";
+import Profile from "./Layout/Profile/Profile";
 
 export const routers = createBrowserRouter([
     {
@@ -16,7 +17,7 @@ export const routers = createBrowserRouter([
             },
             {
                 path: "/profile",
-                element: "Profile",
+                element: <Profile />,
             },
             {
                 path: "/points",

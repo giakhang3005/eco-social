@@ -16,6 +16,8 @@ export const usePermissions = () => {
     const checkHaveAnyPerm = (): boolean => {
         const user = getCurrentUser();
 
+        if(!user) return false
+
         if (user && user.permissions.length > 0) return true
 
         return false

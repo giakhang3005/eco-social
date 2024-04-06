@@ -3,11 +3,13 @@ import { ITheme } from "../../Model/Others";
 export const DarkTheme: ITheme = {
     name: 'darkTheme',
     theme: {
-        '--background-color': '#111827',
-        '--background-hover-color': '#4b5563',
-        '--text-color': 'white',
-        '--primary-color': '#65a30d',
-        '--primary-hover-color': '#84cc16',
-        '--border-color': '#4b5563',
+        '--bg-color': '#043925',
+        '--primary-text-color': '#FFFFFF',
+        '--secondary-text-color': '#97AA94',
+        '--pill-color': '#34A853',
+        '--pill-text-color': '#FFFFFF',
+        '--icon-color': '#FFFFFF',
+        '--banner-color':'#00FF81',
+        '--banner-text-color': '#0B6343',
     }
 }

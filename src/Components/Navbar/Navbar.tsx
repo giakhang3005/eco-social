@@ -41,7 +41,7 @@ const Navbar = ({ mobileTopNavBar, safeZone }: Props) => {
         )}
         {
           getCurrentUser()
-            ? <Avatar tooltip="Trang cá nhân" src={getCurrentUser()?.imgUrl} hoverable active={location.pathname === "/profile"}></Avatar>
+            ? <Avatar tooltip="Trang cá nhân" onClick={() => navigate('/profile')} src={getCurrentUser()?.imgUrl} hoverable active={location.pathname === "/profile"}></Avatar>
             : <Button onClick={handleSigninWithGG} icon={<GoogleOutlined />} tooltip="Đăng nhập" showText={false} hideBorder />
         }
 
@@ -60,6 +60,7 @@ const Navbar = ({ mobileTopNavBar, safeZone }: Props) => {
             tooltip="Đăng xuất"
             onClick={handleLogout}
             style={Object.assign({ position: 'absolute', bottom: '15px', transform: 'rotate(180deg)' })}
+            iconColor="red"
           >
           </Button>
         }
@@ -79,7 +80,8 @@ const Navbar = ({ mobileTopNavBar, safeZone }: Props) => {
                 showText={false}
                 tooltip="Đăng xuất"
                 onClick={handleLogout}
-                style={Object.assign({ position: 'absolute', top: '10px', right: '3px' })}
+                style={Object.assign({ position: 'absolute', top: '9px', right: '3px' })}
+                iconColor="red"
               >
               </Button>
             }
@@ -101,7 +103,7 @@ const Navbar = ({ mobileTopNavBar, safeZone }: Props) => {
             <>
               <Button onClick={() => navigate('/')} icon={<HomeFilled />} hideBorder active={location.pathname === "/"}></Button>
               <Button onClick={() => navigate('/')} icon={<PlusOutlined />} ></Button>
-              <Avatar src={getCurrentUser()?.imgUrl} style={{ width: '27px' }} active={location.pathname === "/profile"}></Avatar>
+              <Avatar onClick={() => navigate('/profile')} src={getCurrentUser()?.imgUrl} style={{ width: '27px' }} active={location.pathname === "/profile"}></Avatar>
             </>
           )}
           {

@@ -8,10 +8,8 @@ import Navbar from "../Components/Navbar/Navbar"
 import { IUser } from "../Model/Users"
 import { useLocalStorage } from "../Services/CustomHooks/useLocalStorage"
 import { GlobalConstants } from "../Share/Constants"
-import { useUsers } from "../Services/CustomHooks/useUsers"
 import LoginModal from "../Components/LoginModal/LoginModal"
-import { handleMainLayoutScroll, isAccessUsingMessFBBrowser, validateOrientationTablet } from "../Services/Functions/DeviceMethods"
-import BlockedScreen from "../Components/BlockedScreen/BlockedScreen"
+import { handleMainLayoutScroll} from "../Services/Functions/DeviceMethods"
 
 export const Data = createContext<IContext | null>(null)
 
@@ -32,8 +30,6 @@ const Layout = () => {
     const [viewWidth, setViewWidth] = useState<number>(window.innerWidth);
 
     const [safeZone, setSafeZone] = useState<ISafeZone | undefined>();
-
-    const [isAccessByFacebookAndMessengerBrowser, setIsAccessByFacebookAndMessengerBrowser] = useState<boolean>(false);
 
     // Load Theme before layout loaded
     useLayoutEffect(() => {
@@ -72,12 +68,6 @@ const Layout = () => {
         }
     });
 
-    // Blocking user access from Messenger/Facebook Browser
-    useEffect(() => {
-        const isFromMessAndFB = isAccessUsingMessFBBrowser();
-        setIsAccessByFacebookAndMessengerBrowser(isFromMessAndFB);
-    }, []);
-
     const handleUnActiveTimeTracking = () => {
         // TODO: Split to a hook
         // TODO: Implement refresh page when unactive for long time
@@ -101,12 +91,12 @@ const Layout = () => {
                 <LoginModal />
             </Modal>
 
-            {isAccessByFacebookAndMessengerBrowser && <BlockedScreen />}
+            
 
             <Spin size="large" spinning={loading.loading} tip={loading.tooltip}>
                 <div className="mainLayout" onPointerDown={handleUnActiveTimeTracking}>
                     <Navbar mobileTopNavBar={mobileTopNavBar} safeZone={safeZone} />
-                    <div className="OutletContainer" onScroll={(e) => handleScroll(e)} style={Object.assign({ paddingBottom: viewWidth > 768 ? 0 : `${GlobalConstants.topNavHeight}px`, paddingTop: viewWidth > 768 ? 0 : `calc(${GlobalConstants.topNavHeight}px + ${safeZone?.top})` })}>
+                    <div className="OutletContainer" onScroll={(e) => handleScroll(e)} style={Object.assign({paddingBottom: viewWidth > 768 ? 0 : `${GlobalConstants.topNavHeight}px`, paddingTop: viewWidth > 768 ? 0 : `calc(${GlobalConstants.topNavHeight}px + ${safeZone?.top})` })}>
                         <Outlet />
                     </div>
                 </div>

@@ -1,0 +1,31 @@
+@use "../../App.scss";
+
+.empty {
+    margin: 20px 0 0 0;
+    width: 100%;
+    text-align: center;
+    opacity: 0.8;
+
+    .icon {
+        font-size: 40px;
+    }
+
+    .content {
+        margin: 15px 0 0 0;
+        font-size: 25px;
+    }
+}
+
+@media screen and (max-width: App.$mobile){
+    .empty {
+    
+        .icon {
+            font-size: 25px;
+        }
+    
+        .content {
+            margin: 8px 0 0 0;
+            font-size: 15px;
+        }
+    }
+}

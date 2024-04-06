@@ -4,7 +4,7 @@ import { signInWithPopup } from "firebase/auth"
 import { useContext } from "react"
 import { Data } from "../../Layout/Layout"
 import { IContext } from "../../Model/Others"
-import { IUser, User } from "../../Model/Users"
+import { IUser } from "../../Model/Users"
 import { useUsers } from "./useUsers"
 import { useLoading } from "./UseLoading"
 
@@ -65,7 +65,12 @@ export const useAuth = () => {
                 permissions: [],
                 imgUrl: googleUser.photoURL,
                 points: 0,
-                joinDate: `${new Date().toLocaleString()}`
+                joinDate: `${new Date().toLocaleString()}`,
+                minigame: {
+                    game1: false,
+                    game2: false,
+                    game3: false
+                }
             }
 
             const updateStatus = await updateUser(currUser)

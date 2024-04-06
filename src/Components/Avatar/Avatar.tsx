@@ -9,12 +9,14 @@ type Props = {
     tooltip?: string;
     active?: boolean;
 
+    align?: string;
+
     onClick?: MouseEventHandler<HTMLDivElement> | undefined
 }
 
-const Avatar = ({ src, hoverable = false, onClick, style, tooltip, active }: Props) => {
+const Avatar = ({ src, hoverable = false, onClick, style, tooltip, active, align = 'center' }: Props) => {
     return (
-        <div onClick={onClick} className={`avatarContainer ${hoverable && "hoverable"}`}>
+        <div onClick={onClick} className={`avatarContainer ${hoverable && "hoverable"}`} style={{justifyContent: align}}>
             <Popover content={tooltip} placement="right">
                 <img src={src} style={style} className={`avatar ${active && 'active'}`} />
             </Popover>

@@ -62,6 +62,11 @@ export const useUsers = () => {
                             points: docData?.points,
                             joinDate: docData?.joinDate,
                             id: doc.id,
+                            minigame: {
+                                game1: docData?.minigame.game1,
+                                game2: docData?.minigame.game2,
+                                game3: docData?.minigame.game3
+                            }
                         }
                         : null
                 )
@@ -87,8 +92,12 @@ export const useUsers = () => {
                         imgUrl: fetchedUser.imgUrl,
                         points: fetchedUser.points,
                         joinDate: fetchedUser.joinDate,
-                        id: user.id
-
+                        id: user.id,
+                        minigame: {
+                            game1: fetchedUser?.minigame.game1,
+                            game2: fetchedUser?.minigame.game2,
+                            game3: fetchedUser?.minigame.game3
+                        }
                     }
                     addUserToBrowserAndState(currUser)
                 }
@@ -133,15 +142,21 @@ export const useUsers = () => {
             .then((snapshot) => {
                 const userArr: IUser[] = []
                 snapshot.forEach(doc => {
+                    const data = doc.data()
                     const newUser = {
-                        name: doc.data().name,
-                        email: doc.data().email,
-                        mssv: doc.data().mssv,
-                        permissions: doc.data().permissions,
-                        imgUrl: doc.data().imgUrl,
-                        points: doc.data().points,
-                        joinDate: doc.data().joinDate,
-                        id: doc.id
+                        name: data.name,
+                        email: data.email,
+                        mssv: data.mssv,
+                        permissions: data.permissions,
+                        imgUrl: data.imgUrl,
+                        points: data.points,
+                        joinDate: data.joinDate,
+                        id: doc.id,
+                        minigame: {
+                            game1: data?.minigame.game1,
+                            game2: data?.minigame.game2,
+                            game3: data?.minigame.game3
+                        }
                     }
                     userArr.push(newUser)
                 })
@@ -169,6 +184,11 @@ export const useUsers = () => {
             imgUrl: userData.imgUrl,
             points: userData.points,
             joinDate: userData.joinDate,
+            minigame: {
+                game1: userData.minigame.game1,
+                game2: userData.minigame.game2,
+                game3: userData.minigame.game3
+            }
         }
 
         const docRef = doc(usersCollectionRef, user.id)

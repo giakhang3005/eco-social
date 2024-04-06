@@ -1,0 +1,36 @@
+/** @format */
+
+.skeletonCover {
+  position: relative;
+  width: calc(99% / 3);
+  opacity: 0.25;
+  background-color: var(--secondary-text-color);
+  box-sizing: border-box;
+  overflow: hidden;
+
+  .shine {
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 20px;
+    background-image: linear-gradient(
+      to right,
+      var(--secondary-text-color),
+      var(--bg-color),
+      var(--secondary-text-color)
+    );
+    opacity: 0.3;
+    animation: loading 1.2s infinite ease-in-out;
+  }
+}
+
+@keyframes loading {
+    0% {
+        left: -20px;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+

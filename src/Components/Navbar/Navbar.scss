@@ -23,13 +23,14 @@
 
 .NavMobile {
   display: none;
+  z-index: 999;
 
   .NavMobileTop,
   .NavMobileBottom{
     width: 100vw;
     height: var(--nav-height);
     position: fixed;
-    background-color: var(--background-color);
+    background-color: var(--bg-color);
     box-sizing: border-box;
     z-index: 5;
   }
@@ -45,6 +46,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 15vw 0 15vw;
+    z-index: 999 !important;
   }
 
   .NavMobileBottom_SubMenu {
@@ -52,14 +54,14 @@
     width: 100vw;
     height: 40px;
     position: fixed;
-    background-color: var(--background-color);
+    background-color: var(--bg-color);
     box-shadow: -1px -1px 4px var(--background-hover-color);
     display: flex;
     justify-content: flex-end;
     align-items: center;
     padding: 0 15vw 0 15vw;
     box-sizing: border-box;
-    z-index: 5;
+    z-index: 998 !important;
   }
 }
 
