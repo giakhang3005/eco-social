@@ -40,7 +40,7 @@ const NewFeed = (props: Props) => {
           </div>
         </Col>
         <Col span={currShowNewFeed ? 0 : 24} md={8} className="bannerSection">
-          {!currShowNewFeed && <Button icon={<LeftOutlined />} onClick={() => setCurrShowNewFeed(true)}>Quay lại</Button>}
+          {!currShowNewFeed && <Button icon={<LeftOutlined />} onClick={() => setCurrShowNewFeed(true)} hideBorder>Quay lại</Button>}
           <div className="quoteOnTop">00 sự kiện đang diễn ra</div>
           <div className="bannerImg">
             <button className="moreBtn">Xem chi tiết</button>

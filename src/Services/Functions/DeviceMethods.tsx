@@ -1,6 +1,7 @@
 import { message } from "antd";
 import { ISafeZone } from "../../Model/Others"
 import { GlobalConstants } from "../../Share/Constants"
+import { IUser } from "../../Model/Users";
 
 export const handleMainLayoutScroll = (e: any, mobileTopNavBar: number, lastPosition: number, safeZone: ISafeZone | undefined) => {
     const mainLayout = document.querySelector('.OutletContainer')
@@ -34,6 +35,28 @@ export const handleMainLayoutScroll = (e: any, mobileTopNavBar: number, lastPosi
     }
 
     return { newLastPosition, newPosition: mobileTopNavBar + diffrence }
+}
+
+export const checkScrollFromTop = (setDistanceFromTop: any, user: IUser | null) => {
+    const outletContainer = document.querySelector('.OutletContainer') as HTMLElement;
+
+    if (outletContainer) {
+        const newPosition = outletContainer.scrollTop;
+        setDistanceFromTop(newPosition);
+
+        if(newPosition > 47 && !user) {
+            // outletContainer.scrollTo(0, 0);
+            updateScrollForOutlet(false);
+        }
+    }
+}
+
+export const updateScrollForOutlet = (allowScroll: boolean) => {
+    const outletContainer = document.querySelector('.OutletContainer') as HTMLElement;
+
+    if (outletContainer) {
+        outletContainer.style.overflow = allowScroll ? 'scroll' : 'hidden';
+    }
 }
 
 export const validateOrientationTablet = () => {

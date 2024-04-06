@@ -4,7 +4,7 @@
 .Btn {
   outline: none;
   background-color: transparent;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--pill-color);
   border-radius: 8px;
   color: var(--primary-text-color);
   font-size: 14px;
@@ -21,7 +21,7 @@
 
   &:hover {
     background-color: var(--secondary-text-color);
-    scale: 1.03;
+    // scale: 1.03;
   }
 
   .space {

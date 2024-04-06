@@ -9,9 +9,10 @@ import { IUser } from "../Model/Users"
 import { useLocalStorage } from "../Services/CustomHooks/useLocalStorage"
 import { GlobalConstants } from "../Share/Constants"
 import LoginModal from "../Components/LoginModal/LoginModal"
-import { handleMainLayoutScroll} from "../Services/Functions/DeviceMethods"
+import { checkScrollFromTop, handleMainLayoutScroll, updateScrollForOutlet } from "../Services/Functions/DeviceMethods"
+import LoginPopup from "../Components/LoginPopup/LoginPopup"
 
-export const Data = createContext<IContext | null>(null)
+export const Data = createContext<IContext | null>(null);
 
 const Layout = () => {
     const { initTheme } = useTheme();
@@ -28,6 +29,8 @@ const Layout = () => {
     const [lastPosition, setLastPosition] = useState<number>(0);
 
     const [viewWidth, setViewWidth] = useState<number>(window.innerWidth);
+
+    const [distanceFromTop, setDistanceFromTop] = useState<number>(0);
 
     const [safeZone, setSafeZone] = useState<ISafeZone | undefined>();
 
@@ -66,7 +69,14 @@ const Layout = () => {
             window.removeEventListener('resize', handleSizeChange)
             // window.removeEventListener('orientationchange', handleSizeChange)
         }
-    });
+    }, []);
+
+    // Check for Logged In
+    useEffect(() => {
+        if(user) {
+            updateScrollForOutlet(true);
+        }
+    }, [user]);
 
     const handleUnActiveTimeTracking = () => {
         // TODO: Split to a hook
@@ -77,6 +87,11 @@ const Layout = () => {
 
     const handleScroll = (e: any) => {
         const newValue = handleMainLayoutScroll(e, mobileTopNavBar, lastPosition, safeZone)
+
+        if (!user) {
+            checkScrollFromTop(setDistanceFromTop, user);
+            return;
+        }
 
         if (newValue === null) return
 
@@ -91,7 +106,7 @@ const Layout = () => {
                 <LoginModal />
             </Modal>
 
-            
+            {(!user && distanceFromTop >= 47) && <LoginPopup />}
 
             <Spin size="large" spinning={loading.loading} tip={loading.tooltip}>
                 <div className="mainLayout" onPointerDown={handleUnActiveTimeTracking}>
