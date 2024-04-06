@@ -1,0 +1,24 @@
+/** @format */
+
+.marqueeContainer {
+    width: 100%;
+    overflow: hidden;
+    padding: 3px 0 3px 0;
+
+  .marquee {
+    width: 100%;
+    text-wrap: nowrap;
+    animation: run 30s infinite linear;
+  }
+}
+
+@keyframes run {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+

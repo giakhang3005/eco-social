@@ -46,7 +46,7 @@ export const validateOrientationTablet = () => {
 export const isAccessUsingMessFBBrowser = () => {
     const isMessengerMobile = /FBAN\/Messenger/i.test(navigator.userAgent);
     const isFacebookMobile = /FBAN|FBAV|FB_IAB/i.test(navigator.userAgent);
-    console.log(isMessengerMobile, isFacebookMobile)
+    // console.log(isMessengerMobile, isFacebookMobile)
     return isMessengerMobile || isFacebookMobile;
 }
 
