@@ -6,9 +6,8 @@
     padding: 3px 0 3px 0;
 
   .marquee {
-    display: flex;
-    flex-wrap: nowrap;
     text-wrap: nowrap;
+    white-space: nowrap;
     animation: run 30s infinite linear;
 
     &:hover {
