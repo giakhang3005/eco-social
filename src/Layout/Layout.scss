@@ -4,7 +4,7 @@
     width: 100vw;
     height: 100vh;
     display: flex;
-    overflow-Y: hidden;
+    overflow: hidden;
 
     .OutletContainer {
         width: calc(100vw - 70px);
@@ -19,7 +19,8 @@
     .mainLayout {
         .OutletContainer {
             width: 100vw;
-            height: calc(100vh - 47px);
+            height: calc(100vh);
+            padding: 47px 0 47px 0;
         }
     }
 }

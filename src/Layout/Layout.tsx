@@ -96,7 +96,7 @@ const Layout = () => {
             <Spin size="large" spinning={loading.loading} tip={loading.tooltip}>
                 <div className="mainLayout" onPointerDown={handleUnActiveTimeTracking}>
                     <Navbar mobileTopNavBar={mobileTopNavBar} safeZone={safeZone} />
-                    <div className="OutletContainer" onScroll={(e) => handleScroll(e)} style={Object.assign({paddingBottom: viewWidth > 768 ? 0 : `${GlobalConstants.topNavHeight}px`, paddingTop: viewWidth > 768 ? 0 : `calc(${GlobalConstants.topNavHeight}px + ${safeZone?.top})` })}>
+                    <div className="OutletContainer" onScroll={(e) => handleScroll(e)}>
                         <Outlet />
                     </div>
                 </div>
