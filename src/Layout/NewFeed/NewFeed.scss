@@ -12,6 +12,7 @@
       background-color: var(--banner-color);
       color: var(--banner-text-color);
       display: none;
+      text-align: center;
     }
 
     .bannerImg {
@@ -56,6 +57,17 @@
     box-sizing: border-box;
     padding: 20px 10px 0 0;
 
+    .quoteOnTop {
+        font-size: 15px;
+        padding: 5px;
+        background-color: var(--banner-color);
+        color: var(--banner-text-color);
+        display: block;
+        border-radius: 8px;
+        margin: 0 0 10px 0;
+        text-align: center;
+      }
+
     .bannerImg {
       display: block;
       position: relative;
@@ -92,6 +104,19 @@
       .bannerImg {
         display: block;
       }
+    }
+
+    .bannerSection {
+        padding: 0 5px 0 5px;
+        
+        .bannerImg {
+            margin: 0 0 5px 0;
+
+            .moreBtn {
+                right: 8px;
+                bottom: 8px;
+            }
+        }
     }
   }
 }
