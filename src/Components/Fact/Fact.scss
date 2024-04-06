@@ -7,8 +7,14 @@
 
   .marquee {
     width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
     text-wrap: nowrap;
     animation: run 30s infinite linear;
+
+    &:hover {
+        animation-play-state: paused;
+    }
   }
 }
 
