@@ -42,7 +42,7 @@ const Navbar = ({ mobileTopNavBar, safeZone }: Props) => {
         {
           getCurrentUser()
             ? <Avatar tooltip="Trang cá nhân" onClick={() => navigate('/profile')} src={getCurrentUser()?.imgUrl} hoverable active={location.pathname === "/profile"}></Avatar>
-            : <Button onClick={handleSigninWithGG} icon={<GoogleOutlined />} tooltip="Đăng nhập" showText={false} hideBorder />
+            : <Button onClick={handleSigninWithGG} icon={<GoogleOutlined />} tooltip="Tham gia" showText={false} hideBorder />
         }
 
         {/* Footer */}
@@ -107,7 +107,7 @@ const Navbar = ({ mobileTopNavBar, safeZone }: Props) => {
             </>
           )}
           {
-            !getCurrentUser() && <Button onClick={handleSigninWithGG} icon={<GoogleOutlined />} showText={false} hideBorder />
+            !getCurrentUser() && <Button onClick={handleSigninWithGG} icon={<GoogleOutlined />} showText hideBorder>Tham gia</Button>
           }
         </div>
       </div>
