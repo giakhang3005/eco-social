@@ -21,8 +21,8 @@ export const useImage = () => {
         if (uploadFile.type.split("/")[0] !== "image") {
             message.error('Bạn vui lòng chỉ tải ảnh lên');
         } else {
-            if (uploadFile.type.split("/")[1].toUpperCase() === "HEIC" || uploadFile.type.split("/")[1].toUpperCase() === "JPEG") {
-                message.info('is already')
+            const type = uploadFile.type.split("/")[1].toUpperCase()
+            if (type === "HEIC" || type === "HEIF") {
                 const convertedFile = await convertHeicFile(uploadFile);
                 finalFile = convertedFile;
             } else {
@@ -149,5 +149,29 @@ export const useImage = () => {
 
     }
 
-    return { handleImage, readDataAsUrl, checkLoadedImg, setCanvasPreview, convertDataUrlToFile }
+    const resizeImage = (image: any, maxWidth: number) => {
+        // Create a canvas element
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext('2d');
+
+        const ratio = image.naturalWidth / image.naturalHeight;
+
+        const newWidth = maxWidth * ratio;
+        const newHeight = newWidth/ratio;
+
+        // Set the canvas dimensions
+        canvas.width = newWidth;
+        canvas.height = newHeight;
+
+        // Draw the image onto the canvas with the scaled dimensions
+        ctx?.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+        // Extract the resized image as a data URL
+        var resizedDataURL = canvas.toDataURL('image/jpeg');
+
+        // Return the resized image data URL
+        return convertDataUrlToFile(resizedDataURL, 'test123');
+    }
+
+    return { handleImage, readDataAsUrl, checkLoadedImg, setCanvasPreview, convertDataUrlToFile, resizeImage }
 }

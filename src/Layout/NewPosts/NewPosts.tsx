@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 //TODO: File ảnh chụp bằng cam điện thoại crop ra không được
 
 const NewPosts = () => {
-  const { handleImage, checkLoadedImg } = useImage();
+  const { handleImage, checkLoadedImg, resizeImage } = useImage();
   const { getCurrentUser } = useUsers();
 
   const navigate = useNavigate();
@@ -79,12 +79,23 @@ const NewPosts = () => {
   }
 
   const checkNaturalSize = (e: any) => {
-    const target = e.currentTarget;
-
+    let target = e.currentTarget;
     const result = checkLoadedImg(target);
 
     setImgRatioErr(result)
-    if (result) setFile(null);
+    if (result) {
+      setFile(null);
+      return;
+    }
+
+    if (croppedFile) return;
+
+    const { naturalWidth, naturalHeight } = target;
+
+    if (naturalWidth > 1200) {
+      const newImg = resizeImage(target, 1200);
+      setFile(newImg);
+    }
   }
 
   const onRecrop = (e: any) => {
@@ -113,7 +124,7 @@ const NewPosts = () => {
 
             {
               file
-                ? <img src={URL.createObjectURL(croppedFile ? croppedFile : file)} className="previewImg" alt="No img" onLoad={checkNaturalSize} />
+                ? <img src={URL.createObjectURL(croppedFile ? croppedFile : file)} className="previewImg" alt="No img" onLoad={(e) => checkNaturalSize(e)} />
                 :
                 <div className="instruction">
                   <CameraOutlined className="icon" />
