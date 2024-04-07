@@ -61,15 +61,15 @@ const ImageCrop = ({ file, setCroppedFile }: Props) => {
 
         const canvas = previewCanvasRef.current;
 
-        if (!canvas) return;
+        // if (!canvas) return;
 
-        const dataUrl = canvas.toDataURL();
+        // const dataUrl = canvas.toDataURL();
 
-        const randName = new Date().getTime();
-        const currUser = getCurrentUser();
+        // const randName = new Date().getTime();
+        // const currUser = getCurrentUser();
 
-        const croppedFile = convertDataUrlToFile(dataUrl, `${currUser?.id}_${randName}.png`);
-        setCroppedFile(croppedFile);
+        // const croppedFile = convertDataUrlToFile(dataUrl, `${currUser?.id}_${randName}.png`);
+        // setCroppedFile(croppedFile);
     }
 
     return (
@@ -84,7 +84,7 @@ const ImageCrop = ({ file, setCroppedFile }: Props) => {
                 </Button>
             </div>
 
-            <canvas ref={previewCanvasRef} />
+            <canvas ref={previewCanvasRef} style={{maxWidth: '100%'}} />
         </div>
     )
 }
