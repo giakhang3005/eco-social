@@ -1,0 +1,68 @@
+/** @format */
+@use "../../App.scss";
+
+.newPost {
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 30px 0 0 0;
+
+  .mainArea {
+    margin: 0 0 10px 0;
+
+    .IsDragFileOver {
+      background-color: var(--info-box-color) !important;
+    }
+
+    .title {
+      width: 120px;
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0 0 12px 0;
+      padding: 0 0 3px 3px;
+      border-bottom: 1px solid var(--primary-text-color);
+    }
+
+    .dropZone {
+      width: 100%;
+      min-height: 300px;
+      border: 1px dashed var(--secondary-text-color);
+      background-color: var(--drop-zone-color);
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.12s linear;
+
+      &:hover {
+        background-color: var(--info-box-color);
+      }
+      .instruction {
+        color: var(--secondary-text-color);
+        text-align: center;
+        width: 100%;
+
+        .icon {
+          font-size: 30px;
+          margin: 0 0 12px 0;
+        }
+      }
+
+      .previewImg {
+        max-width: 100%;
+      }
+    }
+
+    .changeFile_text {
+      width: 100%;
+      color: var(--secondary-text-color);
+      text-align: center;
+      margin: 5px 0 0 0;
+    }
+  }
+}
+
+@media screen and (min-width: App.$mobile) {
+}

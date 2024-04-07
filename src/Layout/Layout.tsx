@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom"
 import "./Layout.scss"
-import { Modal, Spin } from "antd"
+import { Modal, Popover, Spin } from "antd"
 import { useState, createContext, useLayoutEffect, useEffect } from "react"
 import { IContext, ILoading, ISafeZone } from "../Model/Others"
 import { useTheme } from "../Services/CustomHooks/useTheme"
@@ -11,6 +11,7 @@ import { GlobalConstants } from "../Share/Constants"
 import LoginModal from "../Components/LoginModal/LoginModal"
 import { checkScrollFromTop, handleMainLayoutScroll, updateScrollForOutlet } from "../Services/Functions/DeviceMethods"
 import LoginPopup from "../Components/LoginPopup/LoginPopup"
+import NetworkNotify from "../Components/NetworkNotify/NetworkNotify"
 
 export const Data = createContext<IContext | null>(null);
 
@@ -34,7 +35,7 @@ const Layout = () => {
 
     const [safeZone, setSafeZone] = useState<ISafeZone | undefined>();
 
-    // Load Theme before layout loaded
+    // Load Theme & add connection listener before layout loaded
     useLayoutEffect(() => {
         initTheme();
     }, [])
@@ -73,7 +74,7 @@ const Layout = () => {
 
     // Check for Logged In
     useEffect(() => {
-        if(user) {
+        if (user) {
             updateScrollForOutlet(true);
         }
     }, [user]);
@@ -105,6 +106,8 @@ const Layout = () => {
             <Modal open={showSigninModal} onCancel={() => setShowSigninModal(false)} footer={null}>
                 <LoginModal />
             </Modal>
+
+            <NetworkNotify />
 
             {(!user && distanceFromTop >= GlobalConstants.unLoggedInMaximumScroll) && <LoginPopup />}
 

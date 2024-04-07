@@ -44,7 +44,7 @@ export const checkScrollFromTop = (setDistanceFromTop: any, user: IUser | null) 
         const newPosition = outletContainer.scrollTop;
         setDistanceFromTop(newPosition);
 
-        if(newPosition > GlobalConstants.unLoggedInMaximumScroll && !user) {
+        if (newPosition > GlobalConstants.unLoggedInMaximumScroll && !user) {
             // outletContainer.scrollTo(0, 0);
             updateScrollForOutlet(false);
         }
@@ -81,4 +81,23 @@ export const writeToClipboard = (text: string) => {
         .catch((err: any) => {
             console.log(err)
         })
+}
+
+export const checkingNetwork = (setConnectionStatus: (value: boolean) => void) => {
+    const handleChangeNetwork = (e: any) => {
+        if(e.type === 'online') {
+            message.success('Đã có kết nối mạng');
+            setConnectionStatus(true);
+            return;
+        } 
+
+        if(e.type === 'offline') {
+            message.error('Mất kết nối mạng');
+            setConnectionStatus(false);
+            return;
+        } 
+    }
+
+    window.addEventListener('online', handleChangeNetwork);
+    window.addEventListener('offline', handleChangeNetwork);
 }

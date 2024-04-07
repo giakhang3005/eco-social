@@ -14,7 +14,8 @@ export const DarkTheme: ITheme = {
         '--active-icon-color': '#208761',
         '--error-color': '#EA4335',
         '--info-box-color': '#0B6343',
-        '--info-text-color': '#97AA94',
+        '--info-text-color': '#FFFFFF',
         '--disabled-color': '#6b7280',
+        '--drop-zone-color': '#323832',
     }
 }

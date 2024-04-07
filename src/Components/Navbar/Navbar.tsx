@@ -36,7 +36,7 @@ const Navbar = ({ mobileTopNavBar, safeZone }: Props) => {
         {getCurrentUser() && (
           <>
             <Button tooltip="Bản tin" onClick={() => navigate('/')} style={{ margin: '0 0 14px 0' }} icon={<HomeFilled />} hideBorder active={location.pathname === "/"}></Button>
-            <Button tooltip="Đăng bài" onClick={() => navigate('/')} style={{ margin: '0 0 14px 0' }} icon={<PlusOutlined />} hideBorder></Button>
+            <Button tooltip="Đăng bài" onClick={() => navigate('/new-post')} style={{ margin: '0 0 14px 0' }} icon={<PlusOutlined />} hideBorder active={location.pathname === "/new-post"}></Button>
           </>
         )}
         {
@@ -102,7 +102,7 @@ const Navbar = ({ mobileTopNavBar, safeZone }: Props) => {
           {getCurrentUser() && (
             <>
               <Button onClick={() => navigate('/')} icon={<HomeFilled />} hideBorder active={location.pathname === "/"}></Button>
-              <Button onClick={() => navigate('/')} icon={<PlusOutlined />} ></Button>
+              <Button onClick={() => navigate('/new-post')} icon={<PlusOutlined />} active={location.pathname === "/new-post"}></Button>
               <Avatar onClick={() => navigate('/profile')} src={getCurrentUser()?.imgUrl} style={{ width: '27px' }} active={location.pathname === "/profile"}></Avatar>
             </>
           )}

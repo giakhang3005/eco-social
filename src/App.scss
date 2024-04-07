@@ -39,6 +39,10 @@ body {
   color: var(--info-text-color) !important;
 }
 
+.ant-message-error>.anticon {
+  color: var(--error-color) !important;
+}
+
 // Spin
 .ant-spin-blur {
   background-color: transparent !important;

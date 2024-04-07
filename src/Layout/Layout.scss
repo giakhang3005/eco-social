@@ -1,27 +1,28 @@
-@use '../App.scss';
+/** @format */
+
+@use "../App.scss";
 
 .mainLayout {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
 
-    .OutletContainer {
-        width: calc(100vw - 70px);
-        height: 100vh;
-        overflow-Y: scroll;
-        box-sizing: border-box;
-        z-index: 1;
-    }
+  .OutletContainer {
+    width: calc(100vw - 70px);
+    height: 100vh;
+    overflow-y: scroll;
+    box-sizing: border-box;
+    z-index: 1;
+  }
 }
 
 @media screen and (max-width: App.$mobile) {
-    .mainLayout {
-        .OutletContainer {
-            width: 100vw;
-            height: calc(100vh);
-            padding: 47px 0 130px 0;
-        }
+  .mainLayout {
+    .OutletContainer {
+      width: 100vw;
+      height: calc(100vh);
+      padding: 47px 0 130px 0;
     }
+  }
 }
-

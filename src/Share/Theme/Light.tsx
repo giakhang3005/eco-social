@@ -14,7 +14,8 @@ export const LightTheme: ITheme = {
         '--active-icon-color': '#0B6343',
         '--error-color': '#EA4335',
         '--info-box-color': '#D2E8DC',
-        '--info-text-color': '#829c7e',
+        '--info-text-color': '#0B6343',
         '--disabled-color': '#6b7280',
+        '--drop-zone-color': '#f9fafb',
     }
 }
