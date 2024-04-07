@@ -5,11 +5,18 @@ import { CameraOutlined, RedoOutlined } from "@ant-design/icons";
 import { useImage } from "../../Services/CustomHooks/useImage";
 import ImageCrop from "./ImageCrop";
 import Button from "../../Components/Button/Button";
+import { useUsers } from "../../Services/CustomHooks/useUsers";
+import { useNavigate } from "react-router-dom";
 
 // TODO: Check ảnh coi chiều rộng lớn hơn thì size base on rộng, dài thì base on dài
 
+//TODO: File ảnh chụp bằng cam điện thoại crop ra không được
+
 const NewPosts = () => {
   const { handleImage, checkLoadedImg } = useImage();
+  const { getCurrentUser } = useUsers();
+
+  const navigate = useNavigate();
 
   const inputRef = useRef<HTMLInputElement>(null);
   const dropZoneRef = useRef<HTMLDivElement>(null);
@@ -28,6 +35,12 @@ const NewPosts = () => {
 
     dropZone.style.height = `${dropZone.clientWidth}px`;
   }, []);
+
+  useEffect(() => {
+    const user = getCurrentUser();
+
+    if (!user) navigate('/');
+  })
 
   const handleDragOver = (e: any) => {
     setIsDraggingOver(true);

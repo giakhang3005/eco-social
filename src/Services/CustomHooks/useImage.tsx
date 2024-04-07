@@ -78,8 +78,8 @@ export const useImage = () => {
 
         let isError: boolean = false;
 
-        if (max / min >= 2) {
-            message.error('Tỉ lệ ảnh của bạn quá chênh lệch (tối đa 1:2 hoặc 2:1), vui lòng chọn ảnh khác');
+        if (max / min >= 19 / 6) {
+            message.error('Tỉ lệ ảnh của bạn quá chênh lệch (tối đa 19:6 hoặc 6:19), vui lòng chọn ảnh khác');
             isError = true;
         }
 

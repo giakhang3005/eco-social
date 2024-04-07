@@ -84,7 +84,7 @@ const ImageCrop = ({ file, setCroppedFile }: Props) => {
                 </Button>
             </div>
 
-            <canvas ref={previewCanvasRef} hidden />
+            <canvas ref={previewCanvasRef} />
         </div>
     )
 }
