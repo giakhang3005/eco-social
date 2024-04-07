@@ -21,7 +21,8 @@ export const useImage = () => {
         if (uploadFile.type.split("/")[0] !== "image") {
             message.error('Bạn vui lòng chỉ tải ảnh lên');
         } else {
-            if (uploadFile.type.split("/")[1] === "heic") {
+            if (uploadFile.type.split("/")[1].toUpperCase() === "HEIC" || uploadFile.type.split("/")[1].toUpperCase() === "JPEG") {
+                message.info('is already')
                 const convertedFile = await convertHeicFile(uploadFile);
                 finalFile = convertedFile;
             } else {

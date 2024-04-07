@@ -36,11 +36,11 @@ const NewPosts = () => {
     dropZone.style.height = `${dropZone.clientWidth}px`;
   }, []);
 
-  useEffect(() => {
-    const user = getCurrentUser();
+  // useEffect(() => {
+  //   const user = getCurrentUser();
 
-    if (!user) navigate('/');
-  })
+  //   if (!user) navigate('/');
+  // })
 
   const handleDragOver = (e: any) => {
     setIsDraggingOver(true);
