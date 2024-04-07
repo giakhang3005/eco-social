@@ -13,4 +13,9 @@ export const GlobalConstants = {
     topNavHeight: 47, //px
     unLoggedInMaximumScroll: 47, //px
     webUrl: 'https://eco-social.vercel.app',
+    postImageCrop: {
+        minWidth: 150, //px
+        ratio: 1, // 1:1
+        maxRatio: 2,
+    }
 }

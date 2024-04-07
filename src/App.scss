@@ -78,7 +78,8 @@ body {
 }
 
 // Modal
-.ant-modal-content {
+.ant-modal-content, .ant-modal-title {
+  color: var(--primary-text-color) !important;
   background-color: var(--bg-color) !important;
 }
 

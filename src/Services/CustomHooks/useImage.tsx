@@ -3,6 +3,7 @@ import { useLoading } from "./UseLoading";
 import heic2any from "heic2any";
 
 export const useImage = () => {
+    const [messageApi, contextHolder] = message.useMessage();
     const { updateLoading } = useLoading();
 
     const handleImage = async (currFiles: any) => {
@@ -11,6 +12,9 @@ export const useImage = () => {
 
         updateLoading(true, "Đang tải ảnh lên...");
         const uploadFile = currFiles[0];
+
+        // const data = await readDataAsUrl(uploadFile);
+        // console.log(data)
 
         let finalFile = null;
 
@@ -30,7 +34,6 @@ export const useImage = () => {
                 finalFile = null;
             }
         }
-
 
         updateLoading(false, "");
         return finalFile;
@@ -54,5 +57,96 @@ export const useImage = () => {
         return conversionResult;
     }
 
-    return { handleImage }
+    const readDataAsUrl = async (file: any) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+
+        const resultUrl = new Promise(resolve => {
+            reader.onload = () => {
+                resolve(reader.result);
+            }
+        });
+
+        return resultUrl;
+    }
+
+    const checkLoadedImg = (target: any) => {
+        const { naturalWidth, naturalHeight } = target;
+
+        const min = Math.min(naturalWidth, naturalHeight);
+        const max = Math.max(naturalWidth, naturalHeight);
+
+        let isError: boolean = false;
+
+        if (max / min >= 2) {
+            message.error('Tỉ lệ ảnh của bạn quá chênh lệch (tối đa 1:2 hoặc 2:1), vui lòng chọn ảnh khác');
+            isError = true;
+        }
+
+        return isError;
+    }
+
+    const setCanvasPreview = (
+        image: any, // HTMLImageElement
+        canvas: any, // HTMLCanvasElement
+        crop: any // PixelCrop
+    ) => {
+        const ctx = canvas.getContext("2d");
+        if (!ctx) {
+            throw new Error("No 2d context");
+        }
+
+        // devicePixelRatio slightly increases sharpness on retina devices
+        // at the expense of slightly slower render times and needing to
+        // size the image back down if you want to download/upload and be
+        // true to the images natural size.
+        const pixelRatio = window.devicePixelRatio;
+        const scaleX = image.naturalWidth / image.width;
+        const scaleY = image.naturalHeight / image.height;
+
+        canvas.width = Math.floor(crop.width * scaleX * pixelRatio);
+        canvas.height = Math.floor(crop.height * scaleY * pixelRatio);
+
+        ctx.scale(pixelRatio, pixelRatio);
+        ctx.imageSmoothingQuality = "high";
+        ctx.save();
+
+        const cropX = crop.x * scaleX;
+        const cropY = crop.y * scaleY;
+
+        // Move the crop origin to the canvas origin (0,0)
+        ctx.translate(-cropX, -cropY);
+        ctx.drawImage(
+            image,
+            0,
+            0,
+            image.naturalWidth,
+            image.naturalHeight,
+            0,
+            0,
+            image.naturalWidth,
+            image.naturalHeight
+        );
+
+        ctx.restore();
+    };
+
+    const convertDataUrlToFile = (dataUrl: string, filename: string) => {
+        var arr = dataUrl.split(','), mime = arr[0].match(/:(.*?);/);
+        if (arr && mime) {
+            var mimeSingle = mime[1],
+                bstr = atob(arr[1]),
+                n = bstr.length,
+                u8arr = new Uint8Array(n);
+
+            while (n--) {
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+
+            return new File([u8arr], filename, { type: mimeSingle });
+        }
+
+    }
+
+    return { handleImage, readDataAsUrl, checkLoadedImg, setCanvasPreview, convertDataUrlToFile }
 }
