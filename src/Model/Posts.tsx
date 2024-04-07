@@ -6,12 +6,12 @@ interface IUserData {
 
 export interface IPost {
     postId: string;
-    userData: IUserData
+    userData: IUserData;
     caption: string;
     imageUrl: string;
     postTime: string; //UTC string
     likesUserId: string[];
-    status: 0 | 1 | 2;
+    status: 0 | 1 | 2; // Pending | Approve | Reject
     isAnonymous: boolean;
     isSponsored: boolean;
 }

@@ -110,6 +110,7 @@ const Layout = () => {
             <NetworkNotify />
 
             {(!user && distanceFromTop >= GlobalConstants.unLoggedInMaximumScroll) && <LoginPopup />}
+            {(!user?.mssv) && <LoginPopup />}
 
             <Spin size="large" spinning={loading.loading} tip={loading.tooltip}>
                 <div className="mainLayout" onPointerDown={handleUnActiveTimeTracking}>

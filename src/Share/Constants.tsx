@@ -17,5 +17,9 @@ export const GlobalConstants = {
         minWidth: 150, //px
         ratio: 1, // 1:1
         maxRatio: 2,
+    },
+    postOption: {
+        anonyImgUrl: 'https://previews.123rf.com/images/nadianb/nadianb1709/nadianb170900256/86443804-idyllic-landscape-in-mountains-rural-scene-beautiful-nature-image-toned-square.jpg',
+        anonyName: 'Người dùng ECO',
     }
 }

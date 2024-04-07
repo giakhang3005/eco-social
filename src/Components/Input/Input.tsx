@@ -6,9 +6,10 @@ type Props = {
     placeholder?: string
     style?: object;
     textarea?: boolean;
+    uppercase?: boolean;
 }
 
-const Input = ({ textarea, value, setValue, onBlur, placeholder, style }: Props) => {
+const Input = ({ uppercase, textarea, value, setValue, onBlur, placeholder, style }: Props) => {
 
 
     const handleOnBlur = (e: React.FocusEvent<HTMLInputElement | HTMLAreaElement>) => {
@@ -25,14 +26,14 @@ const Input = ({ textarea, value, setValue, onBlur, placeholder, style }: Props)
                         style={style}
                         value={value}
                         placeholder={placeholder}
-                        onChange={(e) => setValue(e.target.value)}></textarea>
+                        onChange={(e) => setValue(uppercase ? e.target.value.toUpperCase() : e.target.value)}></textarea>
                     : <input
                         className="Input"
                         style={style}
                         value={value}
                         placeholder={placeholder}
                         onBlur={(e) => handleOnBlur(e)}
-                        onChange={(e) => setValue(e.target.value)}
+                        onChange={(e) => setValue(uppercase ? e.target.value.toUpperCase() : e.target.value)}
                     />
             }
         </>

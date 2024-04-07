@@ -7,6 +7,7 @@ import { IContext } from "../../Model/Others"
 import { IUser } from "../../Model/Users"
 import { useUsers } from "./useUsers"
 import { useLoading } from "./UseLoading"
+import { extractMssvFromEmail } from "../Functions/StringValidation"
 
 export const useAuth = () => {
     const { updateLoading } = useLoading();
@@ -57,11 +58,12 @@ export const useAuth = () => {
 
         } else {
             // User is not existed
+            const extractedEmail = extractMssvFromEmail(googleUser.email)
             const currUser: IUser = {
                 id: currUserId,
                 name: googleUser.displayName,
                 email: googleUser.email,
-                mssv: null,
+                mssv: extractedEmail ? extractedEmail[0] : null,
                 permissions: [],
                 imgUrl: googleUser.photoURL,
                 points: 0,
@@ -76,11 +78,11 @@ export const useAuth = () => {
             const updateStatus = await updateUser(currUser)
 
             if (updateStatus) {
-                message.success(`Chào mừng ${currUser.name} gia nhập ECO`)
+                message.success(`Chào mừng ${currUser.name} gia nhập ECO`);
                 // addUserToBrowserAndState(currUser)
                 getUserByIdRealtime(currUser.id)
             } else {
-                message.error('Đã có lỗi xảy ra, vui lòng tải lại trang')
+                message.error('Đã có lỗi xảy ra, vui lòng tải lại trang');
             }
         }
     }

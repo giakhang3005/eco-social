@@ -1,62 +1,90 @@
+/** @format */
+
 @use "../../App.scss";
 
 .LoginPopup {
-    height: 100vh;
-    width: 100vw;
-    z-index: 999;
+  height: 100vh;
+  width: 100vw;
+  z-index: 999;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  .Background {
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    background-color: var(--banner-color);
+    animation: fadeIn 0.3s linear;
+  }
+
+  .LoginContainer {
     position: absolute;
-    top: 0;
     left: 0;
+    bottom: 0;
+    background-color: var(--bg-color);
+    width: 100%;
+    height: 170px;
+    border-radius: 30px 30px 0 0;
+    animation: moveUp 0.3s ease;
 
-    .Background {
-        width: 100%;
-        height: 100%;
-        opacity: 0.5;
-        background-color: var(--banner-color);
-        animation: fadeIn 0.3s linear;
+    .text,
+    .moreInfo ,
+    .caution{
+      width: 100%;
+      text-align: center;
+      position: absolute;
     }
 
-    .LoginContainer {
+    .text {
+      top: 30px;
+    }
+
+    .moreInfo {
+      top: 53px;
+      font-size: 14px;
+    }
+
+    .caution {
+        top: 130px;
+        font-size: 14px;
+        color: var(--error-color);
+    }
+
+    .inputCtn {
         position: absolute;
-        left: 0;
-        bottom: 0;
-        background-color: var(--bg-color);
+        top: 85px;
+        left: 50%;
+        transform: translateX(-50%);
         width: 100%;
-        height: 170px;
-        border-radius: 30px 30px 0 0;
-        animation: moveUp 0.3s ease;
-
-        .text {
-            width: 100%;
-            text-align: center;
-            position: absolute;
-            top: 30px;
-        }
+        display: flex;
+        justify-content: center;
     }
+  }
 }
 
-@media screen and (max-width: App.$mobile){
-    .LoginPopup {
-        .LoginContainer {
-            height: 220px;
-        }
+@media screen and (max-width: App.$mobile) {
+  .LoginPopup {
+    .LoginContainer {
+      height: 290px;
     }
+  }
 }
 
 @keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 0.5;
-    }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.5;
+  }
 }
 
 @keyframes moveUp {
-    0% {
-        transform: translateY(100%);
-    }
-    100% {
-        transform: translateY(0);
-    }
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }

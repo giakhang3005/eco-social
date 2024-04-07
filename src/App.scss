@@ -39,7 +39,7 @@ body {
   color: var(--info-text-color) !important;
 }
 
-.ant-message-error>.anticon {
+.ant-message-error > .anticon {
   color: var(--error-color) !important;
 }
 
@@ -78,7 +78,8 @@ body {
 }
 
 // Modal
-.ant-modal-content, .ant-modal-title {
+.ant-modal-content,
+.ant-modal-title {
   color: var(--primary-text-color) !important;
   background-color: var(--bg-color) !important;
 }
@@ -118,6 +119,15 @@ body {
   .ant-pagination-item-link {
     color: var(--secondary-text-color) !important;
   }
+}
+
+// Switch
+.ant-switch {
+  background: var(--error-color) !important;
+  box-shadow: 1px 1px 1px solid gray !important;
+}
+.ant-switch-checked {
+  background: var(--active-icon-color) !important;
 }
 
 @media screen and (max-width: $mobile) {

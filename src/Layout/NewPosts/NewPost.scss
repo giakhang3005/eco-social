@@ -14,13 +14,19 @@
       background-color: var(--info-box-color) !important;
     }
 
-    .title {
-      width: 120px;
-      font-size: 20px;
-      font-weight: 600;
-      margin: 0 0 12px 0;
-      padding: 0 0 3px 3px;
-      border-bottom: 1px solid var(--primary-text-color);
+    .headerArea {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0 0 10px 0;
+
+      .title {
+        width: 120px;
+        font-size: 20px;
+        font-weight: 600;
+        padding: 0 0 3px 3px;
+        border-bottom: 1px solid var(--primary-text-color);
+      }
     }
 
     .dropZone {
@@ -64,22 +70,129 @@
     }
 
     .btnContainer {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        margin: 10px 0 0 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin: 10px 0 0 0;
+    }
+
+    .anonyContainer {
+      display: flex;
+      align-items: center;
+      font-size: 15px;
+      margin: 20px 0 20px 0;
+      max-height: 30px;
+
+      .switch {
+        margin: 0 0 0 10px;
+      }
+    }
+
+    .step3 {
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+
+      .step3_container {
+        .infoContainer {
+          display: flex;
+          align-items: center;
+          margin: 25px 0 0 0;
+
+          .avatar {
+            height: 60px;
+            border-radius: 50%;
+          }
+
+          .infor {
+            margin: 0 0 0 10px;
+
+            .name {
+              font-size: 18px;
+              font-weight: 600;
+              margin: 0 0 8px 0;
+            }
+
+            .time {
+              font-size: 13px;
+            }
+          }
+        }
+
+        .previewImage {
+          margin: 12px 0 0 0;
+          border-radius: 20px;
+          width: 450px;
+        }
+
+        .previewCaption {
+          margin: 7px 0 0 0;
+          padding: 0 10px 0 10px;
+          box-sizing: border-box;
+          text-wrap: wrap;
+        }
+
+        .actionCon {
+          margin: 25px 0 0 0;
+          padding: 0 10px 0 10px;
+          box-sizing: border-box;
+
+          .actionIcon {
+            font-size: 25px;
+            margin: 0 22px 0 0;
+
+            &:nth-child(2) {
+              transform: rotate(-30deg) translateY(-5px);
+            }
+          }
+        }
+      }
     }
   }
 }
 
 @media screen and (max-width: App.$mobile) {
-    .newPost {
-        padding: 8px 0 0 0;
+  .newPost {
+    padding: 8px 0 0 0;
 
-        .mainArea {
-            .instruction {
-                font-size: 12px;
+    .mainArea {
+      .instruction {
+        font-size: 12px;
+      }
+
+      .step3 {
+        .step3_container {
+          .infoContainer {
+            .avatar {
+              height: 50px;
             }
+
+            .infor {
+              .name {
+                font-size: 13px;
+              }
+
+              .time {
+                font-size: 11px;
+              }
+            }
+          }
+
+          .previewImage {
+            width: 300px;
+          }
+
+          .previewCaption {
+            font-size: 11px;
+          }
+
+          .actionCon {
+            .actionIcon {
+              font-size: 20px;
+            }
+          }
         }
+      }
     }
+  }
 }
