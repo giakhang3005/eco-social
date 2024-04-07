@@ -33,6 +33,7 @@ const LoginPopup = (props: Props) => {
     const updateStatus = await updateUser(currentUser);
 
     if (updateStatus) {
+      window.scrollTo(0, 0);
       message.success('Cập nhật MSSV thành công');
     } else {
       message.error("Cập nhật MSSV thất bại")
