@@ -26,7 +26,7 @@ export const usePosts = () => {
 
         if (!user || !imageUrl) return;
 
-        const currTime = new Date().getTime().toString();
+        const currTime = new Date().getTime();
 
         const newPost: IPost = {
             postId: file.name.split('.')[0],
@@ -150,24 +150,28 @@ export const usePosts = () => {
         return fetchedPost;
     }
 
-    const handleLikeUnlikePost = (isLike: boolean, currentPost: IPost | undefined) => {
+    const handleLikeUnlikePost = async (isLike: boolean, currentPost: IPost | undefined) => {
         const user = getCurrentUser();
 
         if (!currentPost || !user) return;
 
+        const fetchedDoc = await getPostById(currentPost.postId);
+
+        if (!fetchedDoc) return;
+
         const post: IPost = {
-            postId: currentPost.postId,
-            imageUrl: currentPost.imageUrl,
-            postTime: currentPost.postTime,
-            likesUserId: currentPost.likesUserId,
-            status: currentPost.status,
-            isAnonymous: currentPost.isAnonymous,
-            isSponsored: currentPost.isSponsored,
-            caption: currentPost.caption,
+            postId: fetchedDoc.postId,
+            imageUrl: fetchedDoc.imageUrl,
+            postTime: fetchedDoc.postTime,
+            likesUserId: fetchedDoc.likesUserId,
+            status: fetchedDoc.status,
+            isAnonymous: fetchedDoc.isAnonymous,
+            isSponsored: fetchedDoc.isSponsored,
+            caption: fetchedDoc.caption,
             userData: {
-                userName: currentPost.userData.userName,
-                userImg: currentPost.userData.userImg,
-                userId: currentPost.userData.userId,
+                userName: fetchedDoc.userData.userName,
+                userImg: fetchedDoc.userData.userImg,
+                userId: fetchedDoc.userData.userId,
             }
         }
 
@@ -202,7 +206,7 @@ export const usePosts = () => {
                     const newPost: IPost = {
                         postId: fetchedData.postId,
                         imageUrl: fetchedData.imageUrl,
-                        postTime: new Date(Number(fetchedData.postTime)).toLocaleString(),
+                        postTime: new Date(Number(fetchedData.postTime)).getTime(),
                         likesUserId: fetchedData.likesUserId,
                         isAnonymous: fetchedData.isAnonymous,
                         isSponsored: fetchedData.isSponsored,
@@ -233,7 +237,7 @@ export const usePosts = () => {
                 const newPost: IPost = {
                     postId: fetchedData.postId,
                     imageUrl: fetchedData.imageUrl,
-                    postTime: new Date(Number(fetchedData.postTime)).toLocaleString(),
+                    postTime: new Date(Number(fetchedData.postTime)).getTime(),
                     likesUserId: fetchedData.likesUserId,
                     isAnonymous: fetchedData.isAnonymous,
                     isSponsored: fetchedData.isSponsored,

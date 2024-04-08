@@ -113,7 +113,7 @@ const Navbar = ({ mobileTopNavBar, setMobileTopNavBar, safeZone }: Props) => {
           <div className="NavMobileBottom_SubMenu" style={Object.assign({ bottom: `calc(${47 - mobileTopNavBar}px + ${safeZone?.bottom})` }, { opacity: 1 - (mobileTopNavBar / (GlobalConstants.topNavHeight - 10)) })}>
             {(checkHavePerm(GlobalConstants.permissionsKey.log)) && <Button onClick={() => navigate('/log')} icon={<BookFilled />} hideBorder active={location.pathname === "/log"}></Button>}
             {(checkHavePerm(GlobalConstants.permissionsKey.points)) && <Button onClick={() => navigate('/points')} icon={<StarFilled />} hideBorder active={location.pathname === "/points"}></Button>}
-            {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.approval)) && <Button tooltip="Duyệt bài" style={{ margin: '6px 0 0 0' }} onClick={() => navigate('/approval')} icon={<CarryOutFilled />} hideBorder badge={postWaitingToApprove.length} active={location.pathname === "/approval"}></Button>}
+            {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.approval)) && <Button tooltip="Duyệt bài" style={{ margin: '0 0 0 0' }} onClick={() => navigate('/approval')} icon={<CarryOutFilled />} hideBorder badge={postWaitingToApprove.length} active={location.pathname === "/approval"}></Button>}
           </div>
         }
 

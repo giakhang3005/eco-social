@@ -47,8 +47,11 @@ const Post = (props: Props) => {
 
     }
 
-    const handleLikeUnlike = (isLike: boolean) => {
-        setCurrentPost(handleLikeUnlikePost(isLike, currentPost))
+    const handleLikeUnlike = async (isLike: boolean) => {
+        const returnedPost = await handleLikeUnlikePost(isLike, currentPost);
+
+        if (!returnedPost) return;
+        setCurrentPost(returnedPost);
     }
 
     const handleShare = () => {
@@ -69,7 +72,7 @@ const Post = (props: Props) => {
                                     <div className="info">
                                         <div className="name">{currentPost?.userData.userName}</div>
                                         <div className="time">{new Date(Number(currentPost?.postTime)).toLocaleString()}</div>
-                                        <div className="status" style={currentPost?.status === 2 ? {color: 'red'} : {}}>{currentPost?.status === 0 ? 'Đang chờ duyệt' : currentPost?.status === 2 ? 'Bị từ chối' : ''}</div>
+                                        <div className="status" style={currentPost?.status === 2 ? { color: 'red' } : {}}>{currentPost?.status === 0 ? 'Đang chờ duyệt' : currentPost?.status === 2 ? 'Bị từ chối' : ''}</div>
                                     </div>
                                 </div>
                                 <img src={currentPost.imageUrl} className="postImg" onLoad={() => updateLoading(false)} />

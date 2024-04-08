@@ -15,7 +15,7 @@ export const useApprovalPosts = () => {
                 const newPost: IPost = {
                     postId: fetchedData.postId,
                     imageUrl: fetchedData.imageUrl,
-                    postTime: new Date(Number(fetchedData.postTime)).toLocaleString(),
+                    postTime: new Date(Number(fetchedData.postTime)).getTime(),
                     likesUserId: fetchedData.likesUserId,
                     isAnonymous: fetchedData.isAnonymous,
                     isSponsored: fetchedData.isSponsored,
@@ -41,7 +41,7 @@ export const useApprovalPosts = () => {
                     const newPost: IPost = {
                         postId: fetchedData.postId,
                         imageUrl: fetchedData.imageUrl,
-                        postTime: new Date(Number(fetchedData.postTime)).toLocaleString(),
+                        postTime: new Date(Number(fetchedData.postTime)).getTime(),
                         likesUserId: fetchedData.likesUserId,
                         isAnonymous: fetchedData.isAnonymous,
                         isSponsored: fetchedData.isSponsored,

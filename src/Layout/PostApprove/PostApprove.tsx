@@ -45,7 +45,7 @@ const PostApprove = (props: Props) => {
         const newPost: IPost = {
             postId: post.postId,
             imageUrl: post.imageUrl,
-            postTime: new Date(post.postTime).getTime().toString(),
+            postTime: new Date(post.postTime).getTime(),
             likesUserId: post.likesUserId,
             isAnonymous: post.isAnonymous,
             isSponsored: post.isSponsored,
@@ -53,6 +53,7 @@ const PostApprove = (props: Props) => {
             caption: post.caption,
             userData: post.userData
         }
+
 
         savePostLog(newPost.postId, user, status);
 
@@ -72,7 +73,7 @@ const PostApprove = (props: Props) => {
                             <img src={post.userData.userImg} className="avatar" />
                             <div className="info">
                                 <div className="name">{post.userData.userName}</div>
-                                <div className="time">{post.postTime}</div>
+                                <div className="time">{new Date(post.postTime).toLocaleString()}</div>
                             </div>
                         </div>
                         <img src={post.imageUrl} className="postImg" loading="lazy" />

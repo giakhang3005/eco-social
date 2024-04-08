@@ -6,6 +6,32 @@
   .postsZone {
     padding: 20px 2vw 0 2vw;
 
+    .NTTCtn {
+      display: flex;
+      margin: 0 0 15px 0;
+
+      .NTT {
+        width: calc(100% / 3);
+        padding: 0 15px 0 15px;
+        box-sizing: border-box;
+
+        .rank {
+          font-weight: 600;
+          font-size: 15px;
+          text-align: center;
+        }
+        .LogoCtn {
+          margin: 15px 0 0 0;
+          display: flex;
+          justify-content: space-between;
+
+          img {
+            height: 25px;
+          }
+        }
+      }
+    }
+
     .quoteOnTop {
       font-size: 15px;
       padding: 5px;
@@ -64,15 +90,15 @@
     padding: 30px 10px 0 0;
 
     .quoteOnTop {
-        font-size: 15px;
-        padding: 5px;
-        background-color: var(--banner-color);
-        color: var(--banner-text-color);
-        display: block;
-        border-radius: 8px;
-        margin: 0 0 10px 0;
-        text-align: center;
-      }
+      font-size: 15px;
+      padding: 5px;
+      background-color: var(--banner-color);
+      color: var(--banner-text-color);
+      display: block;
+      border-radius: 8px;
+      margin: 0 0 10px 0;
+      text-align: center;
+    }
 
     .bannerImg {
       display: block;
@@ -113,16 +139,45 @@
     }
 
     .bannerSection {
-        padding: 0 5px 0 5px;
-        
-        .bannerImg {
-            margin: 0 0 5px 0;
+      padding: 0 5px 0 5px;
 
-            .moreBtn {
-                right: 8px;
-                bottom: 8px;
-            }
+      .bannerImg {
+        margin: 0 0 5px 0;
+
+        .moreBtn {
+          right: 8px;
+          bottom: 8px;
         }
+      }
+    }
+
+    .postsZone {
+
+      .NTTCtn {
+        display: flex;
+        margin: 0 0 15px 0;
+  
+        .NTT {
+          width: 200px;
+          padding: 0 15px 0 15px;
+          box-sizing: border-box;
+  
+          .rank {
+            font-weight: 600;
+            font-size: 7px;
+            text-align: center;
+          }
+          .LogoCtn {
+            margin: 8px 0 0 0;
+            display: flex;
+            justify-content: space-between;
+  
+            img {
+              height: 12px;
+            }
+          }
+        }
+      }
     }
   }
 }

@@ -43,6 +43,35 @@ const NewFeed = (props: Props) => {
     <div className="newFeed">
       <Row>
         <Col span={currShowNewFeed ? 24 : 0} md={16} className="postsZone">
+
+          <div className="NTTCtn">
+            <div className="NTT">
+              <div className="rank">Nhà tài trợ kim cương</div>
+              <div className="LogoCtn">
+                <img src="./Assets/Logo/oris.png" />
+                <img src="./Assets/Logo/ode.png" />
+                <img src="./Assets/Logo/coyen.png" />
+              </div>
+            </div>
+            <div className="NTT">
+              <div className="rank">Nhà tài trợ vàng</div>
+              <div className="LogoCtn">
+                <img src="./Assets/Logo/oris.png" />
+                <img src="./Assets/Logo/ode.png" />
+                <img src="./Assets/Logo/coyen.png" />
+              </div>
+            </div>
+            <div className="NTT">
+              <div className="rank">Nhà tài trợ bạc</div>
+              <div className="LogoCtn">
+                <img src="./Assets/Logo/oris.png" />
+                <img src="./Assets/Logo/ode.png" />
+                <img src="./Assets/Logo/coyen.png" />
+              </div>
+            </div>
+          </div>
+
+
           <div className="quoteOnTop">00 sự kiện đang diễn ra</div>
           <div className="bannerImg">
             <button className="moreBtn" onClick={() => setCurrShowNewFeed(false)}>Xem chi tiết</button>
@@ -54,7 +83,7 @@ const NewFeed = (props: Props) => {
             {
               newFeedPosts.map((post, index) => {
                 return <img key={index} className="post" src={post.imageUrl} loading="lazy" onClick={() => handleViewPost(post)} />
-                
+
               })
             }
 

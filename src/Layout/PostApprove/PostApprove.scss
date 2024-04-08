@@ -1,4 +1,5 @@
 /** @format */
+@use "../../App.scss";
 
 .postApproval {
   width: 100%;
@@ -64,8 +65,8 @@
         border: 1px solid var(--error-color);
 
         &:hover {
-            background: var(--error-color);
-            color: white;
+          background: var(--error-color);
+          color: white;
         }
       }
 
@@ -74,8 +75,22 @@
         color: var(--primary-text-color);
 
         &:hover {
-            background: var(--secondary-text-color);
+          background: var(--secondary-text-color);
         }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: App.$mobile) {
+  .postApproval {
+    .post {
+      width: 100%;
+      padding: 0 20px 0 20px;
+      box-sizing: border-box;
+
+      .avatar {
+        height: 35px;
       }
     }
   }
