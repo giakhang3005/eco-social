@@ -88,7 +88,7 @@ const NewFeed = (props: Props) => {
               })
             }
             {
-              newFeedPosts.length === 0 && <Empty />
+              (newFeedPosts.length === 0 && !newFeedLoading) && <Empty />
             }
 
             {/* Loading */}
