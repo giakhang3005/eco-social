@@ -22,5 +22,6 @@ export const GlobalConstants = {
     postOption: {
         anonyImgUrl: 'https://previews.123rf.com/images/nadianb/nadianb1709/nadianb170900256/86443804-idyllic-landscape-in-mountains-rural-scene-beautiful-nature-image-toned-square.jpg',
         anonyName: 'Người dùng ECO',
-    }
+    },
+    numberOfPostPerReq: 15,
 }

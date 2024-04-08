@@ -1,12 +1,13 @@
 import { Row, Col } from "antd";
 import "./NewFeed.scss";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Button from "../../Components/Button/Button";
 import { LeftOutlined } from "@ant-design/icons";
 import Fact from "../../Components/Fact/Fact";
-import { IPost } from "../../Model/Posts";
 import { usePosts } from "../../Services/CustomHooks/usePosts";
 import SkeletonPosts from "../../Components/SkeletonPosts/SkeletonPosts";
+import { Data } from "../Layout";
+import { IContext } from "../../Model/Others";
 
 type Props = {}
 
@@ -14,30 +15,29 @@ type Props = {}
 // TODO: Only fetch ... first, when user scroll down, fetch next ... posts and push to original post array
 
 const NewFeed = (props: Props) => {
+  const { newFeedPosts, setNewFeedPosts, newFeedLoading } = useContext(Data) as IContext;
+
   const { getAllPosts, handleViewPost } = usePosts();
 
   const postContainerRef = useRef(null);
 
   const [currShowNewFeed, setCurrShowNewFeed] = useState<boolean>(true);
 
-  const [showSkeletonloading, setShowSkeletonLoading] = useState<boolean>(false);
 
-  const [posts, setPosts] = useState<IPost[]>([]);
+  // useEffect(() => {
+  //   fetchPost()
+  // }, []);
 
-  useEffect(() => {
-    fetchPost()
-  }, []);
+  // const fetchPost = async () => {
+  //   setnewFeedLoading(true);
 
-  const fetchPost = async () => {
-    setShowSkeletonLoading(true);
+  //   const signal = await getAllPosts(1);
+  //   if (signal) {
+  //     setPosts(signal);
+  //   }
 
-    const signal = await getAllPosts(1);
-    if (signal) {
-      setPosts(signal);
-    }
-
-    setShowSkeletonLoading(false)
-  }
+  //   setnewFeedLoading(false)
+  // }
 
   return (
     <div className="newFeed">
@@ -52,14 +52,15 @@ const NewFeed = (props: Props) => {
 
             {/* Posts */}
             {
-              posts.map((post, index) => {
+              newFeedPosts.map((post, index) => {
                 return <img key={index} className="post" src={post.imageUrl} loading="lazy" onClick={() => handleViewPost(post)} />
+                
               })
             }
 
             {/* Loading */}
             {
-              showSkeletonloading && <SkeletonPosts eleRef={postContainerRef} numberOfSkeleton={12} />
+              newFeedLoading && <SkeletonPosts eleRef={postContainerRef} numberOfSkeleton={12} />
             }
           </div>
         </Col>

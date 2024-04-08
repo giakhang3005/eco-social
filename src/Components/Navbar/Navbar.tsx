@@ -16,9 +16,11 @@ import { Data } from "../../Layout/Layout"
 type Props = {
   mobileTopNavBar: number;
   safeZone: ISafeZone | undefined;
+
+  setMobileTopNavBar: (value: number) => void;
 }
 
-const Navbar = ({ mobileTopNavBar, safeZone }: Props) => {
+const Navbar = ({ mobileTopNavBar, setMobileTopNavBar, safeZone }: Props) => {
   const { postWaitingToApprove } = useContext(Data) as IContext;
 
   const { handleSigninWithGG, handleLogout } = useAuth();
@@ -37,6 +39,12 @@ const Navbar = ({ mobileTopNavBar, safeZone }: Props) => {
   useEffect(() => {
     initCurrentUserPost();
   }, [getCurrentUser()]);
+
+  useEffect(() => {
+    if (location.pathname !== '/') {
+      setMobileTopNavBar(0);
+    }
+  }, [location])
 
   return (
     <div className="Navbar">

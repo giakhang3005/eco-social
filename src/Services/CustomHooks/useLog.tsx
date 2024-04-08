@@ -1,7 +1,7 @@
-import { IPointsLog } from "../../Model/Logs"
+import { IPointsLog, IPostApproveLog } from "../../Model/Logs"
 import { IUser } from "../../Model/Users"
 import { addDoc, getDoc, getDocs, orderBy, query } from "firebase/firestore"
-import { pointsLogCollectionRef } from "../Firebase/FirebaseCfg"
+import { approvalLogCollectionRef, pointsLogCollectionRef } from "../Firebase/FirebaseCfg"
 
 export const useLog = () => {
 
@@ -40,7 +40,7 @@ export const useLog = () => {
                 const logs: any[] = [];
                 snapshot.forEach((doc) => {
                     const data = doc.data()
-                    logs.push({...data, executeTime: new Date(Number(data.executeTime)).toLocaleString()})
+                    logs.push({ ...data, executeTime: new Date(Number(data.executeTime)).toLocaleString() })
                 })
 
                 return logs;
@@ -49,5 +49,46 @@ export const useLog = () => {
         return signal;
     }
 
-    return { LoggedPoints, getPointsLog }
+    const savePostLog = async (postId: string, user: IUser, status: 1 | 2) => {
+        const approveTime = new Date().getTime().toString();
+
+        const postApproveLog: IPostApproveLog = {
+            postId,
+            approver: {
+                id: user.id,
+                email: user.email,
+                name: user.name
+            },
+            approveTime,
+            status: status,
+        }
+
+        const addSignal = await addDoc(approvalLogCollectionRef, postApproveLog)
+            .then((res) => {
+                return true;
+            })
+            .catch((err) => {
+                console.log(err);
+                return false;
+            })
+
+        return addSignal;
+    }
+
+    const getApprovalLog = () => {
+        const signal = getDocs(query(approvalLogCollectionRef, orderBy("approveTime", "desc")))
+            .then((snapshot) => {
+                const logs: any[] = [];
+                snapshot.forEach((doc) => {
+                    const data = doc.data()
+                    logs.push({ ...data, executeTime: new Date(Number(data.executeTime)).toLocaleString() })
+                })
+
+                return logs;
+            })
+
+        return signal;
+    }
+
+    return { LoggedPoints, getPointsLog, savePostLog, getApprovalLog }
 }

@@ -13,16 +13,14 @@ import { checkScrollFromTop, handleMainLayoutScroll, updateScrollForOutlet } fro
 import LoginPopup from "../Components/LoginPopup/LoginPopup"
 import NetworkNotify from "../Components/NetworkNotify/NetworkNotify"
 import { IPost } from "../Model/Posts"
-import { usePosts } from "../Services/CustomHooks/usePosts"
 import { useApprovalPosts } from "../Services/CustomHooks/useApprovalPosts"
-import { usePermissions } from "../Services/CustomHooks/usePermissions"
 
 export const Data = createContext<IContext | null>(null);
 
 const Layout = () => {
     const { initTheme } = useTheme();
     const { getFromLocalStorage } = useLocalStorage();
-    const { getUnArppvalPostsRealtime } = useApprovalPosts();
+    const { getUnArppvalPostsRealtime, getAllPostsNoContext } = useApprovalPosts();
 
     const [loading, setLoading] = useState<ILoading>({ loading: false });
 
@@ -44,6 +42,9 @@ const Layout = () => {
 
     const [postWaitingToApprove, setPostWaitingToApprove] = useState<IPost[]>([]);
 
+    const [newFeedPosts, setNewFeedPosts] = useState<IPost[]>([]);
+    const [newFeedLoading, setNewFeedLoading] = useState<boolean>(false);
+
     // Load Theme & add connection listener before layout loaded
     useLayoutEffect(() => {
         initTheme();
@@ -51,7 +52,7 @@ const Layout = () => {
 
     useEffect(() => {
         let unsubscription = () => { };
-        
+
         if (!user) {
             unsubscription();
             return;
@@ -62,6 +63,20 @@ const Layout = () => {
         }
 
     }, [user]);
+
+    // Init newfeed
+    useEffect(() => {
+        getNFPosts();
+    }, []);
+
+    const getNFPosts = async () => {
+        setNewFeedLoading(true);
+        const fetchedPosts = await getAllPostsNoContext(1, GlobalConstants.numberOfPostPerReq);
+
+        setNewFeedLoading(false);
+        if (!fetchedPosts) return;
+        setNewFeedPosts(fetchedPosts);
+    }
 
     // Init safe zone
     useEffect(() => {
@@ -124,7 +139,7 @@ const Layout = () => {
     }
 
     return (
-        <Data.Provider value={{ loading, setLoading, user, setUser, setCurrentUserPosts, currentUserPosts, postWaitingToApprove }}>
+        <Data.Provider value={{ loading, setLoading, user, setUser, setCurrentUserPosts, currentUserPosts, postWaitingToApprove, newFeedPosts, setNewFeedPosts, newFeedLoading }}>
             {/* {isMobileLandscape && <BlockedScreen />} */}
             <Modal open={showSigninModal} onCancel={() => setShowSigninModal(false)} footer={null}>
                 <LoginModal />
@@ -137,7 +152,7 @@ const Layout = () => {
 
             <Spin size="large" spinning={loading.loading} tip={loading.tooltip}>
                 <div className="mainLayout" onPointerDown={handleUnActiveTimeTracking}>
-                    <Navbar mobileTopNavBar={mobileTopNavBar} safeZone={safeZone} />
+                    <Navbar mobileTopNavBar={mobileTopNavBar} setMobileTopNavBar={setMobileTopNavBar} safeZone={safeZone} />
                     <div className="OutletContainer" onScroll={(e) => handleScroll(e)}>
                         <Outlet />
                     </div>

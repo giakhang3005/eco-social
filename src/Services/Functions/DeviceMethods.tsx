@@ -19,11 +19,11 @@ export const handleMainLayoutScroll = (e: any, mobileTopNavBar: number, lastPosi
     const newLastPosition = newPosition
     let diffrence = newPosition - lastPosition
 
-    if (newPosition < 20) {
+    if (newPosition < 30) {
         return { newLastPosition: lastPosition, newPosition: 0 }
     }
 
-    if (scrollHeight - (scrollTop + clientHeight) < 10) {
+    if (scrollHeight - (scrollTop + clientHeight) < 20) {
         return { newLastPosition, newPosition: 40 }
     }
 

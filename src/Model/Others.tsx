@@ -12,6 +12,11 @@ export interface IContext {
     currentUserPosts: IPost[];
 
     postWaitingToApprove: IPost[];
+
+    newFeedPosts: IPost[];
+    setNewFeedPosts: (posts: IPost[]) => void;
+
+    newFeedLoading: boolean;
 }
 
 export interface ILoading {

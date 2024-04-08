@@ -27,8 +27,9 @@ const firestoreDB = getFirestore(app);
 const usersCollectionRef = collection(firestoreDB, 'Users');
 const postsCollectionRef = collection(firestoreDB, 'Posts');
 const pointsLogCollectionRef = collection(firestoreDB, 'PointsLog');
+const approvalLogCollectionRef = collection(firestoreDB, 'ApprovalLog');
 
 // Storage
 const firebaseStorage = getStorage(app);
 
-export { auth, provider, firestoreDB, usersCollectionRef, pointsLogCollectionRef, firebaseStorage, postsCollectionRef }
+export { auth, provider, firestoreDB, usersCollectionRef, pointsLogCollectionRef, firebaseStorage, postsCollectionRef, approvalLogCollectionRef }

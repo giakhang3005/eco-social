@@ -1,21 +1,34 @@
 import { useEffect, useState } from "react";
 import { useLog } from "../../Services/CustomHooks/useLog"
 import "./Log.scss"
-import { Col, Popover, Row, Table } from "antd";
+import { Select, Table } from "antd";
 import { useUsers } from "../../Services/CustomHooks/useUsers";
 import { GlobalConstants } from "../../Share/Constants";
 import { useNavigate } from "react-router-dom";
+import { approvalColumns, pointsColumn } from "./TableColumns";
 
 const Log = () => {
-    const { getPointsLog } = useLog();
+    const { getPointsLog, getApprovalLog } = useLog();
     const { getCurrentUser } = useUsers();
     const navigate = useNavigate();
 
-    const [pointsLog, setPointsLog] = useState<any>();
+    const [currViewLog, setCurrViewLog] = useState<string>('points');
+    const viewValue = ['points', 'approval']
+
+    const [pointsLog, setPointsLog] = useState<any>(null);
+
+    const [approvalLog, setApprovalLog] = useState<any>(null);
 
     useEffect(() => {
-        getLogs();
-    }, []);
+        switch (currViewLog) {
+            case 'points':
+                getPointsLogs();
+                break;
+            case 'approval':
+                getApprovalLogs();
+                break;
+        }
+    }, [currViewLog]);
 
     useEffect(() => {
         const currentUser = getCurrentUser()
@@ -24,78 +37,24 @@ const Log = () => {
         navigate('/')
     }, [getCurrentUser()])
 
-    const getLogs = async () => {
+    const getPointsLogs = async () => {
+        if (pointsLog) return;
+
         const log = await getPointsLog();
         setPointsLog(log);
     }
 
-    const columns = [
-        {
-            key: 'time',
-            title: 'Thời gian',
-            render: (log: any) => {
-                return (
-                    <>{log?.executeTime}</>
-                )
-            }
-        },
-        {
-            key: 'executedUser',
-            title: 'Thực hiện bởi',
-            render: (log: any) => {
-                return (
-                    <Popover
-                        content={<div>
-                            <div><b>ID:</b> {log?.executedUser?.id}</div>
-                            <div><b>Tên:</b> {log?.executedUser?.name}</div>
-                            <div><b>Email:</b> {log?.executedUser?.email}</div>
-                        </div>}
-                    >
-                        <div style={{ cursor: 'help' }}>{log?.executedUser?.name}</div>
-                    </Popover>
-                )
-            }
-        },
-        {
-            key: 'targetUser',
-            title: 'Đối tượng',
-            render: (log: any) => {
-                return (
-                    <Popover
-                        content={<div>
-                            <div><b>ID:</b> {log?.targetUser?.id}</div>
-                            <div><b>Tên:</b> {log?.targetUser?.name}</div>
-                            <div><b>Email:</b> {log?.targetUser?.email}</div>
-                        </div>}
-                    >
-                        <div style={{ cursor: 'help' }}>{log?.targetUser?.name}</div>
-                    </Popover>
-                )
-            }
-        },
-        {
-            key: 'change',
-            title: 'Thay đổi',
-            render: (log: any) => {
-                return (
-                    <>{log?.change}</>
-                )
-            }
-        },
-        {
-            key: 'note',
-            title: 'Note',
-            render: (log: any) => {
-                return (
-                    <>{log?.note}</>
-                )
-            }
-        }
-    ]
+    const getApprovalLogs = async () => {
+        if (approvalLog) return;
+
+        const log = await getApprovalLog();
+        setApprovalLog(log);
+    }
 
     return (
         <div className="pointsLogContainer">
-            <Table columns={columns} dataSource={pointsLog} />
+            <Select value={currViewLog} onChange={(e) => setCurrViewLog(e)} options={viewValue.map((val) => ({ value: val, label: val }))} style={{margin: '10px 0 0 20px', width: '110px'}} />
+            <Table columns={currViewLog === 'points' ? pointsColumn : approvalColumns} dataSource={currViewLog === 'points' ? pointsLog : approvalLog} />
         </div>
     )
 }

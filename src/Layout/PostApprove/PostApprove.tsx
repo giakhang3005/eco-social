@@ -10,6 +10,8 @@ import { usePermissions } from "../../Services/CustomHooks/usePermissions";
 import { Data } from "../Layout";
 import { IContext } from "../../Model/Others";
 import { useNavigate } from "react-router-dom";
+import { useLog } from "../../Services/CustomHooks/useLog";
+import Empty from "../../Components/Empty/Empty";
 
 type Props = {}
 
@@ -20,6 +22,7 @@ const PostApprove = (props: Props) => {
     const { updateLoading } = useLoading();
     const { getCurrentUser } = useUsers();
     const { checkHavePerm } = usePermissions();
+    const { savePostLog } = useLog();
 
     const navigate = useNavigate();
 
@@ -34,7 +37,11 @@ const PostApprove = (props: Props) => {
 
     const handleUpdateStatus = async (post: IPost, status: 1 | 2) => {
 
-        updateLoading(true, 'Đang cập nhật trạng thái...')
+        updateLoading(true, 'Đang cập nhật trạng thái...');
+        const user = getCurrentUser();
+
+        if (!user) return;
+
         const newPost: IPost = {
             postId: post.postId,
             imageUrl: post.imageUrl,
@@ -46,6 +53,8 @@ const PostApprove = (props: Props) => {
             caption: post.caption,
             userData: post.userData
         }
+
+        savePostLog(newPost.postId, user, status);
 
         const signal = await setPost(newPost);
         if (signal) {
@@ -73,6 +82,10 @@ const PostApprove = (props: Props) => {
                         </div>
                     </div>
                 ))
+            }
+
+            {
+                postWaitingToApprove.length === 0 && <Empty />
             }
         </div>
     )

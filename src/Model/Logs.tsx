@@ -15,6 +15,7 @@ export interface IPostApproveLog {
     postId: string
     approver: IUserData;
     approveTime: string; //UTC
+    status: 1 | 2;
 }
 
 
@@ -34,15 +35,15 @@ export class pointsLog implements IPointsLog {
     }
 }
 
-export class postApproveLog implements IPostApproveLog {
-    postId: string
-    approver: IUserData;
-    approveTime: string;
+// export class postApproveLog implements IPostApproveLog {
+//     postId: string
+//     approver: IUserData;
+//     approveTime: string;
 
-    constructor(postId: string, approver: IUserData, approvalTime: string) {
-        this.approveTime = approvalTime;
-        this.approver = approver;
-        this.postId = postId;
-    }
-}
+//     constructor(postId: string, approver: IUserData, approvalTime: string) {
+//         this.approveTime = approvalTime;
+//         this.approver = approver;
+//         this.postId = postId;
+//     }
+// }
 
