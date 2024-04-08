@@ -2,6 +2,7 @@
 @use "../../App.scss";
 
 .Btn {
+  position: relative;
   outline: none;
   background-color: transparent;
   border: 1px solid var(--secondary-text-color);
@@ -31,6 +32,23 @@
   .Btn_icon {
     color: var(--icon-color);
     font-size: 18px;
+  }
+
+  .badge {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 10%;
+    top: 10%;
+    background-color: var(--error-color);
+    color: white;
+    border-radius: 50%;
+    padding: 2.2px;
+    width: 17px;
+    height: 17px;
+    font-size: 12px;
+    box-sizing: border-box;
   }
 }
 

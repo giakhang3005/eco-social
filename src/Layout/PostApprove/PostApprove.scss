@@ -1,0 +1,82 @@
+/** @format */
+
+.postApproval {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  padding: 30px 0 0 0;
+  box-sizing: border-box;
+
+  .post {
+    width: calc(90% / 3);
+    margin: 0 1.5% 30px 1.5%;
+
+    .header {
+      display: flex;
+      align-items: center;
+      margin: 0 0 12px 0;
+
+      .avatar {
+        border-radius: 50%;
+        height: 50px;
+        margin: 0 8px 0 0;
+      }
+
+      .info {
+        .name {
+          font-weight: 600;
+          font-size: 14px;
+          margin: 0 0 5px 0;
+        }
+
+        .time {
+          font-size: 13px;
+        }
+      }
+    }
+
+    .postImg {
+      width: 100%;
+      border-radius: 20px;
+      margin: 0 0 8px 0;
+    }
+
+    .btnContainer {
+      display: flex;
+      justify-content: center;
+
+      .decline,
+      .approve {
+        margin: 0 3px 0 3px;
+        width: 100%;
+        border-radius: 8px;
+        padding: 8px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        transition: all 0.12s linear;
+      }
+
+      .decline {
+        color: var(--error-color);
+        background: transparent;
+        border: 1px solid var(--error-color);
+
+        &:hover {
+            background: var(--error-color);
+            color: white;
+        }
+      }
+
+      .approve {
+        background-color: var(--info-box-color);
+        color: var(--primary-text-color);
+
+        &:hover {
+            background: var(--secondary-text-color);
+        }
+      }
+    }
+  }
+}

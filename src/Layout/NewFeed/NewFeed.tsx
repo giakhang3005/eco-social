@@ -31,7 +31,7 @@ const NewFeed = (props: Props) => {
   const fetchPost = async () => {
     setShowSkeletonLoading(true);
 
-    const signal = await getAllPosts(0);
+    const signal = await getAllPosts(1);
     if (signal) {
       setPosts(signal);
     }

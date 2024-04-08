@@ -26,6 +26,8 @@ export const usePosts = () => {
 
         if (!user || !imageUrl) return;
 
+        const currTime = new Date().getTime().toString();
+
         const newPost: IPost = {
             postId: file.name.split('.')[0],
             userData: {
@@ -35,7 +37,7 @@ export const usePosts = () => {
             },
             caption: caption,
             imageUrl: imageUrl,
-            postTime: `${new Date().getTime()}`,
+            postTime: currTime,
             likesUserId: [],
             status: 0,
             isAnonymous: isAnonymous,
@@ -221,5 +223,32 @@ export const usePosts = () => {
         return signal;
     }
 
-    return { getAllPosts, addNewPost, initCurrentUserPost, handleViewPost, getPostToView, handleLikeUnlikePost, checkUserHaveLikedPost, setPost };
+    const getAllPostsRealtime = (status: number, setPosts: (value: IPost[]) => void) => {
+        const queryRef = query(postsCollectionRef, where("status", "==", status), orderBy("postTime", "desc"));
+
+        const unsubscription = onSnapshot(queryRef, (snapshot) => {
+            const posts: IPost[] = [];
+            snapshot.forEach((data) => {
+                const fetchedData = data.data();
+                const newPost: IPost = {
+                    postId: fetchedData.postId,
+                    imageUrl: fetchedData.imageUrl,
+                    postTime: new Date(Number(fetchedData.postTime)).toLocaleString(),
+                    likesUserId: fetchedData.likesUserId,
+                    isAnonymous: fetchedData.isAnonymous,
+                    isSponsored: fetchedData.isSponsored,
+                    status: fetchedData.status,
+                    caption: fetchedData.caption,
+                    userData: fetchedData.userData
+                }
+                posts.push(newPost);
+            })
+
+            setPosts(posts);
+        })
+
+        return unsubscription;
+    }
+
+    return { getAllPostsRealtime, getAllPosts, addNewPost, initCurrentUserPost, handleViewPost, getPostToView, handleLikeUnlikePost, checkUserHaveLikedPost, setPost };
 }

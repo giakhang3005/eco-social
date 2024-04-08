@@ -6,6 +6,7 @@ import NewFeed from "./Layout/NewFeed/NewFeed";
 import Profile from "./Layout/Profile/Profile";
 import NewPosts from "./Layout/NewPosts/NewPosts";
 import Post from "./Layout/Post/Post";
+import PostApprove from "./Layout/PostApprove/PostApprove";
 
 export const routers = createBrowserRouter([
     {
@@ -24,6 +25,10 @@ export const routers = createBrowserRouter([
             {
                 path: "/points",
                 element: <Points />,
+            },
+            {
+                path: "/approval",
+                element: <PostApprove />,
             },
             {
                 path: "/log",

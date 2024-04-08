@@ -10,6 +10,8 @@ export interface IContext {
 
     setCurrentUserPosts: (posts: IPost[]) => void;
     currentUserPosts: IPost[];
+
+    postWaitingToApprove: IPost[];
 }
 
 export interface ILoading {

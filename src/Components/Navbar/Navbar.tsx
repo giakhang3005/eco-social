@@ -3,14 +3,15 @@ import { useUsers } from "../../Services/CustomHooks/useUsers"
 import ThemeToggle from "../ThemeToggle/ThemeToggle"
 import "./Navbar.scss"
 import Button from "../Button/Button"
-import { GoogleOutlined, HomeFilled, LogoutOutlined, StarFilled, PlusOutlined, BookFilled } from "@ant-design/icons"
+import { GoogleOutlined, HomeFilled, LogoutOutlined, StarFilled, PlusOutlined, BookFilled, CarryOutFilled } from "@ant-design/icons"
 import { useAuth } from "../../Services/CustomHooks/useAuth"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { GlobalConstants } from "../../Share/Constants"
 import { usePermissions } from "../../Services/CustomHooks/usePermissions"
-import { ISafeZone } from "../../Model/Others"
+import { IContext, ISafeZone } from "../../Model/Others"
 import { usePosts } from "../../Services/CustomHooks/usePosts"
+import { Data } from "../../Layout/Layout"
 
 type Props = {
   mobileTopNavBar: number;
@@ -18,6 +19,8 @@ type Props = {
 }
 
 const Navbar = ({ mobileTopNavBar, safeZone }: Props) => {
+  const { postWaitingToApprove } = useContext(Data) as IContext;
+
   const { handleSigninWithGG, handleLogout } = useAuth();
   const { getCurrentUser, initUserWhenRefresh } = useUsers();
   const { checkHavePerm, checkHaveAnyPerm } = usePermissions();
@@ -56,6 +59,7 @@ const Navbar = ({ mobileTopNavBar, safeZone }: Props) => {
         <div className="footer">
           {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.log)) && <Button tooltip="Log" onClick={() => navigate('/log')} style={{ margin: '6px 0 0 0' }} icon={<BookFilled />} hideBorder active={location.pathname === "/log"}></Button>}
           {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.points)) && <Button tooltip="Điểm tái chế" style={{ margin: '6px 0 0 0' }} onClick={() => navigate('/points')} icon={<StarFilled />} hideBorder active={location.pathname === "/points"}></Button>}
+          {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.approval)) && <Button tooltip="Duyệt bài" style={{ margin: '6px 0 0 0' }} onClick={() => navigate('/approval')} icon={<CarryOutFilled />} hideBorder active={location.pathname === "/approval"} badge={postWaitingToApprove.length}></Button>}
         </div>
         <ThemeToggle style={Object.assign({ bottom: getCurrentUser() ? '58px' : '20px' })} />
 
@@ -101,6 +105,7 @@ const Navbar = ({ mobileTopNavBar, safeZone }: Props) => {
           <div className="NavMobileBottom_SubMenu" style={Object.assign({ bottom: `calc(${47 - mobileTopNavBar}px + ${safeZone?.bottom})` }, { opacity: 1 - (mobileTopNavBar / (GlobalConstants.topNavHeight - 10)) })}>
             {(checkHavePerm(GlobalConstants.permissionsKey.log)) && <Button onClick={() => navigate('/log')} icon={<BookFilled />} hideBorder active={location.pathname === "/log"}></Button>}
             {(checkHavePerm(GlobalConstants.permissionsKey.points)) && <Button onClick={() => navigate('/points')} icon={<StarFilled />} hideBorder active={location.pathname === "/points"}></Button>}
+            {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.approval)) && <Button tooltip="Duyệt bài" style={{ margin: '6px 0 0 0' }} onClick={() => navigate('/approval')} icon={<CarryOutFilled />} hideBorder badge={postWaitingToApprove.length} active={location.pathname === "/approval"}></Button>}
           </div>
         }
 

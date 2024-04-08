@@ -14,12 +14,15 @@ import LoginPopup from "../Components/LoginPopup/LoginPopup"
 import NetworkNotify from "../Components/NetworkNotify/NetworkNotify"
 import { IPost } from "../Model/Posts"
 import { usePosts } from "../Services/CustomHooks/usePosts"
+import { useApprovalPosts } from "../Services/CustomHooks/useApprovalPosts"
+import { usePermissions } from "../Services/CustomHooks/usePermissions"
 
 export const Data = createContext<IContext | null>(null);
 
 const Layout = () => {
     const { initTheme } = useTheme();
     const { getFromLocalStorage } = useLocalStorage();
+    const { getUnArppvalPostsRealtime } = useApprovalPosts();
 
     const [loading, setLoading] = useState<ILoading>({ loading: false });
 
@@ -38,12 +41,27 @@ const Layout = () => {
     const [safeZone, setSafeZone] = useState<ISafeZone | undefined>();
 
     const [currentUserPosts, setCurrentUserPosts] = useState<IPost[]>([]);
-    const [newFeedPosts, setNewFeedPosts] = useState<IPost[]>([]);
+
+    const [postWaitingToApprove, setPostWaitingToApprove] = useState<IPost[]>([]);
 
     // Load Theme & add connection listener before layout loaded
     useLayoutEffect(() => {
         initTheme();
     }, []);
+
+    useEffect(() => {
+        let unsubscription = () => { };
+        
+        if (!user) {
+            unsubscription();
+            return;
+        }
+
+        if (user && user.permissions.includes(GlobalConstants.permissionsKey.approval)) {
+            unsubscription = getUnArppvalPostsRealtime(0, setPostWaitingToApprove);
+        }
+
+    }, [user]);
 
     // Init safe zone
     useEffect(() => {
@@ -106,7 +124,7 @@ const Layout = () => {
     }
 
     return (
-        <Data.Provider value={{ loading, setLoading, user, setUser, setCurrentUserPosts, currentUserPosts }}>
+        <Data.Provider value={{ loading, setLoading, user, setUser, setCurrentUserPosts, currentUserPosts, postWaitingToApprove }}>
             {/* {isMobileLandscape && <BlockedScreen />} */}
             <Modal open={showSigninModal} onCancel={() => setShowSigninModal(false)} footer={null}>
                 <LoginModal />

@@ -1,13 +1,15 @@
 import { FrownOutlined } from "@ant-design/icons"
 import "./Empty.scss"
 
-type Props = {}
+type Props = {
+  content?: string
+}
 
-const Empty = (props: Props) => {
+const Empty = ({content = "Chưa có bài đăng"}: Props) => {
   return (
     <div className="empty">
         <FrownOutlined className="icon" />
-        <div className="content">Chưa có bài đăng</div>
+        <div className="content">{content}</div>
     </div>
   )
 }

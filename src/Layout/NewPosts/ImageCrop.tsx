@@ -48,6 +48,7 @@ const ImageCrop = ({ file, setCroppedFile }: Props) => {
         const currImgCrop = makeAspectCrop({
             unit: "px",
             width: GlobalConstants.postImageCrop.minWidth,
+            height: GlobalConstants.postImageCrop.minWidth,
         },
             GlobalConstants.postImageCrop.ratio,
             width,
@@ -79,7 +80,7 @@ const ImageCrop = ({ file, setCroppedFile }: Props) => {
     return (
         <div>
             <div style={{justifyContent: 'center', display: 'flex'}}>
-                <ReactCrop crop={crop} onChange={c => setCrop(c)} keepSelection aspect={1} minWidth={GlobalConstants.postImageCrop.minWidth}>
+                <ReactCrop crop={crop} onChange={c => setCrop(c)} keepSelection aspect={1} minWidth={GlobalConstants.postImageCrop.minWidth} minHeight={GlobalConstants.postImageCrop.minWidth}>
                     <img ref={imgRef} src={dataUrl} onLoad={OnImageLoad} style={currBaseOnWidth ? { width: '100%' } : { height: '65vh' }} />
                 </ReactCrop>
             </div>

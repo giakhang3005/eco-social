@@ -9,6 +9,7 @@ import { useUsers } from "../../Services/CustomHooks/useUsers";
 import { checkIsTablet, writeToClipboard } from "../../Services/Functions/DeviceMethods";
 import { GlobalConstants } from "../../Share/Constants";
 import { useLoading } from "../../Services/CustomHooks/UseLoading";
+import Empty from "../../Components/Empty/Empty";
 
 type Props = {}
 
@@ -35,11 +36,15 @@ const Post = (props: Props) => {
 
     const initPost = async () => {
         if (!id) return;
+
         updateLoading(true, "Đang tải bài viết...");
         const post = await getPostToView(id);
 
-        if (!post) return;
-        setCurrentPost(post);
+        if (post && (post.status === 1 || post.userData.userId === getCurrentUser()?.id)) {
+            setCurrentPost(post);
+        }
+        updateLoading(false, "Đang tải bài viết...");
+
     }
 
     const handleLikeUnlike = (isLike: boolean) => {
@@ -57,29 +62,34 @@ const Post = (props: Props) => {
             <Col span={24} md={12} className="postCon">
                 <div>
                     {
-                        currentPost &&
-                        <>
-                            <div className="header">
-                                <img className="avatar" src={currentPost?.userData.userImg} />
-                                <div className="info">
-                                    <div className="name">{currentPost?.userData.userName}</div>
-                                    <div className="time">{new Date(Number(currentPost?.postTime)).toLocaleString()}</div>
+                        currentPost ?
+                            <>
+                                <div className="header">
+                                    <img className="avatar" src={currentPost?.userData.userImg} />
+                                    <div className="info">
+                                        <div className="name">{currentPost?.userData.userName}</div>
+                                        <div className="time">{new Date(Number(currentPost?.postTime)).toLocaleString()}</div>
+                                        <div className="status" style={currentPost?.status === 2 ? {color: 'red'} : {}}>{currentPost?.status === 0 ? 'Đang chờ duyệt' : currentPost?.status === 2 ? 'Bị từ chối' : ''}</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <img src={currentPost.imageUrl} className="postImg" onLoad={() => updateLoading(false)}/>
-                            <div className="caption">{currentPost?.caption}</div>
-                            <div className="actionCon">
-                                <div className="actionIcon">
-                                    {
-                                        checkUserHaveLikedPost(currentPost)
-                                            ? <HeartFilled className="heart likedIcon" onClick={() => handleLikeUnlike(false)} />
-                                            : <HeartOutlined className="heart" onClick={() => handleLikeUnlike(true)} />
-                                    }
-                                    <div className="LikeCount">{currentPost.likesUserId.length}</div>
+                                <img src={currentPost.imageUrl} className="postImg" onLoad={() => updateLoading(false)} />
+                                <div className="caption">{currentPost?.caption}</div>
+                                <div className="actionCon">
+                                    <div className="actionIcon">
+                                        {
+                                            checkUserHaveLikedPost(currentPost)
+                                                ? <HeartFilled className="heart likedIcon" onClick={() => handleLikeUnlike(false)} />
+                                                : <HeartOutlined className="heart" onClick={() => handleLikeUnlike(true)} />
+                                        }
+                                        <div className="LikeCount">{currentPost.likesUserId.length}</div>
+                                    </div>
+                                    <SendOutlined className="actionIcon" onClick={handleShare} />
                                 </div>
-                                <SendOutlined className="actionIcon" onClick={handleShare} />
-                            </div>
-                        </>
+                            </>
+                            :
+                            <>
+                                <Empty content="Bài đăng không tồn tại" />
+                            </>
                     }
                 </div>
             </Col>
