@@ -1,4 +1,4 @@
-import { doc, getDoc, onSnapshot, query, setDoc, where } from 'firebase/firestore';
+import { doc, getDoc, getDocs, onSnapshot, orderBy, query, setDoc, where } from 'firebase/firestore';
 import { IPost } from '../../Model/Posts';
 import { postsCollectionRef } from '../Firebase/FirebaseCfg';
 import { useLoading } from './UseLoading';
@@ -109,13 +109,11 @@ export const usePosts = () => {
     }
 
     const getPostToView = async (postId: string) => {
-        updateLoading(true, "Đang tải bài viết...");
         // const post = getFromLocalStorage(GlobalConstants.localStorageKeys.tempPost);
         // if (post && post.postId === postId) return post;
 
         // TODO: Fetch post -> Access by share url
         const fetchedPost = await getPostById(postId);
-        updateLoading(false, "Đang tải bài viết...");
         return fetchedPost;
     }
 
@@ -193,5 +191,35 @@ export const usePosts = () => {
         return status;
     }
 
-    return { addNewPost, initCurrentUserPost, handleViewPost, getPostToView, handleLikeUnlikePost, checkUserHaveLikedPost, setPost };
+    const getAllPosts = (status: number) => {
+        const signal = getDocs(query(postsCollectionRef, where("status", "==", status), orderBy("postTime", "desc")))
+            .then((snapshot) => {
+                const posts: IPost[] = [];
+                snapshot.forEach((data) => {
+                    const fetchedData = data.data();
+                    const newPost: IPost = {
+                        postId: fetchedData.postId,
+                        imageUrl: fetchedData.imageUrl,
+                        postTime: new Date(Number(fetchedData.postTime)).toLocaleString(),
+                        likesUserId: fetchedData.likesUserId,
+                        isAnonymous: fetchedData.isAnonymous,
+                        isSponsored: fetchedData.isSponsored,
+                        status: fetchedData.status,
+                        caption: fetchedData.caption,
+                        userData: fetchedData.userData
+                    }
+
+                    posts.push(newPost);
+                })
+
+                return posts;
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+
+        return signal;
+    }
+
+    return { getAllPosts, addNewPost, initCurrentUserPost, handleViewPost, getPostToView, handleLikeUnlikePost, checkUserHaveLikedPost, setPost };
 }

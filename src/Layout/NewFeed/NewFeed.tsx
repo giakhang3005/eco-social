@@ -1,14 +1,41 @@
 import { Row, Col } from "antd";
 import "./NewFeed.scss";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "../../Components/Button/Button";
 import { LeftOutlined } from "@ant-design/icons";
 import Fact from "../../Components/Fact/Fact";
+import { IPost } from "../../Model/Posts";
+import { usePosts } from "../../Services/CustomHooks/usePosts";
+import SkeletonPosts from "../../Components/SkeletonPosts/SkeletonPosts";
 
 type Props = {}
 
 const NewFeed = (props: Props) => {
-  const [currShowNewFeed, setCurrShowNewFeed] = useState<boolean>(true)
+  const { getAllPosts, handleViewPost } = usePosts();
+
+  const postContainerRef = useRef(null);
+
+  const [currShowNewFeed, setCurrShowNewFeed] = useState<boolean>(true);
+
+  const [showSkeletonloading, setShowSkeletonLoading] = useState<boolean>(false);
+
+  const [posts, setPosts] = useState<IPost[]>([]);
+
+  useEffect(() => {
+    fetchPost()
+  }, []);
+
+  const fetchPost = async () => {
+    setShowSkeletonLoading(true);
+
+    const signal = await getAllPosts(0);
+    if (signal) {
+      setPosts(signal);
+    }
+
+    setShowSkeletonLoading(false)
+  }
+
   return (
     <div className="newFeed">
       <Row>
@@ -18,25 +45,19 @@ const NewFeed = (props: Props) => {
             <button className="moreBtn" onClick={() => setCurrShowNewFeed(false)}>Xem chi tiết</button>
           </div>
           {currShowNewFeed && <Fact />}
-          <div className="postsContainer">
-            <img className="post" src="https://media.istockphoto.com/id/655667264/photo/creative-layout-made-of-green-leaves-with-paper-card-note-flat-lay-nature-concept.jpg?s=612x612&w=0&k=20&c=4Na7uj6sAYGevNQG8Fh442vS5leENcxbzZgmJ2zfcqI=" />
-            <img className="post" src="https://media.istockphoto.com/id/655667264/photo/creative-layout-made-of-green-leaves-with-paper-card-note-flat-lay-nature-concept.jpg?s=612x612&w=0&k=20&c=4Na7uj6sAYGevNQG8Fh442vS5leENcxbzZgmJ2zfcqI=" />
-            <img className="post" src="https://media.istockphoto.com/id/655667264/photo/creative-layout-made-of-green-leaves-with-paper-card-note-flat-lay-nature-concept.jpg?s=612x612&w=0&k=20&c=4Na7uj6sAYGevNQG8Fh442vS5leENcxbzZgmJ2zfcqI=" />
-            <img className="post" src="https://media.istockphoto.com/id/655667264/photo/creative-layout-made-of-green-leaves-with-paper-card-note-flat-lay-nature-concept.jpg?s=612x612&w=0&k=20&c=4Na7uj6sAYGevNQG8Fh442vS5leENcxbzZgmJ2zfcqI=" />
-            <img className="post" src="https://media.istockphoto.com/id/655667264/photo/creative-layout-made-of-green-leaves-with-paper-card-note-flat-lay-nature-concept.jpg?s=612x612&w=0&k=20&c=4Na7uj6sAYGevNQG8Fh442vS5leENcxbzZgmJ2zfcqI=" />
-            <img className="post" src="https://media.istockphoto.com/id/655667264/photo/creative-layout-made-of-green-leaves-with-paper-card-note-flat-lay-nature-concept.jpg?s=612x612&w=0&k=20&c=4Na7uj6sAYGevNQG8Fh442vS5leENcxbzZgmJ2zfcqI=" />
-            <img className="post" src="https://media.istockphoto.com/id/655667264/photo/creative-layout-made-of-green-leaves-with-paper-card-note-flat-lay-nature-concept.jpg?s=612x612&w=0&k=20&c=4Na7uj6sAYGevNQG8Fh442vS5leENcxbzZgmJ2zfcqI=" />
-            <img className="post" src="https://media.istockphoto.com/id/655667264/photo/creative-layout-made-of-green-leaves-with-paper-card-note-flat-lay-nature-concept.jpg?s=612x612&w=0&k=20&c=4Na7uj6sAYGevNQG8Fh442vS5leENcxbzZgmJ2zfcqI=" />
-            <img className="post" src="https://media.istockphoto.com/id/655667264/photo/creative-layout-made-of-green-leaves-with-paper-card-note-flat-lay-nature-concept.jpg?s=612x612&w=0&k=20&c=4Na7uj6sAYGevNQG8Fh442vS5leENcxbzZgmJ2zfcqI=" />
-            <img className="post" src="https://media.istockphoto.com/id/655667264/photo/creative-layout-made-of-green-leaves-with-paper-card-note-flat-lay-nature-concept.jpg?s=612x612&w=0&k=20&c=4Na7uj6sAYGevNQG8Fh442vS5leENcxbzZgmJ2zfcqI=" />
-            <img className="post" src="https://media.istockphoto.com/id/655667264/photo/creative-layout-made-of-green-leaves-with-paper-card-note-flat-lay-nature-concept.jpg?s=612x612&w=0&k=20&c=4Na7uj6sAYGevNQG8Fh442vS5leENcxbzZgmJ2zfcqI=" />
-            <img className="post" src="https://media.istockphoto.com/id/655667264/photo/creative-layout-made-of-green-leaves-with-paper-card-note-flat-lay-nature-concept.jpg?s=612x612&w=0&k=20&c=4Na7uj6sAYGevNQG8Fh442vS5leENcxbzZgmJ2zfcqI=" />
-            <img className="post" src="https://media.istockphoto.com/id/655667264/photo/creative-layout-made-of-green-leaves-with-paper-card-note-flat-lay-nature-concept.jpg?s=612x612&w=0&k=20&c=4Na7uj6sAYGevNQG8Fh442vS5leENcxbzZgmJ2zfcqI=" />
-            <img className="post" src="https://media.istockphoto.com/id/655667264/photo/creative-layout-made-of-green-leaves-with-paper-card-note-flat-lay-nature-concept.jpg?s=612x612&w=0&k=20&c=4Na7uj6sAYGevNQG8Fh442vS5leENcxbzZgmJ2zfcqI=" />
-            <img className="post" src="https://media.istockphoto.com/id/655667264/photo/creative-layout-made-of-green-leaves-with-paper-card-note-flat-lay-nature-concept.jpg?s=612x612&w=0&k=20&c=4Na7uj6sAYGevNQG8Fh442vS5leENcxbzZgmJ2zfcqI=" />
-            <img className="post" src="https://media.istockphoto.com/id/655667264/photo/creative-layout-made-of-green-leaves-with-paper-card-note-flat-lay-nature-concept.jpg?s=612x612&w=0&k=20&c=4Na7uj6sAYGevNQG8Fh442vS5leENcxbzZgmJ2zfcqI=" />
-            <img className="post" src="https://media.istockphoto.com/id/655667264/photo/creative-layout-made-of-green-leaves-with-paper-card-note-flat-lay-nature-concept.jpg?s=612x612&w=0&k=20&c=4Na7uj6sAYGevNQG8Fh442vS5leENcxbzZgmJ2zfcqI=" />
-            <img className="post" src="https://media.istockphoto.com/id/655667264/photo/creative-layout-made-of-green-leaves-with-paper-card-note-flat-lay-nature-concept.jpg?s=612x612&w=0&k=20&c=4Na7uj6sAYGevNQG8Fh442vS5leENcxbzZgmJ2zfcqI=" />
+          <div className="postsContainer" ref={postContainerRef}>
+
+            {/* Posts */}
+            {
+              posts.map((post, index) => {
+                return <img key={index} className="post" src={post.imageUrl} loading="lazy" onClick={() => handleViewPost(post)} />
+              })
+            }
+
+            {/* Loading */}
+            {
+              showSkeletonloading && <SkeletonPosts eleRef={postContainerRef} numberOfSkeleton={12} />
+            }
           </div>
         </Col>
         <Col span={currShowNewFeed ? 0 : 24} md={8} className="bannerSection">

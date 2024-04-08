@@ -28,7 +28,6 @@
   .NavMobileTop,
   .NavMobileBottom{
     width: 100vw;
-    height: var(--nav-height);
     position: fixed;
     background-color: var(--bg-color);
     box-sizing: border-box;
@@ -45,7 +44,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 15vw 0 15vw;
+    padding: 2px 15vw 2px 15vw;
     z-index: 998 !important;
   }
 

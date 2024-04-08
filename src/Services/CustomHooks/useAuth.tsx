@@ -85,6 +85,11 @@ export const useAuth = () => {
                 message.error('Đã có lỗi xảy ra, vui lòng tải lại trang');
             }
         }
+
+        const loginTimeout = setTimeout(() => {
+            window.location.reload();
+            clearTimeout(loginTimeout);
+        }, 200);
     }
 
 

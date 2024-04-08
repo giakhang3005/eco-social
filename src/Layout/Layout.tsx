@@ -38,11 +38,12 @@ const Layout = () => {
     const [safeZone, setSafeZone] = useState<ISafeZone | undefined>();
 
     const [currentUserPosts, setCurrentUserPosts] = useState<IPost[]>([]);
+    const [newFeedPosts, setNewFeedPosts] = useState<IPost[]>([]);
 
     // Load Theme & add connection listener before layout loaded
     useLayoutEffect(() => {
         initTheme();
-    }, [])
+    }, []);
 
     // Init safe zone
     useEffect(() => {

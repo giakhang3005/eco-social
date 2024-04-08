@@ -1,12 +1,23 @@
+import { useEffect, useState } from "react";
 import "./SkeletonPosts.scss"
 
 type Props = {
-    postContainerWidth: number,
+    eleRef: any,
     numberOfSkeleton?: number,
 }
 
-const SkeletonPosts = ({ postContainerWidth, numberOfSkeleton = 3 }: Props) => {
+const SkeletonPosts = ({ eleRef, numberOfSkeleton = 3 }: Props) => {
     const arrNum = Array(numberOfSkeleton).fill(0);
+
+    const [postContainerWidth, setPostContainerWidth] = useState<number>(0);
+
+    useEffect(() => {
+        const element = eleRef.current;
+
+        if (element) {
+            setPostContainerWidth(element.clientWidth);
+        }
+    })
     return (
         <>
             {

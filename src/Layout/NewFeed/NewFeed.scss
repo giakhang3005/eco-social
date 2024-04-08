@@ -42,13 +42,19 @@
       width: 100%;
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
+      justify-content: start;
       align-items: center;
 
       .post {
         width: calc(100% / 3);
         padding: 1px;
         box-sizing: border-box;
+        transition: all 0.12s linear;
+        cursor: pointer;
+
+        &:hover {
+          opacity: 0.8;
+        }
       }
     }
   }
