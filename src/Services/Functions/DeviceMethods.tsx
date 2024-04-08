@@ -2,6 +2,7 @@ import { message } from "antd";
 import { ISafeZone } from "../../Model/Others"
 import { GlobalConstants } from "../../Share/Constants"
 import { IUser } from "../../Model/Users";
+import copy from "copy-to-clipboard";
 
 export const handleMainLayoutScroll = (e: any, mobileTopNavBar: number, lastPosition: number, safeZone: ISafeZone | undefined) => {
     const mainLayout = document.querySelector('.OutletContainer')
@@ -74,13 +75,15 @@ export const isAccessUsingMessFBBrowser = () => {
 }
 
 export const writeToClipboard = (text: string) => {
-    navigator.clipboard.writeText(`${text}`)
-        .then((res) => {
-            message.success('Đã copy link')
-        })
-        .catch((err: any) => {
-            console.log(err)
-        })
+    copy(text);
+    message.success('Đã copy link')
+    // navigator.clipboard.writeText(`${text}`)
+    //     .then((res) => {
+    //         message.success('Đã copy link')
+    //     })
+    //     .catch((err: any) => {
+    //         console.log(err)
+    //     })
 }
 
 export const checkingNetwork = (setConnectionStatus: (value: boolean) => void) => {
