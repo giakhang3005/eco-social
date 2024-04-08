@@ -68,9 +68,9 @@ const Post = (props: Props) => {
                         currentPost ?
                             <>
                                 <div className="header">
-                                    <img className="avatar" src={currentPost?.userData.userImg} />
+                                    <img className="avatar" src={currentPost.isAnonymous ? GlobalConstants.postOption.anonyImgUrl : currentPost?.userData.userImg} />
                                     <div className="info">
-                                        <div className="name">{currentPost?.userData.userName}</div>
+                                        <div className="name">{currentPost.isAnonymous ? GlobalConstants.postOption.anonyName : currentPost?.userData.userName}</div>
                                         <div className="time">{new Date(Number(currentPost?.postTime)).toLocaleString()}</div>
                                         <div className="status" style={currentPost?.status === 2 ? { color: 'red' } : {}}>{currentPost?.status === 0 ? 'Đang chờ duyệt' : currentPost?.status === 2 ? 'Bị từ chối' : ''}</div>
                                     </div>

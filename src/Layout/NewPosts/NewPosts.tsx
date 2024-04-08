@@ -1,7 +1,7 @@
 import { Col, Modal, Row, Switch, message } from "antd"
 import "./NewPost.scss"
 import { useEffect, useRef, useState } from "react"
-import { CameraOutlined, HeartOutlined, RedoOutlined, SendOutlined } from "@ant-design/icons";
+import { CameraOutlined, HeartOutlined, LeftOutlined, RedoOutlined, SendOutlined } from "@ant-design/icons";
 import { useImage } from "../../Services/CustomHooks/useImage";
 import ImageCrop from "./ImageCrop";
 import Button from "../../Components/Button/Button";
@@ -11,12 +11,14 @@ import Input from "../../Components/Input/Input";
 import { GlobalConstants } from "../../Share/Constants";
 import { useLoading } from "../../Services/CustomHooks/UseLoading";
 import { usePosts } from "../../Services/CustomHooks/usePosts";
+import { useSessionStorage } from "../../Services/CustomHooks/useSesstionStorage";
 
 const NewPosts = () => {
   const { handleImage, checkLoadedImg, resizeImage, uploadImage } = useImage();
   const { getCurrentUser } = useUsers();
   const { updateLoading } = useLoading();
   const { addNewPost } = usePosts();
+  const { setToSessionStorage } = useSessionStorage();
 
   const navigate = useNavigate();
 
@@ -48,7 +50,13 @@ const NewPosts = () => {
     const user = getCurrentUser();
 
     if (!user) navigate('/');
-  })
+  }, []);
+
+  useEffect(() => {
+    if (croppedFile) {
+      setToSessionStorage(GlobalConstants.sessionStorageKeys.isCreateNewPost, true)
+    }
+  }, [croppedFile])
 
   const handleNextStep = async () => {
     if (currentStep === 3) {
@@ -64,6 +72,10 @@ const NewPosts = () => {
       return;
     }
     setCurrentStep(currentStep + 1);
+  }
+
+  const handleBack = () => {
+    setCurrentStep(currentStep - 1);
   }
 
   const handleDragOver = (e: any) => {
@@ -142,9 +154,14 @@ const NewPosts = () => {
         <Col span={22} md={14} className="mainArea">
           <div className="headerArea">
             <div className="title">Tạo bài viết</div>
-            <Button showIcon={false} hideBorder disabled={!croppedFile} onClick={handleNextStep}>{currentStep === 3 ? "Đăng" : "Tiếp"}</Button>
           </div>
-
+          <div className="btnContainer">
+            {
+              currentStep > 1 &&
+              <Button style={{ position: 'absolute', left: '-10px' }} icon={<LeftOutlined />} showIcon={true} hideBorder disabled={!croppedFile} onClick={handleBack}><span style={{ fontSize: '15px' }}>Quay lại</span></Button>
+            }
+            <Button style={{ position: 'absolute', right: '0' }} showIcon={false} hideBorder type="primary" disabled={!croppedFile} onClick={handleNextStep}><span style={{ fontSize: '15px' }}>{currentStep === 3 ? "Đăng" : "Tiếp"}</span></Button>
+          </div>
           {
             // Step 1: Add image
             currentStep === 1

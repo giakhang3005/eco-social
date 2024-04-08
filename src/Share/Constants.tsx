@@ -5,6 +5,9 @@ export const GlobalConstants = {
         theme: 'theme',
         tempPost: 'tempPost',
     },
+    sessionStorageKeys : {
+        isCreateNewPost: 'isCreateNewPost',
+    },
     permissionsKey: {
         points: 'points', // add, subtract points
         approval: 'approval', // approve posts

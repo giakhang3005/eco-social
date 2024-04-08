@@ -8,6 +8,7 @@ import { usePosts } from "../../Services/CustomHooks/usePosts";
 import SkeletonPosts from "../../Components/SkeletonPosts/SkeletonPosts";
 import { Data } from "../Layout";
 import { IContext } from "../../Model/Others";
+import Empty from "../../Components/Empty/Empty";
 
 type Props = {}
 
@@ -85,6 +86,9 @@ const NewFeed = (props: Props) => {
                 return <img key={index} className="post" src={post.imageUrl} loading="lazy" onClick={() => handleViewPost(post)} />
 
               })
+            }
+            {
+              newFeedPosts.length === 0 && <Empty />
             }
 
             {/* Loading */}

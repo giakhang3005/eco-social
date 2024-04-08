@@ -5,7 +5,7 @@
   width: 100vw;
   height: 100vh;
   box-sizing: border-box;
-  padding: 30px 0 0 0;
+  padding: 20px 0 0 0;
 
   .mainArea {
     margin: 0 0 10px 0;
@@ -14,11 +14,17 @@
       background-color: var(--info-box-color) !important;
     }
 
+    .btnContainer {
+      position: relative;
+      height: 40px;
+     padding: 0 0 5px 0;
+    }
+
     .headerArea {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin: 0 0 10px 0;
+      margin: 0 0 5px 0;
 
       .title {
         width: 120px;

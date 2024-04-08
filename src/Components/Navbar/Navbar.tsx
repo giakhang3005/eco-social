@@ -12,6 +12,8 @@ import { usePermissions } from "../../Services/CustomHooks/usePermissions"
 import { IContext, ISafeZone } from "../../Model/Others"
 import { usePosts } from "../../Services/CustomHooks/usePosts"
 import { Data } from "../../Layout/Layout"
+import { useSessionStorage } from "../../Services/CustomHooks/useSesstionStorage"
+import { Modal } from "antd"
 
 type Props = {
   mobileTopNavBar: number;
@@ -27,8 +29,13 @@ const Navbar = ({ mobileTopNavBar, setMobileTopNavBar, safeZone }: Props) => {
   const { getCurrentUser, initUserWhenRefresh } = useUsers();
   const { checkHavePerm, checkHaveAnyPerm } = usePermissions();
   const { initCurrentUserPost } = usePosts();
+  const { getFromSessionStorage, removeFromSessionStorage } = useSessionStorage();
+
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [confirmLeaveModal, setConfirmLeaveModal] = useState<boolean>(false);
+  const [destination, setDestination] = useState<string>('/')
 
   useEffect(() => {
     // Init user with realtime connection
@@ -44,30 +51,63 @@ const Navbar = ({ mobileTopNavBar, setMobileTopNavBar, safeZone }: Props) => {
     if (location.pathname !== '/') {
       setMobileTopNavBar(0);
     }
-  }, [location])
+  }, [location]);
+
+  const navigateToOtherPage = (path: string) => {
+    const isNewPost = getFromSessionStorage(GlobalConstants.sessionStorageKeys.isCreateNewPost);
+    if (isNewPost) {
+      setConfirmLeaveModal(true);
+      setDestination(path);
+      return;
+    }
+    navigate(path);
+  }
+
+  const onCloseCFModal = () => {
+    setConfirmLeaveModal(false);
+    setDestination('/');
+  }
+
+  const onConfirmModal = () => {
+    removeFromSessionStorage(GlobalConstants.sessionStorageKeys.isCreateNewPost);
+    setConfirmLeaveModal(false);
+
+    navigate(destination);
+  }
 
   return (
     <div className="Navbar">
+
+      <Modal title="Lưu ý" open={confirmLeaveModal} footer={
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <Button showIcon={false} onClick={onCloseCFModal}>Huỷ</Button>
+          <Button showIcon={false} type="primary" style={{ margin: '0 0 0 12px' }} onClick={onConfirmModal}>Chắc chắn</Button>
+        </div>
+      }>
+        Bạn chưa hoàn tất quá trình đăng bài, nếu chuyển đến trang khác, thông tin bài đăng này sẽ không được lưu.
+        <br /><br />
+        Bạn có chắc chắn muốn rời khỏi trang này không?
+      </Modal>
 
       {/* Nav PC */}
       <div className="navPC">
         {getCurrentUser() && (
           <>
-            <Button tooltip="Bản tin" onClick={() => navigate('/')} style={{ margin: '0 0 14px 0' }} icon={<HomeFilled />} hideBorder active={location.pathname === "/"}></Button>
-            <Button tooltip="Đăng bài" onClick={() => navigate('/new-post')} style={{ margin: '0 0 14px 0' }} icon={<PlusOutlined />} hideBorder active={location.pathname === "/new-post"}></Button>
+            <Button tooltip="Bản tin" onClick={() => navigateToOtherPage('/')} style={{ margin: '0 0 14px 0' }} icon={<HomeFilled />} hideBorder active={location.pathname === "/"}></Button>
+            <Button tooltip="Đăng bài" onClick={() => navigateToOtherPage('/new-post')} style={{ margin: '0 0 14px 0' }} icon={<PlusOutlined />} hideBorder active={location.pathname === "/new-post"}></Button>
           </>
         )}
         {
           getCurrentUser()
-            ? <Avatar tooltip="Trang cá nhân" onClick={() => navigate('/profile')} src={getCurrentUser()?.imgUrl} hoverable active={location.pathname === "/profile"}></Avatar>
+            ? <Avatar tooltip="Trang cá nhân" onClick={() => navigateToOtherPage('/profile')} src={getCurrentUser()?.imgUrl} hoverable active={location.pathname === "/profile"}></Avatar>
             : <Button onClick={handleSigninWithGG} icon={<GoogleOutlined />} tooltip="Tham gia" showText={false} hideBorder />
         }
 
         {/* Footer */}
         <div className="footer">
-          {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.log)) && <Button tooltip="Log" onClick={() => navigate('/log')} style={{ margin: '6px 0 0 0' }} icon={<BookFilled />} hideBorder active={location.pathname === "/log"}></Button>}
-          {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.points)) && <Button tooltip="Điểm tái chế" style={{ margin: '6px 0 0 0' }} onClick={() => navigate('/points')} icon={<StarFilled />} hideBorder active={location.pathname === "/points"}></Button>}
-          {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.approval)) && <Button tooltip="Duyệt bài" style={{ margin: '6px 0 0 0' }} onClick={() => navigate('/approval')} icon={<CarryOutFilled />} hideBorder active={location.pathname === "/approval"} badge={postWaitingToApprove.length}></Button>}
+          {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.log)) && <Button tooltip="Log" onClick={() => navigateToOtherPage('/log')} style={{ margin: '6px 0 0 0' }} icon={<BookFilled />} hideBorder active={location.pathname === "/log"}></Button>}
+          {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.points)) && <Button tooltip="Điểm tái chế" style={{ margin: '6px 0 0 0' }} onClick={() => navigateToOtherPage('/points')} icon={<StarFilled />} hideBorder active={location.pathname === "/points"}></Button>}
+          {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.approval)) && <Button tooltip="Duyệt bài" style={{ margin: '6px 0 0 0' }} onClick={() => navigateToOtherPage('/approval')} icon={<CarryOutFilled />} hideBorder active={location.pathname === "/approval"} badge={postWaitingToApprove.length}></Button>}
         </div>
         <ThemeToggle style={Object.assign({ bottom: getCurrentUser() ? '58px' : '20px' })} />
 
@@ -111,9 +151,9 @@ const Navbar = ({ mobileTopNavBar, setMobileTopNavBar, safeZone }: Props) => {
         {
           (getCurrentUser() && checkHaveAnyPerm()) &&
           <div className="NavMobileBottom_SubMenu" style={Object.assign({ bottom: `calc(${47 - mobileTopNavBar}px + ${safeZone?.bottom})` }, { opacity: 1 - (mobileTopNavBar / (GlobalConstants.topNavHeight - 10)) })}>
-            {(checkHavePerm(GlobalConstants.permissionsKey.log)) && <Button onClick={() => navigate('/log')} icon={<BookFilled />} hideBorder active={location.pathname === "/log"}></Button>}
-            {(checkHavePerm(GlobalConstants.permissionsKey.points)) && <Button onClick={() => navigate('/points')} icon={<StarFilled />} hideBorder active={location.pathname === "/points"}></Button>}
-            {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.approval)) && <Button tooltip="Duyệt bài" style={{ margin: '0 0 0 0' }} onClick={() => navigate('/approval')} icon={<CarryOutFilled />} hideBorder badge={postWaitingToApprove.length} active={location.pathname === "/approval"}></Button>}
+            {(checkHavePerm(GlobalConstants.permissionsKey.log)) && <Button onClick={() => navigateToOtherPage('/log')} icon={<BookFilled />} hideBorder active={location.pathname === "/log"}></Button>}
+            {(checkHavePerm(GlobalConstants.permissionsKey.points)) && <Button onClick={() => navigateToOtherPage('/points')} icon={<StarFilled />} hideBorder active={location.pathname === "/points"}></Button>}
+            {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.approval)) && <Button tooltip="Duyệt bài" style={{ margin: '0 0 0 0' }} onClick={() => navigateToOtherPage('/approval')} icon={<CarryOutFilled />} hideBorder badge={postWaitingToApprove.length} active={location.pathname === "/approval"}></Button>}
           </div>
         }
 
@@ -121,9 +161,9 @@ const Navbar = ({ mobileTopNavBar, setMobileTopNavBar, safeZone }: Props) => {
         <div className="NavMobileBottom" style={Object.assign(!getCurrentUser() ? { justifyContent: 'center' } : {}, { paddingBottom: safeZone?.bottom }, { height: `calc(${GlobalConstants.topNavHeight}px + ${safeZone?.bottom}` })}>
           {getCurrentUser() && (
             <>
-              <Button onClick={() => navigate('/')} icon={<HomeFilled />} hideBorder active={location.pathname === "/"}></Button>
-              <Button onClick={() => navigate('/new-post')} icon={<PlusOutlined />} active={location.pathname === "/new-post"}></Button>
-              <Avatar onClick={() => navigate('/profile')} src={getCurrentUser()?.imgUrl} style={{ width: '27px' }} active={location.pathname === "/profile"}></Avatar>
+              <Button onClick={() => navigateToOtherPage('/')} icon={<HomeFilled />} hideBorder active={location.pathname === "/"}></Button>
+              <Button onClick={() => navigateToOtherPage('/new-post')} icon={<PlusOutlined />} active={location.pathname === "/new-post"}></Button>
+              <Avatar onClick={() => navigateToOtherPage('/profile')} src={getCurrentUser()?.imgUrl} style={{ width: '27px' }} active={location.pathname === "/profile"}></Avatar>
             </>
           )}
           {
