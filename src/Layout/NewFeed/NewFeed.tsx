@@ -10,6 +10,9 @@ import SkeletonPosts from "../../Components/SkeletonPosts/SkeletonPosts";
 
 type Props = {}
 
+// TODO: Cache post array, only load new when user refresh or swipe down
+// TODO: Only fetch ... first, when user scroll down, fetch next ... posts and push to original post array
+
 const NewFeed = (props: Props) => {
   const { getAllPosts, handleViewPost } = usePosts();
 
