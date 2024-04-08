@@ -2,13 +2,16 @@ import { Row, Col, Modal } from "antd";
 import "./Profile.scss";
 import Avatar from "../../Components/Avatar/Avatar";
 import { useUsers } from "../../Services/CustomHooks/useUsers";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useContext, useEffect, useLayoutEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IUser } from "../../Model/Users";
 import { CalendarOutlined, MailOutlined, QuestionCircleOutlined, UserOutlined } from "@ant-design/icons";
 import { IPost } from "../../Model/Posts";
 import SkeletonPosts from "../../Components/SkeletonPosts/SkeletonPosts";
 import Empty from "../../Components/Empty/Empty";
+import { usePosts } from "../../Services/CustomHooks/usePosts";
+import { IContext } from "../../Model/Others";
+import { Data } from "../Layout";
 
 const notCompleteColor = 'red';
 const completeColor = 'green';
@@ -16,14 +19,14 @@ const done = 'Đã xong';
 const notDone = 'Chưa xong';
 
 const Profile = () => {
+    const { currentUserPosts } = useContext(Data) as IContext;
+    const { handleViewPost } = usePosts();
     const { getCurrentUser } = useUsers();
     const navigate = useNavigate();
 
     const [user, setUser] = useState<IUser | null>(getCurrentUser());
 
-    const [posts, setPosts] = useState<IPost | null>(null);
-
-    const [postContainerWidth, setPostContainerWidth] = useState<number>(0);
+    // const [postContainerWidth, setPostContainerWidth] = useState<number>(0);
 
     const [currentModalView, setCurrentModalView] = useState<string | null>(null);
 
@@ -51,7 +54,7 @@ const Profile = () => {
 
         if (!postContainer) return;
 
-        setPostContainerWidth(postContainer?.clientWidth);
+        // setPostContainerWidth(postContainer?.clientWidth);
     }
 
     return (
@@ -100,7 +103,23 @@ const Profile = () => {
                 <Col span={24} md={22} className="postContainer">
                     {/* Skeleton Posts */}
                     {/* <SkeletonPosts postContainerWidth={postContainerWidth}/> */}
-                    <Empty />
+                    {
+                        currentUserPosts.length === 0
+                            ? <Empty />
+                            :
+                            <>
+                                {
+                                    currentUserPosts.map((post, i) => (
+                                        <div className="postReview" key={i} onClick={() => handleViewPost(post)}>
+                                            <div className="time">{new Date(Number(post.postTime)).toLocaleString()}</div>
+                                            <img src={post.imageUrl} loading="lazy"/>
+                                        </div>
+                                    ))
+                                }
+                            </>
+
+                    }
+
                 </Col>
                 {/* <Col span={3}></Col> */}
             </Row>

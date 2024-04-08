@@ -14,7 +14,7 @@ export const useAuth = () => {
     const { getUserById, updateUser, addUserToBrowserAndState, getUserByIdRealtime } = useUsers()
 
     const handleSigninWithGG = async () => {
-        updateLoading(true, 'Đang đăng nhập...')
+        updateLoading(true, 'Đang đăng nhập...');
 
         let googleUser: any
         let currUserId: string | undefined
@@ -91,6 +91,10 @@ export const useAuth = () => {
     const handleLogout = () => {
         addUserToBrowserAndState(null);
         message.success('Đã đăng xuất');
+        const logoutTimeout = setTimeout(() => {
+            window.location.reload();
+            clearTimeout(logoutTimeout);
+        }, 200);
     }
 
     return { handleSigninWithGG, handleLogout }

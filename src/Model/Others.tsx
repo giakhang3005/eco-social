@@ -1,3 +1,4 @@
+import { IPost } from "./Posts";
 import { IUser } from "./Users";
 
 export interface IContext {
@@ -6,6 +7,9 @@ export interface IContext {
 
     user: IUser | null;
     setUser: (newUser: IUser | null) => void;
+
+    setCurrentUserPosts: (posts: IPost[]) => void;
+    currentUserPosts: IPost[];
 }
 
 export interface ILoading {

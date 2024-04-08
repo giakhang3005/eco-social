@@ -1,4 +1,4 @@
-import { Col, Modal, Row, Switch } from "antd"
+import { Col, Modal, Row, Switch, message } from "antd"
 import "./NewPost.scss"
 import { useEffect, useRef, useState } from "react"
 import { CameraOutlined, HeartOutlined, RedoOutlined, SendOutlined } from "@ant-design/icons";
@@ -9,10 +9,14 @@ import { useUsers } from "../../Services/CustomHooks/useUsers";
 import { useNavigate } from "react-router-dom";
 import Input from "../../Components/Input/Input";
 import { GlobalConstants } from "../../Share/Constants";
+import { useLoading } from "../../Services/CustomHooks/UseLoading";
+import { usePosts } from "../../Services/CustomHooks/usePosts";
 
 const NewPosts = () => {
-  const { handleImage, checkLoadedImg, resizeImage } = useImage();
+  const { handleImage, checkLoadedImg, resizeImage, uploadImage } = useImage();
   const { getCurrentUser } = useUsers();
+  const { updateLoading } = useLoading();
+  const { addNewPost } = usePosts();
 
   const navigate = useNavigate();
 
@@ -30,6 +34,8 @@ const NewPosts = () => {
   const [isAnonymous, setIsAnonymous] = useState<boolean>(false);
   const [caption, setCaption] = useState<string>('');
 
+  const [updatedSizeAlready, setUpdatedSizeAlready] = useState<boolean>(false);
+
   useEffect(() => {
     const dropZone = dropZoneRef.current;
 
@@ -44,7 +50,19 @@ const NewPosts = () => {
     if (!user) navigate('/');
   })
 
-  const handleNextStep = () => {
+  const handleNextStep = async () => {
+    if (currentStep === 3) {
+      updateLoading(true, "Đang đăng bài...");
+      const status = await addNewPost(croppedFile, caption, isAnonymous);
+      if (status) {
+        message.success('Đăng thành công');
+        navigate('/profile');
+      } else {
+        message.error('Đăng thất bại');
+      }
+      updateLoading(false, '');
+      return;
+    }
     setCurrentStep(currentStep + 1);
   }
 
@@ -59,6 +77,7 @@ const NewPosts = () => {
 
   const handleDrop = async (e: any) => {
     setIsDraggingOver(false);
+    setUpdatedSizeAlready(false);
     e.preventDefault();
 
     setCroppedFile(null);
@@ -75,20 +94,23 @@ const NewPosts = () => {
   const handleChange = async (e: any) => {
     setImgRatioErr(true);
     setCroppedFile(null);
+    setUpdatedSizeAlready(false);
 
     const currFiles = e.target.files;
     const resultFile = await handleImage(currFiles);
 
     if (resultFile) {
-      setFile(resultFile)
+      setFile(resultFile);
     }
   }
 
   const checkNaturalSize = (e: any) => {
+    if (updatedSizeAlready) return;
+
     let target = e.currentTarget;
     const result = checkLoadedImg(target);
 
-    setImgRatioErr(result)
+    setImgRatioErr(result);
     if (result) {
       setFile(null);
       return;
@@ -98,7 +120,8 @@ const NewPosts = () => {
 
     const { naturalWidth, naturalHeight } = target;
 
-    if (naturalWidth > 1200) {
+    if (naturalWidth > 3000) {
+      setUpdatedSizeAlready(true);
       const newImg = resizeImage(target, 1200);
       setFile(newImg);
     }
@@ -110,7 +133,7 @@ const NewPosts = () => {
 
   return (
     <div className="newPost">
-      <Modal open={file && !croppedFile && !imgRatioErr} footer={null} title="Cắt ảnh" closable={false}>
+      <Modal open={file && !croppedFile && !imgRatioErr} footer={null} title="Cắt ảnh" closable={false} className="modalCrop">
         <ImageCrop file={file} setCroppedFile={setCroppedFile} />
       </Modal>
 

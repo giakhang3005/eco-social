@@ -2,7 +2,8 @@
 export const GlobalConstants = {
     localStorageKeys: {
         user: 'user',
-        theme: 'theme'
+        theme: 'theme',
+        tempPost: 'tempPost',
     },
     permissionsKey: {
         points: 'points', // add, subtract points

@@ -78,7 +78,7 @@ export const useUsers = () => {
     }
 
     const getUserByIdRealtime = (id: string) => {
-        const queryColRef = query(usersCollectionRef, where("id", "==", id))
+        const queryColRef = query(usersCollectionRef, where("id", "==", id));
 
         onSnapshot(queryColRef, (snapshot): any => {
             snapshot.forEach((user) => {
@@ -173,7 +173,7 @@ export const useUsers = () => {
 
     // If user not exist, create -> use to custom UID
     const updateUser = async (userData: IUser) => {
-        updateLoading(true, 'Đang câp nhật...')
+        updateLoading(true, 'Đang cập nhật...')
 
         const user = {
             id: userData.id,

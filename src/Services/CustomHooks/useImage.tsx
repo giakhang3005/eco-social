@@ -1,10 +1,13 @@
 import { message } from "antd";
 import { useLoading } from "./UseLoading";
 import heic2any from "heic2any";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { firebaseStorage } from "../Firebase/FirebaseCfg";
+import { useUsers } from "./useUsers";
 
 export const useImage = () => {
-    const [messageApi, contextHolder] = message.useMessage();
     const { updateLoading } = useLoading();
+    const { getCurrentUser } = useUsers();
 
     const handleImage = async (currFiles: any) => {
         // Check amount of image user upload (allow 1)
@@ -157,7 +160,7 @@ export const useImage = () => {
         const ratio = image.naturalWidth / image.naturalHeight;
 
         const newWidth = maxWidth * ratio;
-        const newHeight = newWidth/ratio;
+        const newHeight = newWidth / ratio;
 
         // Set the canvas dimensions
         canvas.width = newWidth;
@@ -173,5 +176,14 @@ export const useImage = () => {
         return convertDataUrlToFile(resizedDataURL, 'test123');
     }
 
-    return { handleImage, readDataAsUrl, checkLoadedImg, setCanvasPreview, convertDataUrlToFile, resizeImage }
+    const uploadImage = (file: any) => {
+        const uploadImgRef = ref(firebaseStorage, `PostsImage/${getCurrentUser()?.id}_${new Date().getTime()}`);
+        return uploadBytes(uploadImgRef, file)
+            .then((snapshot) => {
+                return getDownloadURL(snapshot.ref);
+            })
+            .catch((err) => console.log(err))
+    }
+
+    return { handleImage, readDataAsUrl, checkLoadedImg, setCanvasPreview, convertDataUrlToFile, resizeImage, uploadImage }
 }

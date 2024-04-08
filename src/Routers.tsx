@@ -5,6 +5,7 @@ import Log from "./Layout/Log/Log";
 import NewFeed from "./Layout/NewFeed/NewFeed";
 import Profile from "./Layout/Profile/Profile";
 import NewPosts from "./Layout/NewPosts/NewPosts";
+import Post from "./Layout/Post/Post";
 
 export const routers = createBrowserRouter([
     {
@@ -32,6 +33,10 @@ export const routers = createBrowserRouter([
                 path: "/new-post",
                 element: <NewPosts />,
             },
+            {
+                path: "/post/:id",
+                element: <Post />,
+            }
         ]
     },
 ]);

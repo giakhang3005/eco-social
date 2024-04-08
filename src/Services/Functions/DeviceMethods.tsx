@@ -74,7 +74,7 @@ export const isAccessUsingMessFBBrowser = () => {
 }
 
 export const writeToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text)
+    navigator.clipboard.writeText(`${text}`)
         .then((res) => {
             message.success('Đã copy link')
         })
@@ -85,19 +85,23 @@ export const writeToClipboard = (text: string) => {
 
 export const checkingNetwork = (setConnectionStatus: (value: boolean) => void) => {
     const handleChangeNetwork = (e: any) => {
-        if(e.type === 'online') {
+        if (e.type === 'online') {
             message.success('Đã có kết nối mạng');
             setConnectionStatus(true);
             return;
-        } 
+        }
 
-        if(e.type === 'offline') {
+        if (e.type === 'offline') {
             message.error('Mất kết nối mạng');
             setConnectionStatus(false);
             return;
-        } 
+        }
     }
 
     window.addEventListener('online', handleChangeNetwork);
     window.addEventListener('offline', handleChangeNetwork);
+}
+
+export const checkIsTablet = () => {
+    return /Mobi|Android/i.test(navigator.userAgent);
 }

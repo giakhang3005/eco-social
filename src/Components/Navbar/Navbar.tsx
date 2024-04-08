@@ -10,6 +10,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { GlobalConstants } from "../../Share/Constants"
 import { usePermissions } from "../../Services/CustomHooks/usePermissions"
 import { ISafeZone } from "../../Model/Others"
+import { usePosts } from "../../Services/CustomHooks/usePosts"
 
 type Props = {
   mobileTopNavBar: number;
@@ -20,6 +21,7 @@ const Navbar = ({ mobileTopNavBar, safeZone }: Props) => {
   const { handleSigninWithGG, handleLogout } = useAuth();
   const { getCurrentUser, initUserWhenRefresh } = useUsers();
   const { checkHavePerm, checkHaveAnyPerm } = usePermissions();
+  const { initCurrentUserPost } = usePosts();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -27,6 +29,11 @@ const Navbar = ({ mobileTopNavBar, safeZone }: Props) => {
     // Init user with realtime connection
     initUserWhenRefresh();
   }, []);
+
+  // Init current user posts
+  useEffect(() => {
+    initCurrentUserPost();
+  }, [getCurrentUser()]);
 
   return (
     <div className="Navbar">
@@ -69,7 +76,7 @@ const Navbar = ({ mobileTopNavBar, safeZone }: Props) => {
       {/* Nav Mobile */}
       <div className="NavMobile">
         {/* Top Navbar */}
-        <div className="NavMobileTop" style={Object.assign({height: `calc(${GlobalConstants.topNavHeight}px + ${safeZone?.top}` },{paddingTop: safeZone?.top },{ top: 0 - mobileTopNavBar }, { opacity: 1 - (mobileTopNavBar / (GlobalConstants.topNavHeight - 10)) })}>
+        <div className="NavMobileTop" style={Object.assign({ height: `calc(${GlobalConstants.topNavHeight}px + ${safeZone?.top}` }, { paddingTop: safeZone?.top }, { top: 0 - mobileTopNavBar }, { opacity: 1 - (mobileTopNavBar / (GlobalConstants.topNavHeight - 10)) })}>
           <div>ECO</div>
           <div className="button">
             <ThemeToggle style={Object.assign({ right: getCurrentUser() ? '43px' : '8px' }, { top: '9px' })} />
@@ -98,7 +105,7 @@ const Navbar = ({ mobileTopNavBar, safeZone }: Props) => {
         }
 
         {/* Bottom Navbar */}
-        <div className="NavMobileBottom" style={Object.assign(!getCurrentUser() ? { justifyContent: 'center' } : {}, {paddingBottom: safeZone?.bottom }, {height: `calc(${GlobalConstants.topNavHeight}px + ${safeZone?.bottom}` })}>
+        <div className="NavMobileBottom" style={Object.assign(!getCurrentUser() ? { justifyContent: 'center' } : {}, { paddingBottom: safeZone?.bottom }, { height: `calc(${GlobalConstants.topNavHeight}px + ${safeZone?.bottom}` })}>
           {getCurrentUser() && (
             <>
               <Button onClick={() => navigate('/')} icon={<HomeFilled />} hideBorder active={location.pathname === "/"}></Button>

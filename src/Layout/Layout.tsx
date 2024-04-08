@@ -12,6 +12,8 @@ import LoginModal from "../Components/LoginModal/LoginModal"
 import { checkScrollFromTop, handleMainLayoutScroll, updateScrollForOutlet } from "../Services/Functions/DeviceMethods"
 import LoginPopup from "../Components/LoginPopup/LoginPopup"
 import NetworkNotify from "../Components/NetworkNotify/NetworkNotify"
+import { IPost } from "../Model/Posts"
+import { usePosts } from "../Services/CustomHooks/usePosts"
 
 export const Data = createContext<IContext | null>(null);
 
@@ -29,11 +31,13 @@ const Layout = () => {
 
     const [lastPosition, setLastPosition] = useState<number>(0);
 
-    const [viewWidth, setViewWidth] = useState<number>(window.innerWidth);
+    // const [viewWidth, setViewWidth] = useState<number>(window.innerWidth);
 
     const [distanceFromTop, setDistanceFromTop] = useState<number>(0);
 
     const [safeZone, setSafeZone] = useState<ISafeZone | undefined>();
+
+    const [currentUserPosts, setCurrentUserPosts] = useState<IPost[]>([]);
 
     // Load Theme & add connection listener before layout loaded
     useLayoutEffect(() => {
@@ -55,22 +59,22 @@ const Layout = () => {
     }, []);
 
     // Resize & Orientation
-    useEffect(() => {
-        const handleSizeChange = (e: Event) => {
-            const timeOutResize = setTimeout(() => {
-                setViewWidth(window.innerWidth)
-                clearTimeout(timeOutResize)
-            }, 40)
-        }
+    // useEffect(() => {
+    //     const handleSizeChange = (e: Event) => {
+    //         const timeOutResize = setTimeout(() => {
+    //             setViewWidth(window.innerWidth)
+    //             clearTimeout(timeOutResize)
+    //         }, 40)
+    //     }
 
-        window.addEventListener('resize', handleSizeChange)
-        // window.addEventListener('orientationchange', handleSizeChange)
+    //     window.addEventListener('resize', handleSizeChange)
+    //     // window.addEventListener('orientationchange', handleSizeChange)
 
-        return () => {
-            window.removeEventListener('resize', handleSizeChange)
-            // window.removeEventListener('orientationchange', handleSizeChange)
-        }
-    }, []);
+    //     return () => {
+    //         window.removeEventListener('resize', handleSizeChange)
+    //         // window.removeEventListener('orientationchange', handleSizeChange)
+    //     }
+    // }, []);
 
     // Check for Logged In
     useEffect(() => {
@@ -101,7 +105,7 @@ const Layout = () => {
     }
 
     return (
-        <Data.Provider value={{ loading, setLoading, user, setUser }}>
+        <Data.Provider value={{ loading, setLoading, user, setUser, setCurrentUserPosts, currentUserPosts }}>
             {/* {isMobileLandscape && <BlockedScreen />} */}
             <Modal open={showSigninModal} onCancel={() => setShowSigninModal(false)} footer={null}>
                 <LoginModal />

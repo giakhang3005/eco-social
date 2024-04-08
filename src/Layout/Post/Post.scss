@@ -1,0 +1,132 @@
+/** @format */
+@use "../../App.scss";
+
+.viewPostContainer {
+  .postCon {
+    padding: 30px 0 0 0;
+    display: flex;
+    justify-content: center;
+
+    .header {
+      display: flex;
+      align-items: center;
+      margin: 0 0 20px 5px;
+
+      .avatar {
+        height: 70px;
+        border-radius: 50%;
+      }
+
+      .info {
+        margin: 0 0 0 15px;
+
+        .name {
+          font-weight: 600;
+          font-size: 15px;
+          margin: 0 0 8px 0;
+        }
+        .time {
+          font-size: 13px;
+        }
+      }
+    }
+
+    .postImg {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 30px;
+    }
+
+    .caption {
+      margin: 10px 0 0 0;
+      padding: 0 5px 0 5px;
+      box-sizing: border-box;
+    }
+
+    .actionCon {
+      margin: 30px 0 0 0;
+      display: flex;
+      align-items: start;
+
+      .actionIcon {
+        font-size: 30px;
+        margin: 0 30px 0 0;
+        cursor: pointer;
+        transition: all 0.12s linear;
+        color: var(--primary-text-color);
+
+        .LikeCount {
+          font-size: 18px;
+          text-align: center;
+          margin: 3px 0 0 0;
+        }
+
+        .heart {
+          transition: all 0.12s linear;
+
+          &:hover {
+            color: var(--error-color);
+          }
+        }
+
+        &:nth-child(2) {
+          transform: rotate(-30deg) translateY(-3px);
+
+          &:hover {
+            transform: rotate(-40deg) translateY(-5px);
+          }
+        }
+      }
+    }
+  }
+}
+
+.likedIcon {
+  color: var(--error-color);
+}
+
+@media screen and (max-width: App.$mobile) {
+  .viewPostContainer {
+    .postCon {
+      padding: 15px;
+      box-sizing: border-box;
+
+      .header {
+        .avatar {
+          height: 50px;
+        }
+
+        .info {
+          .name {
+            font-size: 13px;
+          }
+          .time {
+            font-size: 10px;
+          }
+        }
+      }
+
+      .postImg {
+        max-width: 320px;
+      }
+
+      .caption {
+        font-size: 12px;
+        margin: 10px 0 0 5px;
+      }
+
+      .actionCon {
+        margin: 15px 0 0 5px;
+
+        .actionIcon {
+          font-size: 25px;
+          margin: 0 30px 0 0;
+
+          .LikeCount {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+}
