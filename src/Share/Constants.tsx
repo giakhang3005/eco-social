@@ -15,7 +15,7 @@ export const GlobalConstants = {
         booth: 'booth', // Update status of booth (finished/not yet)
     },
     topNavHeight: 47, //px
-    unLoggedInMaximumScroll: 47, //px
+    unLoggedInMaximumScroll: 50, //px
     webUrl: 'https://eco-social.vercel.app',
     postImageCrop: {
         minWidth: 150, //px

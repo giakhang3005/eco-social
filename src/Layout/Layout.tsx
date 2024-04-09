@@ -117,6 +117,8 @@ const Layout = () => {
         }
     }, [user]);
 
+    console.log(user, distanceFromTop)
+
     const handleUnActiveTimeTracking = () => {
         // TODO: Split to a hook
         // TODO: Implement refresh page when unactive for long time
@@ -147,8 +149,7 @@ const Layout = () => {
 
             <NetworkNotify />
 
-            {(!user && distanceFromTop >= GlobalConstants.unLoggedInMaximumScroll) && <LoginPopup />}
-            {(!user?.mssv) && <LoginPopup />}
+            {((!user && distanceFromTop >= GlobalConstants.unLoggedInMaximumScroll) || (user && !user?.mssv)) && <LoginPopup />}
 
             <Spin size="large" spinning={loading.loading} tip={loading.tooltip}>
                 <div className="mainLayout" onPointerDown={handleUnActiveTimeTracking}>
