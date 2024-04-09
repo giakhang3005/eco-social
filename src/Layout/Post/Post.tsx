@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom"
 import "./Post.scss"
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { usePosts } from "../../Services/CustomHooks/usePosts";
 import { IPost } from "../../Model/Posts";
 import { Col, Row } from "antd";
@@ -10,6 +10,8 @@ import { checkIsTablet, writeToClipboard } from "../../Services/Functions/Device
 import { GlobalConstants } from "../../Share/Constants";
 import { useLoading } from "../../Services/CustomHooks/UseLoading";
 import Empty from "../../Components/Empty/Empty";
+import { Data } from "../Layout";
+import { IContext } from "../../Model/Others";
 
 type Props = {}
 
@@ -17,6 +19,8 @@ const tabletShareLink = `fb-messenger://share?link=https%3A%2F%2F${GlobalConstan
 const PCShareLink = `https://www.facebook.com/dialog/share?link=https%3A%2F%2F${GlobalConstants.webUrl}%2Fpost%2F`;
 
 const Post = (props: Props) => {
+    const { setShowLogin } = useContext(Data) as IContext;
+
     const { getPostToView, handleLikeUnlikePost, checkUserHaveLikedPost } = usePosts();
     const { getCurrentUser } = useUsers();
     const { updateLoading } = useLoading();
@@ -48,9 +52,13 @@ const Post = (props: Props) => {
     }
 
     const handleLikeUnlike = async (isLike: boolean) => {
+        if(!getCurrentUser()) setShowLogin(true);
+        
         const returnedPost = await handleLikeUnlikePost(isLike, currentPost);
 
         if (!returnedPost) return;
+
+
         setCurrentPost(returnedPost);
     }
 
@@ -63,7 +71,7 @@ const Post = (props: Props) => {
         <Row className="viewPostContainer">
             <Col span={0} md={6}></Col>
             <Col span={24} md={12} className="postCon">
-                <div>
+                <div style={{width: '100%'}}>
                     {
                         currentPost ?
                             <>

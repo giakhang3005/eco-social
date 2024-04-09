@@ -118,6 +118,12 @@ const NewFeed = (props: Props) => {
           <div className="bannerImg">
             <button className="moreBtn">Xem chi tiết</button>
           </div>
+          <div className="bannerImg">
+            <button className="moreBtn">Xem chi tiết</button>
+          </div>
+          <div className="bannerImg">
+            <button className="moreBtn">Xem chi tiết</button>
+          </div>
         </Col>
       </Row>
     </div>

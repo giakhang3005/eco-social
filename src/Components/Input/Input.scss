@@ -15,12 +15,13 @@
     background-color: var(--info-box-color);
     color: var(--text-color);
     transition: all 0.1s linear;
+    overflow-x: hidden;
   }
 
   .count {
     position: absolute;
-    bottom: 10px;
-    right: 8.5%;
+    bottom: -20px;
+    right: 8%;
     z-index: 999;
   }
 }

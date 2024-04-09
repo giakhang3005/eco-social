@@ -77,6 +77,7 @@ const PostApprove = (props: Props) => {
                             </div>
                         </div>
                         <img src={post.imageUrl} className="postImg" loading="lazy" />
+                        <div className="caption">{post.caption}</div>
                         <div className="btnContainer">
                             <button className="decline" onClick={() => handleUpdateStatus(post, 2)}>Từ chối</button>
                             <button className="approve" onClick={() => handleUpdateStatus(post, 1)}>Phê duyệt</button>

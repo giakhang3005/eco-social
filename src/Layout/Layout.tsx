@@ -45,6 +45,8 @@ const Layout = () => {
     const [newFeedPosts, setNewFeedPosts] = useState<IPost[]>([]);
     const [newFeedLoading, setNewFeedLoading] = useState<boolean>(false);
 
+    const [showLogin, setShowLogin] = useState<boolean>(false);
+
     // Load Theme & add connection listener before layout loaded
     useLayoutEffect(() => {
         initTheme();
@@ -117,8 +119,6 @@ const Layout = () => {
         }
     }, [user]);
 
-    console.log(user, distanceFromTop)
-
     const handleUnActiveTimeTracking = () => {
         // TODO: Split to a hook
         // TODO: Implement refresh page when unactive for long time
@@ -141,7 +141,7 @@ const Layout = () => {
     }
 
     return (
-        <Data.Provider value={{ loading, setLoading, user, setUser, setCurrentUserPosts, currentUserPosts, postWaitingToApprove, newFeedPosts, setNewFeedPosts, newFeedLoading }}>
+        <Data.Provider value={{ setShowLogin, loading, setLoading, user, setUser, setCurrentUserPosts, currentUserPosts, postWaitingToApprove, newFeedPosts, setNewFeedPosts, newFeedLoading }}>
             {/* {isMobileLandscape && <BlockedScreen />} */}
             <Modal open={showSigninModal} onCancel={() => setShowSigninModal(false)} footer={null}>
                 <LoginModal />
@@ -149,7 +149,7 @@ const Layout = () => {
 
             <NetworkNotify />
 
-            {((!user && distanceFromTop >= GlobalConstants.unLoggedInMaximumScroll) || (user && !user?.mssv)) && <LoginPopup />}
+            {(showLogin || (!user && distanceFromTop >= GlobalConstants.unLoggedInMaximumScroll) || (user && !user?.mssv)) && <LoginPopup />}
 
             <Spin size="large" spinning={loading.loading} tip={loading.tooltip}>
                 <div className="mainLayout" onPointerDown={handleUnActiveTimeTracking}>

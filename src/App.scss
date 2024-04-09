@@ -22,6 +22,32 @@ body {
 * {
   // transition: all 0.12s linear;
   // overscroll-behavior: none;
+
+  &::selection {
+    background-color: var(--info-box-color);
+  }
+}
+
+// Scrollbar
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: #ffffff00;
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-color: var(--secondary-text-color);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  // background: #b30000; 
 }
 
 .app {

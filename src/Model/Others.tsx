@@ -2,6 +2,8 @@ import { IPost } from "./Posts";
 import { IUser } from "./Users";
 
 export interface IContext {
+    setShowLogin: (value: boolean) => void;
+    
     loading: ILoading;
     setLoading: (value: ILoading) => void;
 
