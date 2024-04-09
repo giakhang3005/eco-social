@@ -11,13 +11,14 @@ export const useImage = () => {
 
     const handleImage = async (currFiles: any) => {
         // Check amount of image user upload (allow 1)
-        if (currFiles.length > 1) return;
+        if (currFiles.length > 1 ) return;
 
         updateLoading(true, "Đang tải ảnh lên...");
         const uploadFile = currFiles[0];
 
         // const data = await readDataAsUrl(uploadFile);
         // console.log(data)
+        if(!uploadFile || !uploadFile.type) return;
 
         let finalFile = null;
 

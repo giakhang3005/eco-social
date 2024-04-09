@@ -18,7 +18,7 @@ const NewPosts = () => {
   const { getCurrentUser } = useUsers();
   const { updateLoading } = useLoading();
   const { addNewPost } = usePosts();
-  const { setToSessionStorage } = useSessionStorage();
+  const { setToSessionStorage, removeFromSessionStorage } = useSessionStorage();
 
   const navigate = useNavigate();
 
@@ -64,6 +64,7 @@ const NewPosts = () => {
       const status = await addNewPost(croppedFile, caption, isAnonymous);
       if (status) {
         message.success('Đăng thành công');
+        removeFromSessionStorage(GlobalConstants.sessionStorageKeys.isCreateNewPost);
         navigate('/profile');
       } else {
         message.error('Đăng thất bại');
@@ -92,10 +93,13 @@ const NewPosts = () => {
     setUpdatedSizeAlready(false);
     e.preventDefault();
 
+    const currFiles = e.dataTransfer.files;
+
+    if (currFiles.length === 0) return;
+
     setCroppedFile(null);
     setImgRatioErr(true);
 
-    const currFiles = e.dataTransfer.files;
     const resultFile = await handleImage(currFiles);
 
     if (resultFile) {
@@ -104,11 +108,14 @@ const NewPosts = () => {
   }
 
   const handleChange = async (e: any) => {
+    const currFiles = e.target.files;
+
+    if (currFiles.length === 0) return;
+
     setImgRatioErr(true);
     setCroppedFile(null);
     setUpdatedSizeAlready(false);
 
-    const currFiles = e.target.files;
     const resultFile = await handleImage(currFiles);
 
     if (resultFile) {
@@ -207,7 +214,7 @@ const NewPosts = () => {
                   <div className="anonyContainer">
                     Đăng ẩn danh <Switch className="switch" value={isAnonymous} onChange={(e) => setIsAnonymous(e)} />
                   </div>
-                  <Input value={caption} setValue={setCaption} textarea style={{ width: '90%', height: '200px' }} placeholder="Bạn đang nghĩ gì? (không bắt buộc)" />
+                  <Input value={caption} setValue={setCaption} textarea style={{ width: '90%', height: '200px' }} placeholder="Bạn đang nghĩ gì? (không bắt buộc)" max={2200} />
                 </div>
 
                 // Step 3: Preview & post

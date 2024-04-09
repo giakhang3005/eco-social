@@ -71,10 +71,14 @@
 }
 
 .primary {
+  color: white;
   background-color: var(--pill-color);
+  border: 1px solid var(--pill-color) !important;
 
   &:hover {
+    color: var(--primary-text-color);
     background-color: var(--primary-hover-color);
+
   }
 }
 
@@ -89,7 +93,6 @@
     background-color: transparent;
     opacity: 0.7;
     cursor: not-allowed;
-    scale: 1;
   }
 }
 

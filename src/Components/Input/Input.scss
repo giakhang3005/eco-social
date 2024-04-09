@@ -2,18 +2,28 @@
 
 @use "../../App.scss";
 
-.Input,
-.Texarea {
-  padding: 10px;
-  border-radius: 9px;
-  font-size: 13px;
-  outline: none;
-  border: 1px solid var(--border-color);
-  background-color: var(--info-box-color);
-  color: var(--text-color);
-  transition: all 0.1s linear;
-}
+.inputWrapper {
+  position: relative;
 
+  .Input,
+  .Texarea {
+    padding: 10px;
+    border-radius: 9px;
+    font-size: 13px;
+    outline: none;
+    border: 1px solid var(--border-color);
+    background-color: var(--info-box-color);
+    color: var(--text-color);
+    transition: all 0.1s linear;
+  }
+
+  .count {
+    position: absolute;
+    bottom: 10px;
+    right: 8.5%;
+    z-index: 999;
+  }
+}
 .Input:focus,
 .Texarea:focus {
   border: 1px solid var(--banner-text-color);

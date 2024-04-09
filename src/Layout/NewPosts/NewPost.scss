@@ -17,7 +17,7 @@
     .btnContainer {
       position: relative;
       height: 40px;
-     padding: 0 0 5px 0;
+      padding: 0 0 5px 0;
     }
 
     .headerArea {
@@ -100,6 +100,9 @@
       justify-content: center;
 
       .step3_container {
+        width: 100%;
+        max-width: 450px;
+
         .infoContainer {
           display: flex;
           align-items: center;
@@ -128,18 +131,19 @@
         .previewImage {
           margin: 12px 0 0 0;
           border-radius: 20px;
-          width: 450px;
+          width: 100%;
         }
 
         .previewCaption {
           margin: 7px 0 0 0;
-          padding: 0 10px 0 10px;
+          padding: 0 0 0 0;
+          max-width: 100%;
           box-sizing: border-box;
           text-wrap: wrap;
         }
 
         .actionCon {
-          margin: 25px 0 0 0;
+          margin: 10px 0 0 0;
           padding: 0 10px 0 10px;
           box-sizing: border-box;
 
@@ -188,7 +192,7 @@
           }
 
           .previewImage {
-            width: 300px;
+            width: 100%
           }
 
           .previewCaption {

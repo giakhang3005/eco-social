@@ -78,7 +78,7 @@ const Navbar = ({ mobileTopNavBar, setMobileTopNavBar, safeZone }: Props) => {
   return (
     <div className="Navbar">
 
-      <Modal title="Lưu ý" open={confirmLeaveModal} footer={
+      <Modal title="Lưu ý" onCancel={onCloseCFModal} open={confirmLeaveModal} footer={
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Button showIcon={false} onClick={onCloseCFModal}>Huỷ</Button>
           <Button showIcon={false} type="primary" style={{ margin: '0 0 0 12px' }} onClick={onConfirmModal}>Chắc chắn</Button>
