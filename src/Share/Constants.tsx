@@ -13,6 +13,7 @@ export const GlobalConstants = {
         approval: 'approval', // approve posts
         log: 'log', // view points, approval, booth update log
         booth: 'booth', // Update status of booth (finished/not yet)
+        perm: 'perm', // Manage perms
     },
     topNavHeight: 47, //px
     unLoggedInMaximumScroll: 50, //px

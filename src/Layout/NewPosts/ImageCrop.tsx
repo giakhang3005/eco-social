@@ -50,7 +50,7 @@ const ImageCrop = ({ file, setCroppedFile }: Props) => {
             width: GlobalConstants.postImageCrop.minWidth,
             height: GlobalConstants.postImageCrop.minWidth,
         },
-            GlobalConstants.postImageCrop.ratio,
+            1,
             width,
             height
         );

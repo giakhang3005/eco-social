@@ -20,9 +20,26 @@ const NewFeed = (props: Props) => {
 
   const { getAllPosts, handleViewPost } = usePosts();
 
-  const postContainerRef = useRef(null);
+  const postContainerRef = useRef<any>(null);
 
   const [currShowNewFeed, setCurrShowNewFeed] = useState<boolean>(true);
+  const [postHeight, setPostHeight] = useState<number>(0);
+
+  useEffect(() => {
+    initPostHeight();
+
+    window.addEventListener('resize', initPostHeight);
+
+    return () => window.removeEventListener('resize', initPostHeight);
+  }, []);
+
+  const initPostHeight = () => {
+    const element = postContainerRef.current;
+
+    if (element) {
+      setPostHeight(element.clientWidth);
+    }
+  }
 
 
   // useEffect(() => {
@@ -83,7 +100,7 @@ const NewFeed = (props: Props) => {
             {/* Posts */}
             {
               newFeedPosts.map((post, index) => {
-                return <img key={index} className="post" src={post.imageUrl} loading="lazy" onClick={() => handleViewPost(post)} />
+                return <img key={index} className="post" src={post.imageUrl} style={{ height: `${postHeight / 3}px` }} loading="lazy" onClick={() => handleViewPost(post)} />
 
               })
             }
@@ -99,7 +116,7 @@ const NewFeed = (props: Props) => {
         </Col>
         <Col span={currShowNewFeed ? 0 : 24} md={8} className="bannerSection">
           {!currShowNewFeed && <Button icon={<LeftOutlined />} onClick={() => setCurrShowNewFeed(true)} hideBorder>Quay lại</Button>}
-          <div className="quoteOnTop">00 sự kiện đang diễn ra</div>
+          <div className="quoteOnTop">00 hoạt động đang diễn ra</div>
           <div className="bannerImg">
             <button className="moreBtn">Xem chi tiết</button>
           </div>

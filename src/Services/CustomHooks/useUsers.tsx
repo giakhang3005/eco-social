@@ -1,6 +1,6 @@
 import { message } from "antd"
 import { usersCollectionRef } from "../Firebase/FirebaseCfg"
-import { getDocs, setDoc, doc, getDoc, query, where, onSnapshot } from "firebase/firestore"
+import { getDocs, setDoc, doc, getDoc, query, where, onSnapshot, updateDoc, FieldPath } from "firebase/firestore"
 import { IUser } from "../../Model/Users"
 import { useLocalStorage } from "./useLocalStorage"
 import { GlobalConstants } from "../../Share/Constants"
@@ -213,5 +213,55 @@ export const useUsers = () => {
         user ? setToLocalStorage(userLocalKey, user) : removeFromlocalStorage(userLocalKey)
     }
 
-    return { getUserByEmail, getAllUsers, updateUser, getUserById, getUserByIdRealtime, addUserToBrowserAndState, getCurrentUser, getUserByEmailRealtime, initUserWhenRefresh }
+    const getUserThatHavePermission = () => {
+        const queryColRef = query(usersCollectionRef, where("permissions", "!=", []));
+
+        const user = getDocs(queryColRef)
+            .then((snapshot) => {
+                const userArr: IUser[] = []
+                snapshot.forEach(doc => {
+                    const data = doc.data()
+                    const newUser = {
+                        name: data.name,
+                        email: data.email,
+                        mssv: data.mssv,
+                        permissions: data.permissions,
+                        imgUrl: data.imgUrl,
+                        points: data.points,
+                        joinDate: data.joinDate,
+                        id: doc.id,
+                        minigame: {
+                            game1: data?.minigame.game1,
+                            game2: data?.minigame.game2,
+                            game3: data?.minigame.game3
+                        }
+                    }
+                    userArr.push(newUser)
+                })
+
+                return userArr;
+            })
+            .catch((err) => {
+                console.log(err)
+                return undefined;
+            })
+
+        return user;
+    }
+
+    const updateSomePropsOfUser = (userId: string, changedObject: any) => {
+        const docRef = doc(usersCollectionRef, userId);
+
+        return updateDoc(docRef, changedObject, { merge: true })
+            .then(() => {
+                message.success('Cập nhật thành công');
+                console.log("Updated")
+            })
+            .catch(err => {
+                message.error('Cập nhật thất bại');
+                console.log(err);
+            })
+    }
+
+    return { updateSomePropsOfUser, getUserThatHavePermission, getUserByEmail, getAllUsers, updateUser, getUserById, getUserByIdRealtime, addUserToBrowserAndState, getCurrentUser, getUserByEmailRealtime, initUserWhenRefresh }
 }

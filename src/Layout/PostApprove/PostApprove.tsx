@@ -26,7 +26,10 @@ const PostApprove = (props: Props) => {
 
     const navigate = useNavigate();
 
-    const containerRef = useRef(null);
+    const containerRef = useRef<any>(null);
+    const imgRef = useRef<any>(null);
+
+    const [imgWidth, setImgWidth] = useState<number>(0);
 
     useEffect(() => {
         const currentUser = getCurrentUser()
@@ -64,6 +67,22 @@ const PostApprove = (props: Props) => {
         updateLoading(false, '');
     }
 
+    useEffect(() => {
+        initPostHeight();
+    
+        window.addEventListener('resize', initPostHeight);
+    
+        return () => window.removeEventListener('resize', initPostHeight);
+      }, []);
+     
+      const initPostHeight = () => {
+        const element = imgRef.current;
+    
+        if (element) {
+            setImgWidth(element.clientWidth);
+        }
+      }
+
     return (
         <div className="postApproval" ref={containerRef}>
             {
@@ -76,7 +95,7 @@ const PostApprove = (props: Props) => {
                                 <div className="time">{new Date(post.postTime).toLocaleString()}</div>
                             </div>
                         </div>
-                        <img src={post.imageUrl} className="postImg" loading="lazy" />
+                        <img src={post.imageUrl} className="postImg" loading="lazy" ref={imgRef} style={{height: `${imgWidth}px`}} />
                         <div className="caption">{post.caption}</div>
                         <div className="btnContainer">
                             <button className="decline" onClick={() => handleUpdateStatus(post, 2)}>Từ chối</button>

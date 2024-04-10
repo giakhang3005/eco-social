@@ -26,7 +26,7 @@ const Profile = () => {
 
     const [user, setUser] = useState<IUser | null>(getCurrentUser());
 
-    // const [postContainerWidth, setPostContainerWidth] = useState<number>(0);
+    const [postContainerWidth, setPostContainerWidth] = useState<number>(0);
 
     const [currentModalView, setCurrentModalView] = useState<string | null>(null);
 
@@ -54,7 +54,7 @@ const Profile = () => {
 
         if (!postContainer) return;
 
-        // setPostContainerWidth(postContainer?.clientWidth);
+        setPostContainerWidth(postContainer?.clientWidth);
     }
 
     return (
@@ -112,7 +112,7 @@ const Profile = () => {
                                     currentUserPosts.map((post, i) => (
                                         <div className="postReview" key={i} onClick={() => handleViewPost(post)}>
                                             <div className="time">{new Date(Number(post.postTime)).toLocaleString()}</div>
-                                            <img src={post.imageUrl} loading="lazy"/>
+                                            <img style={{height: `${postContainerWidth/3}px`}} src={post.imageUrl} loading="lazy"/>
                                         </div>
                                     ))
                                 }
