@@ -3,7 +3,7 @@ import { useUsers } from "../../Services/CustomHooks/useUsers"
 import ThemeToggle from "../ThemeToggle/ThemeToggle"
 import "./Navbar.scss"
 import Button from "../Button/Button"
-import { GoogleOutlined, HomeFilled, LogoutOutlined, StarFilled, PlusOutlined, BookFilled, CarryOutFilled } from "@ant-design/icons"
+import { GoogleOutlined, HomeFilled, LogoutOutlined, StarFilled, PlusOutlined, BookFilled, CarryOutFilled, SignatureFilled, MergeFilled } from "@ant-design/icons"
 import { useAuth } from "../../Services/CustomHooks/useAuth"
 import { useContext, useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
@@ -108,6 +108,8 @@ const Navbar = ({ mobileTopNavBar, setMobileTopNavBar, safeZone }: Props) => {
           {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.log)) && <Button tooltip="Log" onClick={() => navigateToOtherPage('/log')} style={{ margin: '6px 0 0 0' }} icon={<BookFilled />} hideBorder active={location.pathname === "/log"}></Button>}
           {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.points)) && <Button tooltip="Điểm tái chế" style={{ margin: '6px 0 0 0' }} onClick={() => navigateToOtherPage('/points')} icon={<StarFilled />} hideBorder active={location.pathname === "/points"}></Button>}
           {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.approval)) && <Button tooltip="Duyệt bài" style={{ margin: '6px 0 0 0' }} onClick={() => navigateToOtherPage('/approval')} icon={<CarryOutFilled />} hideBorder active={location.pathname === "/approval"} badge={postWaitingToApprove.length}></Button>}
+          {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.booth)) && <Button tooltip="Minigame" style={{ margin: '6px 0 0 0' }} onClick={() => navigateToOtherPage('/games')} icon={<MergeFilled />} hideBorder active={location.pathname === "/games"}></Button>}
+          {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.perm)) && <Button tooltip="Kiểm soát quyền" style={{ margin: '6px 0 0 0' }} onClick={() => navigateToOtherPage('/perm')} icon={<SignatureFilled />} hideBorder active={location.pathname === "/perm"}></Button>}
         </div>
         <ThemeToggle style={Object.assign({ bottom: getCurrentUser() ? '58px' : '20px' })} />
 
@@ -154,6 +156,8 @@ const Navbar = ({ mobileTopNavBar, setMobileTopNavBar, safeZone }: Props) => {
             {(checkHavePerm(GlobalConstants.permissionsKey.log)) && <Button onClick={() => navigateToOtherPage('/log')} icon={<BookFilled />} hideBorder active={location.pathname === "/log"}></Button>}
             {(checkHavePerm(GlobalConstants.permissionsKey.points)) && <Button onClick={() => navigateToOtherPage('/points')} icon={<StarFilled />} hideBorder active={location.pathname === "/points"}></Button>}
             {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.approval)) && <Button style={{ margin: '0 0 0 0' }} onClick={() => navigateToOtherPage('/approval')} icon={<CarryOutFilled />} hideBorder badge={postWaitingToApprove.length} active={location.pathname === "/approval"}></Button>}
+            {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.booth)) && <Button onClick={() => navigateToOtherPage('/games')} icon={<MergeFilled />} hideBorder active={location.pathname === "/games"}></Button>}
+            {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.perm)) && <Button onClick={() => navigateToOtherPage('/perm')} icon={<SignatureFilled />} hideBorder active={location.pathname === "/perm"}></Button>}
           </div>
         }
 

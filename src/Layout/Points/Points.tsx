@@ -99,12 +99,12 @@ const Points = (props: Props) => {
             message.error('Cập nhật thất bại')
         }
 
-        updateLoading(false)
+        updateLoading(false);
     }
 
     const setNumber = (value: any) => {
-        if (isNaN(Number(value))) return
-        setCurrentPointInput(Number(value))
+        // if (isNaN(Number(value))) return
+        setCurrentPointInput(value);
     }
 
     // Todo: Implement fetch on Blur
@@ -135,7 +135,7 @@ const Points = (props: Props) => {
             </div>
 
             <div className="BtnContainer">
-                <Button disabled={note.trim().length < 5 || !targetUser || !currentPointInput || currentPointInput === 0 || newPointsValue < 0} onClick={handleInteractWithPoints} showIcon={false} type="primary">Cập nhật</Button>
+                <Button disabled={note.trim().length < 5 || !targetUser || !currentPointInput || currentPointInput === 0 || newPointsValue < 0 || isNaN(Number(newPointsValue))} onClick={handleInteractWithPoints} showIcon={false} type="primary">Cập nhật</Button>
             </div>
 
 

@@ -1,7 +1,7 @@
-import { IPointsLog, IPostApproveLog } from "../../Model/Logs"
+import { IGameLog, IPointsLog, IPostApproveLog } from "../../Model/Logs"
 import { IUser } from "../../Model/Users"
 import { addDoc, getDoc, getDocs, orderBy, query } from "firebase/firestore"
-import { approvalLogCollectionRef, pointsLogCollectionRef } from "../Firebase/FirebaseCfg"
+import { approvalLogCollectionRef, gameLogCollectionRef, pointsLogCollectionRef } from "../Firebase/FirebaseCfg"
 
 export const useLog = () => {
 
@@ -90,5 +90,32 @@ export const useLog = () => {
         return signal;
     }
 
-    return { LoggedPoints, getPointsLog, savePostLog, getApprovalLog }
+    const saveGameStatusLog = async (gameLog: IGameLog) => {
+        const addSignal = await addDoc(gameLogCollectionRef, gameLog)
+            .then((res) => {
+                return true;
+            })
+            .catch((err) => {
+                throw new Error(err);
+            })
+
+        return addSignal;
+    }
+
+    const getGameLog = () => {
+        const signal = getDocs(query(gameLogCollectionRef, orderBy("time", "desc")))
+            .then((snapshot) => {
+                const logs: any[] = [];
+                snapshot.forEach((doc) => {
+                    const data = doc.data()
+                    logs.push(data)
+                })
+
+                return logs;
+            })
+
+        return signal;
+    }
+
+    return { LoggedPoints, getPointsLog, savePostLog, getApprovalLog, saveGameStatusLog, getGameLog }
 }

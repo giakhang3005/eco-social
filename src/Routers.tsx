@@ -8,6 +8,7 @@ import NewPosts from "./Layout/NewPosts/NewPosts";
 import Post from "./Layout/Post/Post";
 import PostApprove from "./Layout/PostApprove/PostApprove";
 import Permissions from "./Layout/Permissions/Permissions";
+import Games from "./Layout/Games/Games";
 
 export const routers = createBrowserRouter([
     {
@@ -26,6 +27,10 @@ export const routers = createBrowserRouter([
             {
                 path: "/points",
                 element: <Points />,
+            },
+            {
+                path: "/games",
+                element: <Games />,
             },
             {
                 path: "/approval",

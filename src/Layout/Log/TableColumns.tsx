@@ -1,4 +1,4 @@
-import { Popover } from "antd"
+import { Popover, Tag } from "antd"
 
 export const pointsColumn = [
     {
@@ -49,7 +49,7 @@ export const pointsColumn = [
         title: 'Thay đổi',
         render: (log: any) => {
             return (
-                <>{log?.change}</>
+                <Tag color={log?.change.includes('+') ? 'green' : 'red'}>{log?.change}</Tag>
             )
         }
     },
@@ -70,7 +70,7 @@ export const approvalColumns = [
         title: 'Thời gian',
         render: (log: any) => {
             return (
-                <>{log?.approveTime}</>
+                <>{new Date(Number(log?.approveTime)).toLocaleString()}</>
             )
         }
     },
@@ -105,7 +105,79 @@ export const approvalColumns = [
         title: 'Trạng thái',
         render: (log: any) => {
             return (
-                <>{log?.status === 1 ? 'Phê duyệt' : 'Từ chối'}</>
+                <Tag color={log?.status === 1 ? 'green' : 'red'}>{log?.status === 1 ? 'Phê duyệt' : 'Từ chối'}</Tag>
+            )
+        }
+    }
+]
+
+export const gameColumns = [
+    {
+        key: 'time',
+        title: 'Thời gian',
+        render: (log: any) => {
+            return (
+                <>{new Date(log.time).toLocaleString()}</>
+            )
+        }
+    },
+    {
+        key: 'executedUser',
+        title: 'Thực hiện bởi',
+        render: (log: any) => {
+            return (
+                <Popover
+                    content={<div>
+                        <div><b>ID:</b> {log?.executer?.id}</div>
+                        <div><b>Tên:</b> {log?.executer?.name}</div>
+                        <div><b>Email:</b> {log?.executer?.email}</div>
+                    </div>}
+                >
+                    <div style={{ cursor: 'help' }}>{log?.executer?.name}</div>
+                </Popover>
+            )
+        }
+    },
+    {
+        key: 'target',
+        title: 'Người chơi',
+        render: (log: any) => {
+            return (
+                <Popover
+                    content={<div>
+                        <div><b>ID:</b> {log?.targetUser?.id}</div>
+                        <div><b>Tên:</b> {log?.targetUser?.name}</div>
+                        <div><b>Email:</b> {log?.targetUser?.email}</div>
+                    </div>}
+                >
+                    <div style={{ cursor: 'help' }}>{log?.targetUser?.name}</div>
+                </Popover>
+            )
+        }
+    },
+    {
+        key: 'prev',
+        title: 'Trước',
+        render: (log: any) => {
+            return (
+                <>
+                    <Tag color={log.beforeChange.game1 ? 'green' : 'red'}>Game 1</Tag>
+                    <Tag color={log.beforeChange.game2 ? 'green' : 'red'}>Game 2</Tag>
+                    <Tag color={log.beforeChange.game3 ? 'green' : 'red'}>Game 3</Tag>
+                </>
+            )
+        }
+    },
+    {
+        key: 'after',
+        title: 'Sau',
+        render: (log: any) => {
+            return (
+                <>
+                    <Tag color={log.afterChange.game1 ? 'green' : 'red'}>Game 1</Tag>
+                    <Tag color={log.afterChange.game2 ? 'green' : 'red'}>Game 2</Tag>
+                    <Tag color={log.afterChange.game3 ? 'green' : 'red'}>Game 3</Tag>
+                </>
             )
         }
     }

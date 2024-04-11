@@ -18,6 +18,20 @@ export interface IPostApproveLog {
     status: 1 | 2;
 }
 
+export interface IGameLog {
+    time: number;
+    executer: IUserData;
+    targetUser: IUserData;
+    beforeChange: IGame;
+    afterChange: IGame;
+}
+
+export interface IGame {
+    game1: boolean;
+    game2: boolean;
+    game3: boolean
+}
+
 
 export class pointsLog implements IPointsLog {
     executedUser: IUserData
