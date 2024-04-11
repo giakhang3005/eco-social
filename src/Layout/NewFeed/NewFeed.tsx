@@ -41,6 +41,12 @@ const NewFeed = (props: Props) => {
     }
   }
 
+  const handlePostErr = (postErrId: string) => {
+    const newFeedPostsCopy = newFeedPosts.filter((post) => post.postId !== postErrId);
+
+    setNewFeedPosts(newFeedPostsCopy);
+  }
+
 
   // useEffect(() => {
   //   fetchPost()
@@ -100,7 +106,7 @@ const NewFeed = (props: Props) => {
             {/* Posts */}
             {
               newFeedPosts.map((post, index) => {
-                return <img key={index} className="post" src={post.imageUrl} style={{ height: `${postHeight / 3}px` }} loading="lazy" onClick={() => handleViewPost(post)} />
+                return <img onError={() => handlePostErr(post.postId)} key={index} className="post" src={post.imageUrl} style={{ height: `${postHeight / 3}px` }} loading="lazy" onClick={() => handleViewPost(post)} />
 
               })
             }

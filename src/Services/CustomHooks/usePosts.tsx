@@ -1,4 +1,4 @@
-import { doc, getDoc, getDocs, onSnapshot, orderBy, query, setDoc, where } from 'firebase/firestore';
+import { deleteDoc, doc, getDoc, getDocs, onSnapshot, orderBy, query, setDoc, where } from 'firebase/firestore';
 import { IPost } from '../../Model/Posts';
 import { postsCollectionRef } from '../Firebase/FirebaseCfg';
 import { useLoading } from './UseLoading';
@@ -15,7 +15,7 @@ export const usePosts = () => {
     const { setCurrentUserPosts, currentUserPosts } = useContext(Data) as IContext;
 
     const { getCurrentUser } = useUsers();
-    const { uploadImage } = useImage();
+    const { uploadImage, onRemoveImage } = useImage();
     const { setToLocalStorage, getFromLocalStorage } = useLocalStorage();
     const { updateLoading } = useLoading();
     const navigate = useNavigate();
@@ -254,5 +254,32 @@ export const usePosts = () => {
         return unsubscription;
     }
 
-    return { getAllPostsRealtime, getAllPosts, addNewPost, initCurrentUserPost, handleViewPost, getPostToView, handleLikeUnlikePost, checkUserHaveLikedPost, setPost };
+    const onRemovePost = (postId: string, imgUrl: string) => {
+        const imgId = imgUrl.replace('https://firebasestorage.googleapis.com/v0/b/eco-social-f76a1.appspot.com/o/PostsImage%2F', '').split('?')[0];
+        
+        const ImgSignal = onRemoveImage(imgId);
+
+        const docRef = doc(postsCollectionRef, postId);
+        const postSignal = deleteDoc(docRef)
+            .then(() => {
+                return 1;
+            })
+            .catch((err) => {
+                throw err;
+            });
+
+        const promisesAll =
+            Promise.all([ImgSignal, postSignal])
+                .then(() => {
+                    return 1;
+                })
+                .catch((err) => {
+                    console.log(err);
+                    return 0;
+                });
+
+        return promisesAll;
+    }
+
+    return { onRemovePost, getAllPostsRealtime, getAllPosts, addNewPost, initCurrentUserPost, handleViewPost, getPostToView, handleLikeUnlikePost, checkUserHaveLikedPost, setPost };
 }

@@ -1,7 +1,7 @@
 import { message } from "antd";
 import { useLoading } from "./UseLoading";
 import heic2any from "heic2any";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 import { firebaseStorage } from "../Firebase/FirebaseCfg";
 import { useUsers } from "./useUsers";
 
@@ -11,14 +11,14 @@ export const useImage = () => {
 
     const handleImage = async (currFiles: any) => {
         // Check amount of image user upload (allow 1)
-        if (currFiles.length > 1 ) return;
+        if (currFiles.length > 1) return;
 
         updateLoading(true, "Đang tải ảnh lên...");
         const uploadFile = currFiles[0];
 
         // const data = await readDataAsUrl(uploadFile);
         // console.log(data)
-        if(!uploadFile || !uploadFile.type) return;
+        if (!uploadFile || !uploadFile.type) return;
 
         let finalFile = null;
 
@@ -186,5 +186,20 @@ export const useImage = () => {
             .catch((err) => console.log(err))
     }
 
-    return { handleImage, readDataAsUrl, checkLoadedImg, setCanvasPreview, convertDataUrlToFile, resizeImage, uploadImage }
+    const onRemoveImage = (imgId: string) => {
+        const imgPath = `PostsImage/${imgId}`;
+        const imgRef = ref(firebaseStorage, imgPath);
+
+        const signal = deleteObject(imgRef)
+            .then((res) => {
+                return 1;
+            })
+            .catch((err) => {
+                throw err;
+            })
+
+        return signal;
+    }
+
+    return { onRemoveImage, handleImage, readDataAsUrl, checkLoadedImg, setCanvasPreview, convertDataUrlToFile, resizeImage, uploadImage }
 }

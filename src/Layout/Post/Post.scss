@@ -7,6 +7,20 @@
     display: flex;
     justify-content: center;
 
+    .deleteIcon {
+      position: absolute;
+      color: var(--error-color);
+      right: calc(20% + 10px);
+      top: 50px;
+      font-size: 20px;
+      cursor: pointer;
+      transition: all 0.12s linear;
+
+      &:hover {
+        color: var(--primary-text-color);
+      }
+    }
+
     .header {
       display: flex;
       align-items: center;
@@ -96,6 +110,12 @@
       padding: 15px;
       box-sizing: border-box;
 
+      .deleteIcon {
+        right: 20px;
+        top: 30px;
+        font-size: 15px;
+      }
+      
       .header {
         .avatar {
           height: 50px;
@@ -112,7 +132,8 @@
       }
 
       .postImg {
-        max-width: 320px;
+        width: 100%;
+        // max-width: 320px;
       }
 
       .caption {

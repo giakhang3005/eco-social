@@ -1,10 +1,10 @@
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import "./Post.scss"
 import { useContext, useEffect, useState } from "react";
 import { usePosts } from "../../Services/CustomHooks/usePosts";
 import { IPost } from "../../Model/Posts";
-import { Col, Row } from "antd";
-import { HeartFilled, HeartOutlined, SendOutlined } from "@ant-design/icons";
+import { Col, Modal, Row, message } from "antd";
+import { DeleteOutlined, HeartFilled, HeartOutlined, SendOutlined } from "@ant-design/icons";
 import { useUsers } from "../../Services/CustomHooks/useUsers";
 import { checkIsTablet, writeToClipboard } from "../../Services/Functions/DeviceMethods";
 import { GlobalConstants } from "../../Share/Constants";
@@ -12,6 +12,7 @@ import { useLoading } from "../../Services/CustomHooks/UseLoading";
 import Empty from "../../Components/Empty/Empty";
 import { Data } from "../Layout";
 import { IContext } from "../../Model/Others";
+import Button from "../../Components/Button/Button";
 
 type Props = {}
 
@@ -21,14 +22,17 @@ const PCShareLink = `https://www.facebook.com/dialog/share?link=https%3A%2F%2F${
 const Post = (props: Props) => {
     const { setShowLogin } = useContext(Data) as IContext;
 
-    const { getPostToView, handleLikeUnlikePost, checkUserHaveLikedPost } = usePosts();
+    const { getPostToView, handleLikeUnlikePost, checkUserHaveLikedPost, onRemovePost } = usePosts();
     const { getCurrentUser } = useUsers();
     const { updateLoading } = useLoading();
     const { id } = useParams();
+    const navigate = useNavigate();
 
     const [currentPost, setCurrentPost] = useState<IPost>();
 
     const [isTablet, setIsTablet] = useState<boolean>(checkIsTablet());
+
+    const [showConfirm, setShowConfirm] = useState<boolean>(false);
 
     useEffect(() => {
         initPost();
@@ -52,8 +56,8 @@ const Post = (props: Props) => {
     }
 
     const handleLikeUnlike = async (isLike: boolean) => {
-        if(!getCurrentUser()) setShowLogin(true);
-        
+        if (!getCurrentUser()) setShowLogin(true);
+
         const returnedPost = await handleLikeUnlikePost(isLike, currentPost);
 
         if (!returnedPost) return;
@@ -67,14 +71,43 @@ const Post = (props: Props) => {
         writeToClipboard(url);
     }
 
+    const handleRemovePost = async () => {
+        if (!currentPost) return;
+
+        setShowConfirm(false);
+        updateLoading(true, 'Đang xoá bài viết...');
+
+        const removeSignal = await onRemovePost(currentPost.postId, currentPost.imageUrl);
+        if (removeSignal) {
+            message.success('Đã xoá thành công');
+            navigate('/profile');
+        } else {
+            message.error('Đã có lỗi xảy ra, vui lòng thử lại sau');
+        }
+
+        updateLoading(false, '');
+    }
+
     return (
         <Row className="viewPostContainer">
+            <Modal open={showConfirm}
+                title="Xác nhận xoá"
+                closable={false}
+                footer={
+                    <div style={{ display: 'flex', justifyContent: 'right' }}>
+                        <Button style={{ margin: '0 8px 0 0' }} showIcon={false} onClick={() => setShowConfirm(false)} >Huỷ</Button>
+                        <Button showIcon={false} danger onClick={handleRemovePost}>Xác nhận</Button>
+                    </div>
+                }
+            >Bạn có chắc chắn muốn xoá bài viết này không? Sau khi xoá, bạn sẽ vĩnh viễn không thể khôi phục lại bài viết</Modal>
+
             <Col span={0} md={6}></Col>
             <Col span={24} md={12} className="postCon">
-                <div style={{width: '100%'}}>
+                <div style={{ width: '100%' }}>
                     {
                         currentPost ?
                             <>
+                                {(getCurrentUser() && (getCurrentUser()?.id === currentPost.userData.userId)) && <DeleteOutlined className="deleteIcon" onClick={() => setShowConfirm(true)} />}
                                 <div className="header">
                                     <img className="avatar" src={currentPost.isAnonymous ? GlobalConstants.postOption.anonyImgUrl : currentPost?.userData.userImg} />
                                     <div className="info">
