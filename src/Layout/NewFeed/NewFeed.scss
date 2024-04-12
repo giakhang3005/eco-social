@@ -109,6 +109,13 @@
       border-radius: 7px;
       margin: 0 0 15px 0;
 
+      .countdown {
+        position: absolute;
+        bottom: 15px;
+        left: 15px;
+        text-shadow: 1px 1px 1px var(--secondary-text-color);
+      }
+
       .moreBtn {
         position: absolute;
         bottom: 15px;

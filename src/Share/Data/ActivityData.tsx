@@ -15,7 +15,11 @@ export const ActivityData = [
                     Người tham gia sau khi thực hiện thử thách với số ngày nhất định sẽ được <b style={important}>nhận phần thưởng tương đương tại Quầy nhận thưởng trong ngày diễn ra sự kiện</b>.
                 </div>
             </>
-        )
+        ),
+        time: {
+            start: new Date('2024-05-31 02:00:00').getTime(),
+            end: new Date('2024-06-05 19:00:00').getTime(),
+        }
     },
     {
         id: 'quyengop',
@@ -36,7 +40,11 @@ export const ActivityData = [
                     <b style={important}>Số điểm sẽ được tích lũy vào tài khoản</b> của người tham dự và người tham dự có thể dùng điểm để <b style={important}>đổi các phần thưởng</b> tương đương vào ngày diễn ra sự kiện (05/06/2024).
                 </div>
             </>
-        )
+        ),
+        time: {
+            start: new Date('2024-05-21 02:00:00').getTime(),
+            end: new Date('2024-06-04 19:00:00').getTime(),
+        }
     },
     {
         id: 'gianhangkygui',
@@ -50,7 +58,11 @@ export const ActivityData = [
                     Quần áo sau khi bán, BTC sẽ giữ phần tiền ký gửi để hỗ trợ cho các hoạt động khác của sự kiện và <b style={important}>hoàn trả số tiền còn lại cho người ký gửi</b>. Đối với các sản phẩm không bán được, BTC sẽ hoàn trả lại nguyên vẹn sản phẩm.
                 </div>
             </>
-        )
+        ),
+        time: {
+            start: new Date('2024-05-21 02:00:00').getTime(),
+            end: new Date('2024-06-01 19:00:00').getTime(),
+        }
     },
     {
         id: 'quiz',
@@ -64,7 +76,11 @@ export const ActivityData = [
                     Cách tham gia: Mọi người sẽ mang những món secondhand (còn giá trị sử dụng) của mình có thể là quần áo, đồ điện tử,... Đem đến ký gửi ở gian hàng, gian hàng sẽ định giá và bán lại cho những bạn khác với <b style={important}>mức hoa hồng là 3/7 ( người bán hàng 7, gian hàng 3)</b>. Trường hợp gian hàng không bán được sẽ liên hệ để trả hàng, nếu không liên hệ được sẽ livestream trên group Gia Đình Cóc Sài Gòn.
                 </div>
             </>
-        )
+        ),
+        time: {
+            start: new Date('2024-05-21 02:00:00').getTime(),
+            end: new Date('2024-06-03 19:00:00').getTime(),
+        }
     },
     {
         id: 'fashionshow',
@@ -78,7 +94,11 @@ export const ActivityData = [
                     Song song đó là màn trình diễn bài hát chủ đề của sự kiện và các tiết mục giải trí khác. Mang tới một không gian đầy nghệ thuật và nhân văn.
                 </div>
             </>
-        )
+        ),
+        time: {
+            start: new Date('2024-06-05 02:00:00').getTime(),
+            end: new Date('2024-06-05 19:00:00').getTime(),
+        }
     },
     {
         id: 'hayday',
@@ -92,7 +112,11 @@ export const ActivityData = [
                     Khi đến với gian hàng, <b style={Object.assign(important)}>nếu khách mang theo vật phẩm đựng đồ ăn và thức uống cá nhân sẽ có thể mua hàng với giá rẻ hơn.</b> Ngược lại, giá trị hàng hoá sẽ tăng nếu khách lấy và sử dụng vật đựng của Nông trại.
                 </div>
             </>
-        )
+        ),
+        time: {
+            start: new Date('2024-06-05 02:00:00').getTime(),
+            end: new Date('2024-06-05 19:00:00').getTime(),
+        }
     },
     {
         id: 'practicalworkshop',
@@ -110,7 +134,11 @@ export const ActivityData = [
                     Người chơi sẽ được tự tay trang trí và tô màu theo sở thích lên các vật phẩm của BTC hoặc chậu cây từ Kit trồng cây nhận được khi hoàn thành Minigame và mang thành phẩm trở về.
                 </div>
             </>
-        )
+        ),
+        time: {
+            start: new Date('2024-06-05 02:00:00').getTime(),
+            end: new Date('2024-06-05 19:00:00').getTime(),
+        }
     },
     {
         id: 'minigame',
@@ -134,6 +162,10 @@ export const ActivityData = [
                     BTC sẽ chuẩn bị 3 rổ lưới, 3 thùng phân loại rác khác nhau, và các mô hình rác cần được phân loại. Người chơi sẽ phải phân loại rác và ném vào các rổ, các thùng rác chính xác.
                 </div>
             </>
-        )
+        ),
+        time: {
+            start: new Date('2024-06-05 02:00:00').getTime(),
+            end: new Date('2024-06-05 19:00:00').getTime(),
+        }
     },
 ]

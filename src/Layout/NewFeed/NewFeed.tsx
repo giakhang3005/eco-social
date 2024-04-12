@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { useSessionStorage } from "../../Services/CustomHooks/useSesstionStorage";
 import { GlobalConstants } from "../../Share/Constants";
 import { ActivityData } from "../../Share/Data/ActivityData";
+import CurrentEvent from "./CurrentEvent";
 
 type Props = {}
 
@@ -119,7 +120,7 @@ const NewFeed = (props: Props) => {
           </div>
 
 
-          <div className="quoteOnTop">00 sự kiện đang diễn ra</div>
+          <div className="quoteOnTop">{ActivityData.length} hoạt động đang diễn ra</div>
           <div className="bannerImg">
             <button className="moreBtn" onClick={() => setCurrShowNewFeed(false)}>Xem chi tiết</button>
           </div>
@@ -148,9 +149,7 @@ const NewFeed = (props: Props) => {
           <div className="quoteOnTop">{ActivityData.length} hoạt động đang diễn ra</div>
           {
             ActivityData.map((act, i) => (
-              <div className="bannerImg">
-                <button className="moreBtn" onClick={() => viewEventDetail(act)}>Xem chi tiết</button>
-              </div>
+              <CurrentEvent key={i} act={act} viewEventDetail={viewEventDetail} />
             ))
           }
         </Col>
