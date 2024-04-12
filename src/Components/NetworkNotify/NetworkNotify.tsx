@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import "./NetworkNotify.scss"
 import { WifiOutlined } from "@ant-design/icons"
-import { checkingNetwork } from "../../Services/Functions/DeviceMethods";
+import { useDeviceMethods } from "../../Services/CustomHooks/useDeviceMethods";
 
 type Props = {}
 
 const NetworkNotify = (props: Props) => {
     const [conenctionStatus, setConnectionStatus] = useState<boolean>(true);
+    const { checkingNetwork } = useDeviceMethods();
 
     useEffect(() => {
         checkingNetwork(setConnectionStatus);

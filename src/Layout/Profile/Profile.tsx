@@ -12,6 +12,7 @@ import Empty from "../../Components/Empty/Empty";
 import { usePosts } from "../../Services/CustomHooks/usePosts";
 import { IContext } from "../../Model/Others";
 import { Data } from "../Layout";
+import { ActivityData } from "../../Share/Data/ActivityData";
 
 const notCompleteColor = 'red';
 const completeColor = 'green';
@@ -28,7 +29,7 @@ const Profile = () => {
 
     const [postContainerWidth, setPostContainerWidth] = useState<number>(0);
 
-    const [currentModalView, setCurrentModalView] = useState<string | null>(null);
+    const [currentModalView, setCurrentModalView] = useState<any>(null);
 
 
     useEffect(() => {
@@ -57,11 +58,24 @@ const Profile = () => {
         setPostContainerWidth(postContainer?.clientWidth);
     }
 
+    const handleViewDescript = (id: string) => {
+        let activity
+        if (id === 'ecoPoint') {
+            activity = {
+                title: 'Điểm môi trường',
+                content: 'Điểm môi trường sẽ được tích từ hoạt động Cuộc đua quyên góp. Với từng mốc điểm cụ thể, người chơi có thể tham gia đổi quà tại Quầy đổi điểm trong khu vực diễn ra sự kiện.'
+            }
+        } else {
+            activity = ActivityData.find(activity => activity.id === id);
+        }
+        setCurrentModalView(activity);
+    }
+
     return (
         <div className="ProfileContainer">
 
-            <Modal open={Boolean(currentModalView)} onCancel={() => setCurrentModalView(null)} footer={null}>
-
+            <Modal title={currentModalView?.title} open={currentModalView} onCancel={() => setCurrentModalView(null)} footer={null}>
+                {currentModalView?.content}
             </Modal>
 
             <Row className="Profile">
@@ -86,11 +100,11 @@ const Profile = () => {
                             <div className="points_text">Điểm môi trường</div>
                         </div>
                     </div>
-                    <div className="questionIcon" onClick={() => setCurrentModalView('ecoPoint')}>?</div>
+                    <div className="questionIcon" onClick={() => handleViewDescript('ecoPoint')}>?</div>
 
                     {/* GAME STATUS */}
                     <ul className="gamesList">
-                        <li>Minigame <div className="questionIcon" onClick={() => setCurrentModalView('minigame')}>?</div></li>
+                        <li>Minigame <div className="questionIcon" onClick={() => handleViewDescript('minigame')}>?</div></li>
                         <li>Game 1: <div className="status" style={{ color: user?.minigame.game1 ? completeColor : notCompleteColor }}>{user?.minigame.game1 ? done : notDone}</div></li>
                         <li>Game 2: <div className="status" style={{ color: user?.minigame.game2 ? completeColor : notCompleteColor }}>{user?.minigame.game2 ? done : notDone}</div></li>
                         <li>Game 3: <div className="status" style={{ color: user?.minigame.game3 ? completeColor : notCompleteColor }}>{user?.minigame.game3 ? done : notDone}</div></li>
@@ -112,7 +126,7 @@ const Profile = () => {
                                     currentUserPosts.map((post, i) => (
                                         <div className="postReview" key={i} onClick={() => handleViewPost(post)}>
                                             <div className="time">{new Date(Number(post.postTime)).toLocaleString()}</div>
-                                            <img style={{height: `${postContainerWidth/3}px`}} src={post.imageUrl} loading="lazy"/>
+                                            <img style={{ height: `${postContainerWidth / 3}px` }} src={post.imageUrl} loading="lazy" />
                                         </div>
                                     ))
                                 }

@@ -150,7 +150,7 @@ export const usePosts = () => {
         return fetchedPost;
     }
 
-    const handleLikeUnlikePost = async (isLike: boolean, currentPost: IPost | undefined) => {
+    const handleLikeUnlikePost = async (currentPost: IPost | undefined) => {
         const user = getCurrentUser();
 
         if (!currentPost || !user) return;
@@ -175,7 +175,7 @@ export const usePosts = () => {
             }
         }
 
-        if (isLike) {
+        if (!post.likesUserId.includes(user.id)) {
             post.likesUserId?.push(user.id);
         } else {
             post.likesUserId = post.likesUserId.filter((id) => id !== user.id);
@@ -256,7 +256,7 @@ export const usePosts = () => {
 
     const onRemovePost = (postId: string, imgUrl: string) => {
         const imgId = imgUrl.replace('https://firebasestorage.googleapis.com/v0/b/eco-social-f76a1.appspot.com/o/PostsImage%2F', '').split('?')[0];
-        
+
         const ImgSignal = onRemoveImage(imgId);
 
         const docRef = doc(postsCollectionRef, postId);

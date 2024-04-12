@@ -1,7 +1,7 @@
-import { Outlet } from "react-router-dom"
+import { Outlet, useLocation } from "react-router-dom"
 import "./Layout.scss"
 import { Modal, Popover, Spin } from "antd"
-import { useState, createContext, useLayoutEffect, useEffect } from "react"
+import { useState, createContext, useLayoutEffect, useEffect, useRef } from "react"
 import { IContext, ILoading, ISafeZone } from "../Model/Others"
 import { useTheme } from "../Services/CustomHooks/useTheme"
 import Navbar from "../Components/Navbar/Navbar"
@@ -9,11 +9,12 @@ import { IUser } from "../Model/Users"
 import { useLocalStorage } from "../Services/CustomHooks/useLocalStorage"
 import { GlobalConstants } from "../Share/Constants"
 import LoginModal from "../Components/LoginModal/LoginModal"
-import { checkScrollFromTop, handleMainLayoutScroll, updateScrollForOutlet } from "../Services/Functions/DeviceMethods"
 import LoginPopup from "../Components/LoginPopup/LoginPopup"
 import NetworkNotify from "../Components/NetworkNotify/NetworkNotify"
 import { IPost } from "../Model/Posts"
 import { useApprovalPosts } from "../Services/CustomHooks/useApprovalPosts"
+import { useSessionStorage } from "../Services/CustomHooks/useSesstionStorage"
+import { useDeviceMethods } from "../Services/CustomHooks/useDeviceMethods"
 
 export const Data = createContext<IContext | null>(null);
 
@@ -21,6 +22,12 @@ const Layout = () => {
     const { initTheme } = useTheme();
     const { getFromLocalStorage } = useLocalStorage();
     const { getUnArppvalPostsRealtime, getAllPostsNoContext } = useApprovalPosts();
+    const { getFromSessionStorage, setToSessionStorage } = useSessionStorage();
+    const { checkScrollFromTop, handleMainLayoutScroll, updateScrollForOutlet } = useDeviceMethods();
+
+    const OutletContainer = useRef<any>(null);
+
+    const location = useLocation();
 
     const [loading, setLoading] = useState<ILoading>({ loading: false });
 
@@ -44,6 +51,7 @@ const Layout = () => {
 
     const [newFeedPosts, setNewFeedPosts] = useState<IPost[]>([]);
     const [newFeedLoading, setNewFeedLoading] = useState<boolean>(false);
+    const [newFeedScroll, setNewFeedScroll] = useState<number>(0);
 
     const [showLogin, setShowLogin] = useState<boolean>(false);
 
@@ -94,6 +102,15 @@ const Layout = () => {
         setSafeZone(safeZone);
     }, []);
 
+    // Scroll to top if not new feed
+    useEffect(() => {
+        if (location.pathname !== '/') {
+            OutletContainer.current.scrollTo(0, 0);
+        } else {
+            OutletContainer.current.scrollTo(0, newFeedScroll);
+        }
+    }, [location]);
+
     // Resize & Orientation
     // useEffect(() => {
     //     const handleSizeChange = (e: Event) => {
@@ -127,7 +144,12 @@ const Layout = () => {
     }
 
     const handleScroll = (e: any) => {
-        const newValue = handleMainLayoutScroll(e, mobileTopNavBar, lastPosition, safeZone)
+        if (location.pathname === '/') {
+            const fromTopValue = OutletContainer?.current?.scrollTop;
+            setNewFeedScroll(fromTopValue);
+        }
+
+        const newValue = handleMainLayoutScroll(e, mobileTopNavBar, lastPosition, safeZone);
 
         if (!user) {
             checkScrollFromTop(setDistanceFromTop, user);
@@ -154,7 +176,7 @@ const Layout = () => {
             <Spin size="large" spinning={loading.loading} tip={loading.tooltip}>
                 <div className="mainLayout" onPointerDown={handleUnActiveTimeTracking}>
                     <Navbar mobileTopNavBar={mobileTopNavBar} setMobileTopNavBar={setMobileTopNavBar} safeZone={safeZone} />
-                    <div className="OutletContainer" onScroll={(e) => handleScroll(e)}>
+                    <div className="OutletContainer" onScroll={(e) => handleScroll(e)} ref={OutletContainer}>
                         <Outlet />
                     </div>
                 </div>

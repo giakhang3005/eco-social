@@ -9,6 +9,7 @@ import Post from "./Layout/Post/Post";
 import PostApprove from "./Layout/PostApprove/PostApprove";
 import Permissions from "./Layout/Permissions/Permissions";
 import Games from "./Layout/Games/Games";
+import Posts from "./Layout/Posts/Posts";
 
 export const routers = createBrowserRouter([
     {
@@ -19,6 +20,10 @@ export const routers = createBrowserRouter([
             {
                 path: "/",
                 element: <NewFeed />,
+            },
+            {
+                path: "/posts",
+                element: <Posts />,
             },
             {
                 path: "/profile",

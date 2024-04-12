@@ -2,10 +2,11 @@ import { CopyFilled } from "@ant-design/icons";
 import { GlobalConstants } from "../../Share/Constants";
 import Button from "../Button/Button";
 import "./BlockedScreen.scss";
-import { writeToClipboard } from "../../Services/Functions/DeviceMethods";
+import { useDeviceMethods } from "../../Services/CustomHooks/useDeviceMethods";
 type Props = {}
 
 const BlockedScreen = (props: Props) => {
+  const { writeToClipboard } = useDeviceMethods();
   return (
     <div className="blockedScreen">
       <div className="title">CHÚ Ý</div>

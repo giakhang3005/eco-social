@@ -6,13 +6,13 @@ import { IPost } from "../../Model/Posts";
 import { Col, Modal, Row, message } from "antd";
 import { DeleteOutlined, HeartFilled, HeartOutlined, SendOutlined } from "@ant-design/icons";
 import { useUsers } from "../../Services/CustomHooks/useUsers";
-import { checkIsTablet, writeToClipboard } from "../../Services/Functions/DeviceMethods";
 import { GlobalConstants } from "../../Share/Constants";
 import { useLoading } from "../../Services/CustomHooks/UseLoading";
 import Empty from "../../Components/Empty/Empty";
 import { Data } from "../Layout";
 import { IContext } from "../../Model/Others";
 import Button from "../../Components/Button/Button";
+import { useDeviceMethods } from "../../Services/CustomHooks/useDeviceMethods";
 
 type Props = {}
 
@@ -22,6 +22,7 @@ const PCShareLink = `https://www.facebook.com/dialog/share?link=https%3A%2F%2F${
 const Post = (props: Props) => {
     const { setShowLogin } = useContext(Data) as IContext;
 
+    const { checkIsTablet, writeToClipboard } = useDeviceMethods();
     const { getPostToView, handleLikeUnlikePost, checkUserHaveLikedPost, onRemovePost } = usePosts();
     const { getCurrentUser } = useUsers();
     const { updateLoading } = useLoading();
@@ -58,7 +59,7 @@ const Post = (props: Props) => {
     const handleLikeUnlike = async (isLike: boolean) => {
         if (!getCurrentUser()) setShowLogin(true);
 
-        const returnedPost = await handleLikeUnlikePost(isLike, currentPost);
+        const returnedPost = await handleLikeUnlikePost(currentPost);
 
         if (!returnedPost) return;
 

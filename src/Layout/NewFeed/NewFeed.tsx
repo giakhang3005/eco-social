@@ -1,4 +1,4 @@
-import { Row, Col } from "antd";
+import { Row, Col, Modal } from "antd";
 import "./NewFeed.scss";
 import { useContext, useEffect, useRef, useState } from "react";
 import Button from "../../Components/Button/Button";
@@ -9,6 +9,10 @@ import SkeletonPosts from "../../Components/SkeletonPosts/SkeletonPosts";
 import { Data } from "../Layout";
 import { IContext } from "../../Model/Others";
 import Empty from "../../Components/Empty/Empty";
+import { useNavigate } from "react-router-dom";
+import { useSessionStorage } from "../../Services/CustomHooks/useSesstionStorage";
+import { GlobalConstants } from "../../Share/Constants";
+import { ActivityData } from "../../Share/Data/ActivityData";
 
 type Props = {}
 
@@ -18,12 +22,16 @@ type Props = {}
 const NewFeed = (props: Props) => {
   const { newFeedPosts, setNewFeedPosts, newFeedLoading } = useContext(Data) as IContext;
 
-  const { getAllPosts, handleViewPost } = usePosts();
+  const { setToSessionStorage } = useSessionStorage();
+
+  const navigate = useNavigate();
 
   const postContainerRef = useRef<any>(null);
 
   const [currShowNewFeed, setCurrShowNewFeed] = useState<boolean>(true);
   const [postHeight, setPostHeight] = useState<number>(0);
+
+  const [currentViewActivity, setCurrentViewActivity] = useState<any>();
 
   useEffect(() => {
     initPostHeight();
@@ -47,6 +55,17 @@ const NewFeed = (props: Props) => {
     setNewFeedPosts(newFeedPostsCopy);
   }
 
+  const handleViewPosts = (postId: string) => {
+    const indexOfId = newFeedPosts.findIndex(post => post.postId === postId);
+    setToSessionStorage(GlobalConstants.sessionStorageKeys.postsYDistance, indexOfId);
+
+    navigate('/posts');
+  }
+
+  const viewEventDetail = (act: any) => {
+    setCurrentViewActivity(act);
+  }
+
 
   // useEffect(() => {
   //   fetchPost()
@@ -65,6 +84,10 @@ const NewFeed = (props: Props) => {
 
   return (
     <div className="newFeed">
+      <Modal open={currentViewActivity} title={`${currentViewActivity?.title}`} footer={null} onCancel={() => setCurrentViewActivity(undefined)}>
+        {currentViewActivity?.content}
+      </Modal>
+
       <Row>
         <Col span={currShowNewFeed ? 24 : 0} md={16} className="postsZone">
 
@@ -106,7 +129,7 @@ const NewFeed = (props: Props) => {
             {/* Posts */}
             {
               newFeedPosts.map((post, index) => {
-                return <img onError={() => handlePostErr(post.postId)} key={index} className="post" src={post.imageUrl} style={{ height: `${postHeight / 3}px` }} loading="lazy" onClick={() => handleViewPost(post)} />
+                return <img onError={() => handlePostErr(post.postId)} key={index} className="post" src={post.imageUrl} style={{ height: `${postHeight / 3}px` }} loading="lazy" onClick={() => handleViewPosts(post.postId)} />
 
               })
             }
@@ -122,31 +145,14 @@ const NewFeed = (props: Props) => {
         </Col>
         <Col span={currShowNewFeed ? 0 : 24} md={8} className="bannerSection">
           {!currShowNewFeed && <Button icon={<LeftOutlined />} onClick={() => setCurrShowNewFeed(true)} hideBorder>Quay lại</Button>}
-          <div className="quoteOnTop">00 hoạt động đang diễn ra</div>
-          <div className="bannerImg">
-            <button className="moreBtn">Xem chi tiết</button>
-          </div>
-          <div className="bannerImg">
-            <button className="moreBtn">Xem chi tiết</button>
-          </div>
-          <div className="bannerImg">
-            <button className="moreBtn">Xem chi tiết</button>
-          </div>
-          <div className="bannerImg">
-            <button className="moreBtn">Xem chi tiết</button>
-          </div>
-          <div className="bannerImg">
-            <button className="moreBtn">Xem chi tiết</button>
-          </div>
-          <div className="bannerImg">
-            <button className="moreBtn">Xem chi tiết</button>
-          </div>
-          <div className="bannerImg">
-            <button className="moreBtn">Xem chi tiết</button>
-          </div>
-          <div className="bannerImg">
-            <button className="moreBtn">Xem chi tiết</button>
-          </div>
+          <div className="quoteOnTop">{ActivityData.length} hoạt động đang diễn ra</div>
+          {
+            ActivityData.map((act, i) => (
+              <div className="bannerImg">
+                <button className="moreBtn" onClick={() => viewEventDetail(act)}>Xem chi tiết</button>
+              </div>
+            ))
+          }
         </Col>
       </Row>
     </div>

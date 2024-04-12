@@ -7,6 +7,7 @@ export const GlobalConstants = {
     },
     sessionStorageKeys : {
         isCreateNewPost: 'isCreateNewPost',
+        postsYDistance: 'postsYDistance',
     },
     permissionsKey: {
         points: 'points', // add, subtract points

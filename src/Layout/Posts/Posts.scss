@@ -1,0 +1,157 @@
+/** @format */
+@use "../../App.scss";
+
+.newFeedPostsCtn {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  .newFeedPosts {
+    padding: 4vh 0 0 0;
+
+    .post {
+      width: 90%;
+      max-width: 600px;
+      margin: 0 1.5% 50px 1.5%;
+
+      .header {
+        display: flex;
+        align-items: center;
+        margin: 0 0 12px 0;
+
+        .avatar {
+          border-radius: 50%;
+          height: 50px;
+          margin: 0 8px 0 0;
+        }
+
+        .info {
+          .name {
+            font-weight: 600;
+            font-size: 14px;
+            margin: 0 0 5px 0;
+          }
+
+          .time {
+            font-size: 13px;
+          }
+        }
+      }
+
+      .postImg {
+        width: 100%;
+        border-radius: 20px;
+        margin: 0 0 3px 0;
+      }
+
+      .caption {
+        text-wrap: wrap;
+        margin: 0 0 12px 0;
+
+        .viewMore {
+          margin: 0 0 0 5px;
+          cursor: pointer;
+        }
+      }
+
+      .actionCon {
+        margin: 15px 0 0 0;
+        display: flex;
+        align-items: start;
+
+        .actionIcon {
+          font-size: 30px;
+          margin: 0 30px 0 0;
+          cursor: pointer;
+          transition: all 0.12s linear;
+          color: var(--primary-text-color);
+
+          .LikeCount {
+            font-size: 18px;
+            text-align: center;
+            margin: 3px 0 0 0;
+          }
+
+          .heart {
+            transition: all 0.12s linear;
+
+            &:hover {
+              color: var(--error-color);
+            }
+          }
+
+          &:nth-child(2) {
+            transform: rotate(-30deg) translateY(-3px);
+
+            &:hover {
+              transform: rotate(-40deg) translateY(-5px);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: App.$mobile) {
+  .newFeedPostsCtn {
+    width: 85%;
+    padding: 0 0 0 12%;
+    .newFeedPosts {
+      padding: 10px 0 0 0;
+
+      .post {
+        max-width: 450px;
+
+        .header {
+          .avatar {
+            height: 35px;
+          }
+
+          .info {
+            .name {
+              font-weight: 600;
+              font-size: 12px;
+              margin: 0 0 2px 0;
+            }
+
+            .time {
+              font-size: 10px;
+            }
+          }
+        }
+        .caption {
+          font-size: 12px;
+
+          .viewMore {
+            margin: 0 0 0 5px;
+            cursor: pointer;
+          }
+        }
+
+        .actionCon {
+          margin: 10px 0 0 0;
+
+          .actionIcon {
+            font-size: 20px;
+            margin: 0 15px 0 0;
+
+            .LikeCount {
+              font-size: 15px;
+              text-align: center;
+              margin: 0 0 0 0;
+            }
+
+            &:nth-child(2) {
+              transform: rotate(-30deg) translateY(0);
+
+              &:hover {
+                transform: rotate(-40deg);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
