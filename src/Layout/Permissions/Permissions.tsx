@@ -119,7 +119,7 @@ const Permissions = (props: Props) => {
                 <Button disabled={!targetUser} onClick={handleUpdatePerm} type="primary" showIcon={false}>Thực hiện</Button>
             </div>
             {(validateEmail(userEmail) && targetUser && !usersList.includes(targetUser)) && <div style={{ margin: '5px 0 15px 20px' }}>{targetUser.name} <i>(Chưa có quyền nào)</i></div>}
-            <Table key="id" columns={column} dataSource={filteredList} />
+            <Table key="id" columns={column} dataSource={filteredList} style={{marginBottom: '300px'}} />
         </div>
     )
 }

@@ -181,7 +181,7 @@ export const usePosts = () => {
             post.likesUserId = post.likesUserId.filter((id) => id !== user.id);
         }
 
-        setToLocalStorage(GlobalConstants.localStorageKeys.tempPost, post);
+        // setToLocalStorage(GlobalConstants.localStorageKeys.tempPost, post);
         setPost(post);
 
         return post;
