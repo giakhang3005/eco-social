@@ -40,6 +40,8 @@ const NewPosts = () => {
 
   const [dropZoneWidth, setDropZoneWidth] = useState<number>(0);
 
+  const [isShowMore, setIsShowMore] = useState<boolean>(false);
+
   useEffect(() => {
     const dropZone = dropZoneRef.current;
 
@@ -190,7 +192,7 @@ const NewPosts = () => {
                 <div
                   ref={dropZoneRef}
                   className={`dropZone ${isDraggingOver && 'IsDragFileOver'}`}
-                  style={{height: `${dropZoneWidth}px`}}
+                  style={{ height: `${dropZoneWidth}px` }}
                   onDragLeave={handleDragLeave}
                   onDragOver={handleDragOver}
                   onDrop={handleDrop}
@@ -244,7 +246,25 @@ const NewPosts = () => {
                       </div>
                     </div>
                     <img src={croppedFile} className="previewImage" />
-                    <div className="previewCaption">{caption}</div>
+                    <div className="previewCaption">
+                      {
+                        caption.length >= 200
+                          ?
+                          <>
+                            {
+                              isShowMore
+                                ?
+                                <>{caption} <b className="viewMore" onClick={() => setIsShowMore(false)}>Thu gọn</b></>
+                                :
+                                <>
+                                  {caption.substring(0, 200)}... <b className="viewMore" onClick={() => setIsShowMore(true)} >Xem thêm</b>
+                                </>
+                            }
+
+                          </>
+                          : caption
+                      }
+                    </div>
                     <div className="actionCon">
                       <HeartOutlined className="actionIcon" />
                       <SendOutlined className="actionIcon" />

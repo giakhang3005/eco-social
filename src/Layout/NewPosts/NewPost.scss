@@ -135,10 +135,15 @@
 
         .previewCaption {
           margin: 7px 0 0 0;
-          padding: 0 0 0 0;
+          padding: 0 0 12px 0;
           max-width: 100%;
           box-sizing: border-box;
           text-wrap: wrap;
+
+          .viewMore {
+            margin: 0 0 0 6px;
+            cursor: pointer;
+          }
         }
 
         .actionCon {
@@ -191,7 +196,7 @@
           }
 
           .previewImage {
-            width: 100%
+            width: 100%;
           }
 
           .previewCaption {
