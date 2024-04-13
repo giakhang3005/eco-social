@@ -107,7 +107,7 @@ const NewFeed = (props: Props) => {
     if (!touchStartYLocation) return;
 
     const YLocation = e.touches[0].clientY;
-    const diff = (touchStartYLocation - YLocation) / 3;
+    const diff = (touchStartYLocation - YLocation) / 2;
 
     if (diff <= 0 && diff >= -100) {
       setCurrenSwipeLocation(-diff);
@@ -131,7 +131,7 @@ const NewFeed = (props: Props) => {
         {currentViewActivity?.content}
       </Modal>
 
-      <Row>
+      <Row style={{minHeight: '100vh'}}>
         <Col span={currShowNewFeed ? 24 : 0} md={16} className="postsZone" style={{ paddingTop: `${currentSwipeLocation}px` }} onTouchMove={onTouchMove} onTouchStart={onTouchDown} onTouchEnd={onTouchUp}>
           <div className="NTTCtn">
             <div className="NTT">

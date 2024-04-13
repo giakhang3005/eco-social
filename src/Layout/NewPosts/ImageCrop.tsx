@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import 'react-image-crop/src/ReactCrop.scss'
 import { useImage } from '../../Services/CustomHooks/useImage';
-import ReactCrop, { makeAspectCrop, type Crop, centerCrop, PixelCrop } from 'react-image-crop';
+import ReactCrop, { makeAspectCrop, type Crop} from 'react-image-crop';
 import { GlobalConstants } from '../../Share/Constants';
-import { message } from 'antd';
-import { useUsers } from '../../Services/CustomHooks/useUsers';
 import Button from '../../Components/Button/Button';
 
 type Props = {
