@@ -84,6 +84,7 @@ const Layout = () => {
         const fetchedPosts = await getAllPostsNoContext(1, GlobalConstants.numberOfPostPerReq);
 
         setNewFeedLoading(false);
+        
         if (!fetchedPosts) return;
         setNewFeedPosts(fetchedPosts);
     }
@@ -163,7 +164,7 @@ const Layout = () => {
     }
 
     return (
-        <Data.Provider value={{ setShowLogin, loading, setLoading, user, setUser, setCurrentUserPosts, currentUserPosts, postWaitingToApprove, newFeedPosts, setNewFeedPosts, newFeedLoading }}>
+        <Data.Provider value={{ setShowLogin, loading, setLoading, user, setUser, setCurrentUserPosts, currentUserPosts, postWaitingToApprove, newFeedPosts, setNewFeedPosts, getNFPosts, newFeedLoading }}>
             {/* {isMobileLandscape && <BlockedScreen />} */}
             <Modal open={showSigninModal} onCancel={() => setShowSigninModal(false)} footer={null}>
                 <LoginModal />

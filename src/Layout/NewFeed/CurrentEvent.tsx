@@ -52,7 +52,7 @@ const CurrentEvent = ({ act, viewEventDetail }: Props) => {
             return;
         }
 
-        setTime('Đã kết thúc')
+        setTime('Đã kết thúc');
     }
 
     return (

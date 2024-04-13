@@ -18,6 +18,8 @@ export interface IContext {
     newFeedPosts: IPost[];
     setNewFeedPosts: (posts: IPost[]) => void;
 
+    getNFPosts: () => void;
+
     newFeedLoading: boolean;
 }
 

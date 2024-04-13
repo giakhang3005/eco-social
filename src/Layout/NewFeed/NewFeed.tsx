@@ -21,7 +21,7 @@ type Props = {}
 // TODO: Only fetch ... first, when user scroll down, fetch next ... posts and push to original post array
 
 const NewFeed = (props: Props) => {
-  const { newFeedPosts, setNewFeedPosts, newFeedLoading } = useContext(Data) as IContext;
+  const { newFeedPosts, setNewFeedPosts, newFeedLoading, getNFPosts } = useContext(Data) as IContext;
 
   const { setToSessionStorage } = useSessionStorage();
 
@@ -83,15 +83,56 @@ const NewFeed = (props: Props) => {
   //   setnewFeedLoading(false)
   // }
 
+  const [touchStartYLocation, setTouchStartYLocation] = useState<number | null>(null);
+  const [currentSwipeLocation, setCurrenSwipeLocation] = useState<number>(0);
+
+  const onTouchDown = (e: any) => {
+    const YLocation = e.touches[0].clientY;
+    setTouchStartYLocation(YLocation);
+  }
+
+  const onTouchUp = (e: any) => {
+    const YLocation = e.nativeEvent.pageY;
+
+    if (currentSwipeLocation >= 100) {
+      setNewFeedPosts([]);
+      getNFPosts();
+    }
+
+    setCurrenSwipeLocation(0);
+    setTouchStartYLocation(null);
+  }
+
+  const onTouchMove = (e: any) => {
+    if (!touchStartYLocation) return;
+
+    const YLocation = e.touches[0].clientY;
+    const diff = (touchStartYLocation - YLocation) / 2.5;
+
+    if (diff <= 0 && diff >= -100) {
+      setCurrenSwipeLocation(-diff);
+    } else {
+      diff >= 0 && setCurrenSwipeLocation(0);
+      diff <= -100 && setCurrenSwipeLocation(100);
+    }
+  }
+
   return (
     <div className="newFeed">
+      {
+        currentSwipeLocation > 0 &&
+        <div className="progress-bar" style={{ background: `radial-gradient(closest-side, var(--bg-color) 79%, transparent 80% 100%), conic-gradient(var(--pill-color) ${currentSwipeLocation}%, var(--drop-zone-color) 0)` }}>
+        </div>
+      }
+
+      <div className="swipeReloadText">{currentSwipeLocation === 100 && 'Thả để tải lại bản tin'}</div>
+
       <Modal open={currentViewActivity} title={`${currentViewActivity?.title}`} footer={null} onCancel={() => setCurrentViewActivity(undefined)}>
         {currentViewActivity?.content}
       </Modal>
 
       <Row>
-        <Col span={currShowNewFeed ? 24 : 0} md={16} className="postsZone">
-
+        <Col span={currShowNewFeed ? 24 : 0} md={16} className="postsZone" style={{ paddingTop: `${currentSwipeLocation}px` }} onTouchMove={onTouchMove} onTouchStart={onTouchDown} onTouchEnd={onTouchUp}>
           <div className="NTTCtn">
             <div className="NTT">
               <div className="rank">Nhà tài trợ kim cương</div>
@@ -126,7 +167,6 @@ const NewFeed = (props: Props) => {
           </div>
           {currShowNewFeed && <Fact />}
           <div className="postsContainer" ref={postContainerRef}>
-
             {/* Posts */}
             {
               newFeedPosts.map((post, index) => {
