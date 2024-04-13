@@ -150,7 +150,7 @@ const Games = (props: Props) => {
             title: 'Game 1',
             render: (user: any) => {
                 return (
-                    <Select onChange={(newVal) => onUpdateGameStatus('game1', newVal)} value={user.minigame.game1} options={changedOptions}></Select>
+                    <Select style={{width: '100%'}} onChange={(newVal) => onUpdateGameStatus('game1', newVal)} value={user.minigame.game1} options={changedOptions}></Select>
                 )
             }
         },
@@ -159,7 +159,7 @@ const Games = (props: Props) => {
             title: 'Game 2',
             render: (user: any) => {
                 return (
-                    <Select onChange={(newVal) => onUpdateGameStatus('game2', newVal)} value={user.minigame.game2} options={changedOptions}></Select>
+                    <Select style={{width: '100%'}} onChange={(newVal) => onUpdateGameStatus('game2', newVal)} value={user.minigame.game2} options={changedOptions}></Select>
                 )
             }
         },
@@ -168,7 +168,7 @@ const Games = (props: Props) => {
             title: 'Game 3',
             render: (user: any) => {
                 return (
-                    <Select onChange={(newVal) => onUpdateGameStatus('game3', newVal)} value={user.minigame.game3} options={changedOptions}></Select>
+                    <Select style={{width: '100%'}} onChange={(newVal) => onUpdateGameStatus('game3', newVal)} value={user.minigame.game3} options={changedOptions}></Select>
                 )
             }
         },

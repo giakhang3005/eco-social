@@ -21,7 +21,7 @@ body {
 
 * {
   // transition: all 0.12s linear;
-  // overscroll-behavior: none;
+  overscroll-behavior: none;
 
   &::selection {
     background-color: var(--info-box-color);

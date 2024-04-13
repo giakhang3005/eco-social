@@ -60,6 +60,13 @@ const Navbar = ({ mobileTopNavBar, setMobileTopNavBar, safeZone }: Props) => {
       setDestination(path);
       return;
     }
+
+    if (path === location.pathname) {
+      const OutletContainer = document.querySelector('.OutletContainer');
+      OutletContainer?.scrollTo(0, 0);
+
+      return;
+    }
     navigate(path);
   }
 
@@ -106,7 +113,7 @@ const Navbar = ({ mobileTopNavBar, setMobileTopNavBar, safeZone }: Props) => {
         {/* Footer */}
         <div className="footer">
           {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.log)) && <Button tooltip="Log" onClick={() => navigateToOtherPage('/log')} style={{ margin: '6px 0 0 0' }} icon={<BookFilled />} hideBorder active={location.pathname === "/log"}></Button>}
-          {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.points)) && <Button tooltip="Điểm tái chế" style={{ margin: '6px 0 0 0' }} onClick={() => navigateToOtherPage('/points')} icon={<StarFilled />} hideBorder active={location.pathname === "/points"}></Button>}
+          {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.points)) && <Button tooltip="Điểm môi trường" style={{ margin: '6px 0 0 0' }} onClick={() => navigateToOtherPage('/points')} icon={<StarFilled />} hideBorder active={location.pathname === "/points"}></Button>}
           {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.approval)) && <Button tooltip="Duyệt bài" style={{ margin: '6px 0 0 0' }} onClick={() => navigateToOtherPage('/approval')} icon={<CarryOutFilled />} hideBorder active={location.pathname === "/approval"} badge={postWaitingToApprove.length}></Button>}
           {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.booth)) && <Button tooltip="Minigame" style={{ margin: '6px 0 0 0' }} onClick={() => navigateToOtherPage('/games')} icon={<MergeFilled />} hideBorder active={location.pathname === "/games"}></Button>}
           {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.perm)) && <Button tooltip="Kiểm soát quyền" style={{ margin: '6px 0 0 0' }} onClick={() => navigateToOtherPage('/perm')} icon={<SignatureFilled />} hideBorder active={location.pathname === "/perm"}></Button>}

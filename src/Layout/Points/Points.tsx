@@ -115,7 +115,7 @@ const Points = (props: Props) => {
     // Todo: Blocked edit email until finish (cancel or update completed)
     return (
         <div className="Points">
-            <div className="title">ĐIỂM TÁI CHẾ</div>
+            <div className="title">ĐIỂM MÔI TRƯỜNG</div>
             <div className="InputContainer">
                 <div className="label">Email:</div>
                 <Input style={{ width: '90%' }} value={currentInput} setValue={setCurrentInput} onBlur={validateTargetUser} placeholder="cocsaigon@gmail.com" />
