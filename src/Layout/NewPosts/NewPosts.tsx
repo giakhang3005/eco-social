@@ -38,12 +38,14 @@ const NewPosts = () => {
 
   const [updatedSizeAlready, setUpdatedSizeAlready] = useState<boolean>(false);
 
+  const [dropZoneWidth, setDropZoneWidth] = useState<number>(0);
+
   useEffect(() => {
     const dropZone = dropZoneRef.current;
 
     if (!dropZone) return;
 
-    dropZone.style.height = `${dropZone.clientWidth}px`;
+    setDropZoneWidth(dropZone.clientWidth)
   }, []);
 
   useEffect(() => {
@@ -188,6 +190,7 @@ const NewPosts = () => {
                 <div
                   ref={dropZoneRef}
                   className={`dropZone ${isDraggingOver && 'IsDragFileOver'}`}
+                  style={{height: `${dropZoneWidth}px`}}
                   onDragLeave={handleDragLeave}
                   onDragOver={handleDragOver}
                   onDrop={handleDrop}
