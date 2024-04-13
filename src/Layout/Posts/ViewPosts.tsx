@@ -13,9 +13,10 @@ type Props = {
     post: IPost;
 
     handleLikeUnlike: (post: IPost) => void;
+    checkImgLoaded: () => void;
 }
 
-const ViewPosts = ({ post, handleLikeUnlike }: Props) => {
+const ViewPosts = ({ post, handleLikeUnlike, checkImgLoaded }: Props) => {
     const { writeToClipboard } = useDeviceMethods();
     const { checkUserHaveLikedPost } = usePosts();
 
@@ -27,7 +28,7 @@ const ViewPosts = ({ post, handleLikeUnlike }: Props) => {
     }
 
     return (
-        <div className="post">
+        <div className="post" id={post.postId}>
             <div className="header">
                 <img src={post.userData.userImg} className="avatar" />
                 <div className="info">
@@ -35,7 +36,7 @@ const ViewPosts = ({ post, handleLikeUnlike }: Props) => {
                     <div className="time">{new Date(post.postTime).toLocaleString()}</div>
                 </div>
             </div>
-            <img src={post.imageUrl} className="postImg" loading="lazy"/>
+            <img src={post.imageUrl} className="postImg" loading="lazy" onLoad={checkImgLoaded}/>
             <div className="caption">
                 {
                     post.caption.length >= 200

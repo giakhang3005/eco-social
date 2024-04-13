@@ -20,16 +20,19 @@ const Posts = () => {
 
     const postRef = useRef<any>(null);
 
+    const [loadedImg, setLoadedImg] = useState<number>(0);
+
     useEffect(() => {
+        if (loadedImg < newFeedPosts.length) return;
         const mainLayout = document.querySelector('.OutletContainer');
 
         if (!mainLayout) return;
 
-        const postHeight = postRef.current.clientHeight / (newFeedPosts.length);
+        const postHeight = (postRef.current.clientHeight) / (newFeedPosts.length);
         const postYPosition = getFromSessionStorage(GlobalConstants.sessionStorageKeys.postsYDistance) || 0;
 
         mainLayout.scrollTo(0, postYPosition * postHeight + 10);
-    }, []);
+    }, [loadedImg]);
 
     const handleLikeUnlike = async (post: IPost) => {
         if (!getCurrentUser()) setShowLogin(true);
@@ -45,12 +48,16 @@ const Posts = () => {
         setNewFeedPosts(updatedNewFeedPosts);
     }
 
+    const checkImgLoaded = () => {
+        setLoadedImg((prev) => prev + 1);
+    }
+
     return (
         <div className="newFeedPostsCtn" ref={postRef}>
             <div className="newFeedPosts">
                 {
                     newFeedPosts.map((post, i) => (
-                        <ViewPosts post={post} key={i} handleLikeUnlike={handleLikeUnlike}/>
+                        <ViewPosts post={post} key={i} handleLikeUnlike={handleLikeUnlike} checkImgLoaded={checkImgLoaded} />
                     ))
                 }
             </div>
