@@ -14,7 +14,7 @@ import { usePosts } from "../../Services/CustomHooks/usePosts";
 import { useSessionStorage } from "../../Services/CustomHooks/useSesstionStorage";
 
 const NewPosts = () => {
-  const { handleImage, checkLoadedImg, resizeImage, uploadImage } = useImage();
+  const { handleImage, checkLoadedImg, resizeImage, getBase64Size, onResizeBase64 } = useImage();
   const { getCurrentUser } = useUsers();
   const { updateLoading } = useLoading();
   const { addNewPost } = usePosts();
@@ -61,7 +61,14 @@ const NewPosts = () => {
   const handleNextStep = async () => {
     if (currentStep === 3) {
       updateLoading(true, "Đang đăng bài...");
-      const status = await addNewPost(croppedFile, caption, isAnonymous);
+
+      let uploadedFile = croppedFile;
+      if(getBase64Size(croppedFile) >= 1000000) {
+        uploadedFile = await onResizeBase64(croppedFile);
+      }
+      
+      const status = await addNewPost(uploadedFile, caption, isAnonymous);
+
       if (status) {
         message.success('Đăng thành công');
         removeFromSessionStorage(GlobalConstants.sessionStorageKeys.isCreateNewPost);

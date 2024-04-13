@@ -201,5 +201,45 @@ export const useImage = () => {
         return signal;
     }
 
-    return { onRemoveImage, handleImage, readDataAsUrl, checkLoadedImg, setCanvasPreview, convertDataUrlToFile, resizeImage, uploadImage }
+    const onResizeBase64 = async (base64Str: string, MAX_WIDTH: number = 600, MAX_HEIGHT: number = 600) => {
+        let resized_base64 = await new Promise((resolve) => {
+            let img = new Image();
+            img.src = base64Str;
+            img.onload = () => {
+                let canvas = document.createElement('canvas');
+                let width = img.width;
+                let height = img.height;
+
+                if (width > height) {
+                    if (width > MAX_WIDTH) {
+                        height *= MAX_WIDTH / width;
+                        width = MAX_WIDTH;
+                    }
+                } else {
+                    if (height > MAX_HEIGHT) {
+                        width *= MAX_HEIGHT / height;
+                        height = MAX_HEIGHT;
+                    }
+                }
+                canvas.width = width;
+                canvas.height = height;
+                let ctx = canvas.getContext('2d');
+
+                if (!ctx) return;
+
+                ctx.drawImage(img, 0, 0, width, height)
+                resolve(canvas.toDataURL()) // this will return base64 image results after resize
+            }
+        });
+        return resized_base64;
+    }
+
+    const getBase64Size = (base64: string) => {
+        var base64str = base64.substring(base64.indexOf(',') + 1);
+        var decoded = atob(base64str);
+
+        return decoded.length;
+    }
+
+    return { onResizeBase64, getBase64Size, onRemoveImage, handleImage, readDataAsUrl, checkLoadedImg, setCanvasPreview, convertDataUrlToFile, resizeImage, uploadImage }
 }
