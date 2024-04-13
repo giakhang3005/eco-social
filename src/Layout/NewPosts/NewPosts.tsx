@@ -63,10 +63,10 @@ const NewPosts = () => {
       updateLoading(true, "Đang đăng bài...");
 
       let uploadedFile = croppedFile;
-      if(getBase64Size(croppedFile) >= 1000000) {
+      if (getBase64Size(croppedFile) >= 1000000) {
         uploadedFile = await onResizeBase64(croppedFile);
       }
-      
+
       const status = await addNewPost(uploadedFile, caption, isAnonymous);
 
       if (status) {
@@ -157,10 +157,15 @@ const NewPosts = () => {
     setCroppedFile(null);
   }
 
+  const onClearImage = () => {
+    setFile(null);
+    setCroppedFile(null);
+  }
+
   return (
     <div className="newPost">
       <Modal open={file && !croppedFile && !imgRatioErr} footer={null} title="Cắt ảnh" closable={false} className="modalCrop">
-        <ImageCrop file={file} setCroppedFile={setCroppedFile} />
+        <ImageCrop file={file} setCroppedFile={setCroppedFile} onClearImage={onClearImage} />
       </Modal>
 
       <Row>
