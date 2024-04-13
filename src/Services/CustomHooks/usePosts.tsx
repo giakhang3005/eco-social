@@ -22,21 +22,21 @@ export const usePosts = () => {
 
     const addNewPost = async (file: any, caption: string, isAnonymous: boolean) => {
         const user = getCurrentUser();
-        const imageUrl = await uploadImage(file);
+        // const imageUrl = await uploadImage(file);
 
-        if (!user || !imageUrl) return;
+        if (!user || !file) return;
 
         const currTime = new Date().getTime();
 
         const newPost: IPost = {
-            postId: file.name.split('.')[0],
+            postId: `${user.id}_${currTime}`,
             userData: {
                 userId: user.id,
                 userName: user.name,
                 userImg: user.imgUrl,
             },
             caption: caption,
-            imageUrl: imageUrl,
+            imageUrl: file,
             postTime: currTime,
             likesUserId: [],
             status: 0,
@@ -255,9 +255,9 @@ export const usePosts = () => {
     }
 
     const onRemovePost = (postId: string, imgUrl: string) => {
-        const imgId = imgUrl.replace('https://firebasestorage.googleapis.com/v0/b/eco-social-f76a1.appspot.com/o/PostsImage%2F', '').split('?')[0];
+        // const imgId = imgUrl.replace('https://firebasestorage.googleapis.com/v0/b/eco-social-f76a1.appspot.com/o/PostsImage%2F', '').split('?')[0];
 
-        const ImgSignal = onRemoveImage(imgId);
+        // const ImgSignal = onRemoveImage(imgId);
 
         const docRef = doc(postsCollectionRef, postId);
         const postSignal = deleteDoc(docRef)
@@ -269,7 +269,7 @@ export const usePosts = () => {
             });
 
         const promisesAll =
-            Promise.all([ImgSignal, postSignal])
+            Promise.all([postSignal])
                 .then(() => {
                     return 1;
                 })

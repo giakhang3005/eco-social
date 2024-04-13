@@ -184,7 +184,7 @@ const NewPosts = () => {
 
 
                   {file
-                    ? <img src={URL.createObjectURL(croppedFile ? croppedFile : file)} className="previewImg" alt="No img" onLoad={(e) => checkNaturalSize(e)} />
+                    ? <img src={croppedFile ? croppedFile : URL.createObjectURL(file)} className="previewImg" alt="No img" onLoad={(e) => checkNaturalSize(e)} />
                     :
                     <div className="instruction">
                       <CameraOutlined className="icon" />
@@ -228,7 +228,7 @@ const NewPosts = () => {
                         <div className="time">{new Date().toLocaleString()}</div>
                       </div>
                     </div>
-                    <img src={URL.createObjectURL(croppedFile)} className="previewImage" />
+                    <img src={croppedFile} className="previewImage" />
                     <div className="previewCaption">{caption}</div>
                     <div className="actionCon">
                       <HeartOutlined className="actionIcon" />

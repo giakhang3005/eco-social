@@ -18,14 +18,9 @@ const Posts = () => {
     const { getCurrentUser } = useUsers();
     const { updateLoading } = useLoading();
 
-    const [numOfImgLoaded, setNumOfImgLoaded] = useState<number>(0);
-
     const postRef = useRef<any>(null);
 
     useEffect(() => {
-        updateLoading(true, 'Đang tải...');
-        if (numOfImgLoaded !== newFeedPosts.length) return;
-
         const mainLayout = document.querySelector('.OutletContainer');
 
         if (!mainLayout) return;
@@ -34,9 +29,7 @@ const Posts = () => {
         const postYPosition = getFromSessionStorage(GlobalConstants.sessionStorageKeys.postsYDistance) || 0;
 
         mainLayout.scrollTo(0, postYPosition * postHeight + 10);
-        
-        updateLoading(false, '');
-    }, [numOfImgLoaded]);
+    }, []);
 
     const handleLikeUnlike = async (post: IPost) => {
         if (!getCurrentUser()) setShowLogin(true);
@@ -52,17 +45,12 @@ const Posts = () => {
         setNewFeedPosts(updatedNewFeedPosts);
     }
 
-    const triggerImgLoaded = () => {
-        setNumOfImgLoaded((prev) => prev + 1);
-        // console.log(numOfImgLoaded + 1);
-    }
-
     return (
         <div className="newFeedPostsCtn" ref={postRef}>
             <div className="newFeedPosts">
                 {
                     newFeedPosts.map((post, i) => (
-                        <ViewPosts post={post} key={i} handleLikeUnlike={handleLikeUnlike} triggerImgLoaded={triggerImgLoaded} />
+                        <ViewPosts post={post} key={i} handleLikeUnlike={handleLikeUnlike}/>
                     ))
                 }
             </div>

@@ -69,12 +69,13 @@ const ImageCrop = ({ file, setCroppedFile }: Props) => {
         if (!canvas) return;
 
         const dataUrl = canvas.toDataURL();
+        // console.log(dataUrl)
 
-        const randName = new Date().getTime();
-        const currUser = getCurrentUser();
+        // const randName = new Date().getTime();
+        // const currUser = getCurrentUser();
 
-        const croppedFile = convertDataUrlToFile(dataUrl, `${currUser?.id}_${randName}.png`);
-        setCroppedFile(croppedFile);
+        // const croppedFile = convertDataUrlToFile(dataUrl, `${currUser?.id}_${randName}.png`);
+        setCroppedFile(dataUrl);
     }
 
     return (

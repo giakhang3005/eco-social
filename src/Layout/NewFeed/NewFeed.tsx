@@ -107,7 +107,7 @@ const NewFeed = (props: Props) => {
     if (!touchStartYLocation) return;
 
     const YLocation = e.touches[0].clientY;
-    const diff = (touchStartYLocation - YLocation) / 2.5;
+    const diff = (touchStartYLocation - YLocation) / 3;
 
     if (diff <= 0 && diff >= -100) {
       setCurrenSwipeLocation(-diff);
