@@ -10,18 +10,17 @@
     height: 50px;
     border-radius: 50%;
     position: fixed;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 10px;
+    left: calc(((100% / 24 * 16) / 2 ) + 10px);
     // background: radial-gradient(closest-side, white 79%, transparent 80% 100%),
     //   conic-gradient(hotpink 75%, pink 0);
   }
 
   .swipeReloadText {
     position: fixed;
-    top: 103px;
-    left: 50%;
+    top: 70px;
     font-size: 11px;
-    transform: translateX(-50%);
+    left: calc(((100% / 24 * 16) / 2 ) - 13px);
   }
 
   .postsZone {
@@ -159,6 +158,24 @@
 
 @media screen and (max-width: App.$mobile) {
   .newFeed {
+    .progress-bar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      top: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      // background: radial-gradient(closest-side, white 79%, transparent 80% 100%),
+      //   conic-gradient(hotpink 75%, pink 0);
+    }
+
+    .swipeReloadText {
+      top: 103px;
+      left: 50%;
+      font-size: 11px;
+      transform: translateX(-50%);
+    }
+
     .postsZone {
       padding: 0;
       // transition: all 0.05s linear;
@@ -184,7 +201,7 @@
 
     .postsZone {
       margin: 0;
-      
+
       .NTTCtn {
         display: flex;
         margin: 0 0 15px 0;

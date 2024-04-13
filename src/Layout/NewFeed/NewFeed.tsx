@@ -87,12 +87,18 @@ const NewFeed = (props: Props) => {
   const [currentSwipeLocation, setCurrenSwipeLocation] = useState<number>(0);
 
   const onTouchDown = (e: any) => {
-    const YLocation = e.touches[0].clientY;
+    let YLocation;
+    if (e.type === 'mousedown') {
+      YLocation = e.clientY;
+    } else {
+      YLocation = e.touches[0].clientY;
+    }
+
     setTouchStartYLocation(YLocation);
   }
 
   const onTouchUp = (e: any) => {
-    const YLocation = e.nativeEvent.pageY;
+    // const YLocation = e.nativeEvent.pageY;
 
     if (currentSwipeLocation >= 100) {
       setNewFeedPosts([]);
@@ -106,7 +112,14 @@ const NewFeed = (props: Props) => {
   const onTouchMove = (e: any) => {
     if (!touchStartYLocation) return;
 
-    const YLocation = e.touches[0].clientY;
+    let YLocation;
+
+    if (e.type === 'mousemove') {
+      YLocation = e.clientY;
+    } else {
+      YLocation = e.touches[0].clientY;
+    }
+
     const diff = (touchStartYLocation - YLocation) / 2;
 
     if (diff <= 0 && diff >= -100) {
@@ -131,8 +144,8 @@ const NewFeed = (props: Props) => {
         {currentViewActivity?.content}
       </Modal>
 
-      <Row style={{minHeight: '100vh'}}>
-        <Col span={currShowNewFeed ? 24 : 0} md={16} className="postsZone" style={{ paddingTop: `${currentSwipeLocation}px` }} onTouchMove={onTouchMove} onTouchStart={onTouchDown} onTouchEnd={onTouchUp}>
+      <Row style={{ minHeight: '100vh' }}>
+        <Col span={currShowNewFeed ? 24 : 0} md={16} className="postsZone" style={{ paddingTop: `${currentSwipeLocation}px` }} onMouseMove={onTouchMove} onMouseDown={onTouchDown} onMouseUp={onTouchUp} onTouchMove={onTouchMove} onTouchStart={onTouchDown} onTouchEnd={onTouchUp}>
           <div className="NTTCtn">
             <div className="NTT">
               <div className="rank">Nhà tài trợ kim cương</div>
@@ -170,7 +183,7 @@ const NewFeed = (props: Props) => {
             {/* Posts */}
             {
               newFeedPosts.map((post, index) => {
-                return <img onError={() => handlePostErr(post.postId)} key={index} className="post" src={post.imageUrl} style={{ height: `${postHeight / 3}px` }} loading="lazy" onClick={() => handleViewPosts(post.postId)} />
+                return <img draggable={false} onError={() => handlePostErr(post.postId)} key={index} className="post" src={post.imageUrl} style={{ height: `${postHeight / 3}px` }} loading="lazy" onClick={() => handleViewPosts(post.postId)} />
 
               })
             }
