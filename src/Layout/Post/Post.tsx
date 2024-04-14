@@ -102,8 +102,8 @@ const Post = (props: Props) => {
                 }
             >Bạn có chắc chắn muốn xoá bài viết này không? Sau khi xoá, bạn sẽ vĩnh viễn không thể khôi phục lại bài viết</Modal>
 
-            <Col span={0} md={6}></Col>
-            <Col span={24} md={12} className="postCon">
+            <Col span={0} md={4}></Col>
+            <Col span={24} md={16} className="postCon">
                 <div style={{ width: '100%' }}>
                     {
                         currentPost ?
@@ -138,7 +138,7 @@ const Post = (props: Props) => {
                     }
                 </div>
             </Col>
-            <Col span={0} md={6}></Col>
+            <Col span={0} md={4}></Col>
         </Row>
     )
 }
