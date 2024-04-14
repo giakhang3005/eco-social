@@ -101,7 +101,7 @@ export const usePosts = () => {
                 postsArr.push(newPost);
             });
 
-            setCurrentUserPosts(postsArr);
+            setCurrentUserPosts(postsArr.reverse());
         })
     }
 
