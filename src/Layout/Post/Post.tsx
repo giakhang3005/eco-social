@@ -20,7 +20,7 @@ const tabletShareLink = `fb-messenger://share?link=https%3A%2F%2F${GlobalConstan
 const PCShareLink = `https://www.facebook.com/dialog/share?link=https%3A%2F%2F${GlobalConstants.webUrl}%2Fpost%2F`;
 
 const Post = (props: Props) => {
-    const { setShowLogin } = useContext(Data) as IContext;
+    const { setShowLogin, loading } = useContext(Data) as IContext;
 
     const { checkIsTablet, writeToClipboard } = useDeviceMethods();
     const { getPostToView, handleLikeUnlikePost, checkUserHaveLikedPost, onRemovePost } = usePosts();
@@ -102,8 +102,8 @@ const Post = (props: Props) => {
                 }
             >Bạn có chắc chắn muốn xoá bài viết này không? Sau khi xoá, bạn sẽ vĩnh viễn không thể khôi phục lại bài viết</Modal>
 
-            <Col span={0} md={4}></Col>
-            <Col span={24} md={16} className="postCon">
+            <Col span={0} md={5}></Col>
+            <Col span={24} md={14} className="postCon">
                 <div style={{ width: '100%' }}>
                     {
                         currentPost ?
@@ -133,12 +133,12 @@ const Post = (props: Props) => {
                             </>
                             :
                             <>
-                                <Empty content="Bài đăng không tồn tại" />
+                                {!loading.loading && <Empty content="Bài đăng không tồn tại" />}
                             </>
                     }
                 </div>
             </Col>
-            <Col span={0} md={4}></Col>
+            <Col span={0} md={5}></Col>
         </Row>
     )
 }
