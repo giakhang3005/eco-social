@@ -18,7 +18,7 @@ export const GlobalConstants = {
     },
     topNavHeight: 47, //px
     unLoggedInMaximumScroll: 50, //px
-    webUrl: 'https://eco.cocsaigon.club/',
+    webUrl: 'https://eco.cocsaigon.club',
     postImageCrop: {
         minWidth: 150, //px
         ratio: 1, // 1:1
