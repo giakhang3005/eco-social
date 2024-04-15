@@ -31,7 +31,7 @@ const Posts = () => {
         const postHeight = (postRef.current.clientHeight) / (newFeedPosts.length);
         const postYPosition = getFromSessionStorage(GlobalConstants.sessionStorageKeys.postsYDistance) || 0;
 
-        mainLayout.scrollTo(0, postYPosition * postHeight - 10);
+        mainLayout.scrollTo(0, postYPosition * postHeight - (postHeight/5));
     }, [loadedImg]);
 
     const handleLikeUnlike = async (post: IPost) => {

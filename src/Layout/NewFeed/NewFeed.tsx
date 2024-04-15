@@ -21,7 +21,7 @@ type Props = {}
 // TODO: Only fetch ... first, when user scroll down, fetch next ... posts and push to original post array
 
 const NewFeed = (props: Props) => {
-  const { newFeedPosts, setNewFeedPosts, newFeedLoading, getNFPosts } = useContext(Data) as IContext;
+  const { newFeedPosts, setNewFeedPosts, newFeedLoading, getNFPosts, newFeedScroll } = useContext(Data) as IContext;
 
   const { setToSessionStorage } = useSessionStorage();
 
@@ -31,6 +31,8 @@ const NewFeed = (props: Props) => {
 
   const [currShowNewFeed, setCurrShowNewFeed] = useState<boolean>(true);
   const [postHeight, setPostHeight] = useState<number>(0);
+
+  const [numOfImgLoaded, setNumOfImgLoaded] = useState<number>(0);
 
   const [currentViewActivity, setCurrentViewActivity] = useState<any>();
 
@@ -47,6 +49,15 @@ const NewFeed = (props: Props) => {
 
     if (element) {
       setPostHeight(element.clientWidth);
+
+      const scrollTimeout = setTimeout(() => {
+        const OutletContainer = document.querySelector('.OutletContainer');
+
+        if (!OutletContainer) return;
+
+        OutletContainer.scrollTo(0, newFeedScroll);
+        clearTimeout(scrollTimeout);
+      }, 150)
     }
   }
 
@@ -130,6 +141,12 @@ const NewFeed = (props: Props) => {
     }
   }
 
+
+
+  const onImgLoaded = () => {
+    setNumOfImgLoaded(prev => prev + 1);
+  }
+
   return (
     <div className="newFeed">
       {
@@ -183,7 +200,7 @@ const NewFeed = (props: Props) => {
             {/* Posts */}
             {
               newFeedPosts.map((post, index) => {
-                return <img draggable={false} onError={() => handlePostErr(post.postId)} key={index} className="post" src={post.imageUrl} style={{ height: `${postHeight / 3}px` }} loading="lazy" onClick={() => handleViewPosts(post.postId)} />
+                return <img draggable={false} onLoad={onImgLoaded} onError={() => handlePostErr(post.postId)} key={index} className="post" src={post.imageUrl} style={{ height: `${postHeight / 3}px` }} onClick={() => handleViewPosts(post.postId)} />
 
               })
             }

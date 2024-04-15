@@ -103,15 +103,6 @@ const Layout = () => {
         setSafeZone(safeZone);
     }, []);
 
-    // Scroll to top if not new feed
-    useEffect(() => {
-        if (location.pathname !== '/') {
-            OutletContainer.current.scrollTo(0, 0);
-        } else {
-            OutletContainer.current.scrollTo(0, newFeedScroll);
-        }
-    }, [location]);
-
     // Resize & Orientation
     // useEffect(() => {
     //     const handleSizeChange = (e: Event) => {
@@ -164,7 +155,7 @@ const Layout = () => {
     }
 
     return (
-        <Data.Provider value={{ setShowLogin, loading, setLoading, user, setUser, setCurrentUserPosts, currentUserPosts, postWaitingToApprove, newFeedPosts, setNewFeedPosts, getNFPosts, newFeedLoading }}>
+        <Data.Provider value={{ setShowLogin, loading, setLoading, user, setUser, setCurrentUserPosts, currentUserPosts, postWaitingToApprove, newFeedPosts, newFeedScroll, setNewFeedPosts, getNFPosts, newFeedLoading }}>
             {/* {isMobileLandscape && <BlockedScreen />} */}
             <Modal open={showSigninModal} onCancel={() => setShowSigninModal(false)} footer={null}>
                 <LoginModal />

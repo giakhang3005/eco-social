@@ -21,6 +21,7 @@ export interface IContext {
     getNFPosts: () => void;
 
     newFeedLoading: boolean;
+    newFeedScroll: number;
 }
 
 export interface ILoading {
