@@ -11,7 +11,7 @@ import { extractMssvFromEmail } from "../Functions/StringValidation"
 
 export const useAuth = () => {
     const { updateLoading } = useLoading();
-    const { getUserById, updateUser, addUserToBrowserAndState, getUserByIdRealtime } = useUsers()
+    const { getUserById, updateUser, addUserToBrowserAndState, getUserByIdRealtime, checkCsgMemberByMssv } = useUsers()
 
     const handleSigninWithGG = async () => {
         updateLoading(true, 'Đang đăng nhập...');
@@ -38,9 +38,9 @@ export const useAuth = () => {
                             : 'Đã có lỗi xảy ra, vui lòng tải lại trang'
                 )
             })
-            .finally(() => {
-                updateLoading(false)
-            })
+            // .finally(() => {
+            //     updateLoading(false)
+            // })
 
         if (!currUserId) return
         const dbUser: IUser | null | void = await getUserById(currUserId)
@@ -58,7 +58,13 @@ export const useAuth = () => {
 
         } else {
             // User is not existed
-            const extractedEmail = extractMssvFromEmail(googleUser.email)
+            let isCsgMember = false;
+            const extractedEmail = extractMssvFromEmail(googleUser.email);
+            
+            if(extractedEmail) {
+                isCsgMember = await checkCsgMemberByMssv(extractedEmail[0]);
+            }
+            
             const currUser: IUser = {
                 id: currUserId,
                 name: googleUser.displayName,
@@ -72,15 +78,15 @@ export const useAuth = () => {
                     game1: false,
                     game2: false,
                     game3: false
-                }
+                },
+                isCsgMember: isCsgMember,
             }
 
-            const updateStatus = await updateUser(currUser)
+            const updateStatus = await updateUser(currUser);
 
             if (updateStatus) {
                 message.success(`Chào mừng ${currUser.name} gia nhập ECO`);
-                // addUserToBrowserAndState(currUser)
-                getUserByIdRealtime(currUser.id)
+                getUserByIdRealtime(currUser.id);
             } else {
                 message.error('Đã có lỗi xảy ra, vui lòng tải lại trang');
             }

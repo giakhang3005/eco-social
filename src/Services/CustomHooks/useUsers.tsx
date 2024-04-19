@@ -8,6 +8,7 @@ import { Data } from "../../Layout/Layout"
 import { useContext } from "react"
 import { IContext } from "../../Model/Others"
 import { useLoading } from "./UseLoading"
+import axios from "axios"
 
 export const useUsers = () => {
     const { setUser, user } = useContext(Data) as IContext
@@ -66,7 +67,8 @@ export const useUsers = () => {
                                 game1: docData?.minigame.game1,
                                 game2: docData?.minigame.game2,
                                 game3: docData?.minigame.game3
-                            }
+                            },
+                            isCsgMember: docData?.isCsgMember,
                         }
                         : null
                 )
@@ -97,7 +99,8 @@ export const useUsers = () => {
                             game1: fetchedUser?.minigame.game1,
                             game2: fetchedUser?.minigame.game2,
                             game3: fetchedUser?.minigame.game3
-                        }
+                        },
+                        isCsgMember: fetchedUser?.isCsgMember,
                     }
                     addUserToBrowserAndState(currUser)
                 }
@@ -156,7 +159,8 @@ export const useUsers = () => {
                             game1: data?.minigame.game1,
                             game2: data?.minigame.game2,
                             game3: data?.minigame.game3
-                        }
+                        },
+                        isCsgMember: data?.isCsgMember,
                     }
                     userArr.push(newUser)
                 })
@@ -175,7 +179,7 @@ export const useUsers = () => {
     const updateUser = async (userData: IUser) => {
         updateLoading(true, 'Đang cập nhật...')
 
-        const user = {
+        const user: IUser = {
             id: userData.id,
             name: userData.name,
             email: userData.email,
@@ -188,7 +192,8 @@ export const useUsers = () => {
                 game1: userData.minigame.game1,
                 game2: userData.minigame.game2,
                 game3: userData.minigame.game3
-            }
+            },
+            isCsgMember: userData.isCsgMember,
         }
 
         const docRef = doc(usersCollectionRef, user.id)
@@ -234,7 +239,8 @@ export const useUsers = () => {
                             game1: data?.minigame.game1,
                             game2: data?.minigame.game2,
                             game3: data?.minigame.game3
-                        }
+                        },
+                        isCsgMember: data?.isCsgMember,
                     }
                     userArr.push(newUser)
                 })
@@ -263,5 +269,21 @@ export const useUsers = () => {
             })
     }
 
-    return { updateSomePropsOfUser, getUserThatHavePermission, getUserByEmail, getAllUsers, updateUser, getUserById, getUserByIdRealtime, addUserToBrowserAndState, getCurrentUser, getUserByEmailRealtime, initUserWhenRefresh }
+    const checkCsgMemberByMssv = (mssv: string) => {
+        const isCsgMember = axios.get(`https://sheetdb.io/api/v1/1i210nhyiyfak/search?MSSV=${mssv}`)
+            .then((res) => {
+                const user = res.data[0];
+                // console.log(user);
+                return user.MSSV.toUpperCase() === mssv.toUpperCase();
+            })
+            .catch((err) => {
+                console.log(err);
+                message.error('Đã có lỗi xảy ra, vui lòng thử lại sau');
+                return false;
+            })
+
+        return isCsgMember;
+    }
+
+    return { checkCsgMemberByMssv, updateSomePropsOfUser, getUserThatHavePermission, getUserByEmail, getAllUsers, updateUser, getUserById, getUserByIdRealtime, addUserToBrowserAndState, getCurrentUser, getUserByEmailRealtime, initUserWhenRefresh }
 }

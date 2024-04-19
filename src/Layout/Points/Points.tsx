@@ -80,7 +80,8 @@ const Points = (props: Props) => {
                 game1: targetUser.minigame.game1,
                 game2: targetUser.minigame.game2,
                 game3: targetUser.minigame.game3,
-            }
+            },
+            isCsgMember: targetUser.isCsgMember
         }
 
         const change = `${targetUser.points} ${currentPointInput > 0 ? `+ ${currentPointInput}` : currentPointInput} = ${newTargetUser.points}`

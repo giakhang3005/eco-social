@@ -8,12 +8,14 @@ import Input from "../Input/Input";
 import { validateMssv } from "../../Services/Functions/StringValidation";
 import { message } from "antd";
 import { IUser } from "../../Model/Users";
+import { useLoading } from "../../Services/CustomHooks/UseLoading";
 
 type Props = {}
 
 const LoginPopup = (props: Props) => {
   const { handleSigninWithGG } = useAuth();
-  const { getCurrentUser, updateUser } = useUsers();
+  const { getCurrentUser, updateUser, checkCsgMemberByMssv } = useUsers();
+  const { updateLoading } = useLoading();
 
   const [mssv, setMssv] = useState<string>('');
 
@@ -25,11 +27,16 @@ const LoginPopup = (props: Props) => {
       return;
     }
 
+    updateLoading(true, "Đang cập nhật");
+
     const currentUser: IUser | null = getCurrentUser();
+    const isCsgMember: boolean = await checkCsgMemberByMssv(mssv);
 
     if (!currentUser) return;
 
     currentUser.mssv = mssv;
+    currentUser.isCsgMember = isCsgMember;
+
     const updateStatus = await updateUser(currentUser);
 
     if (updateStatus) {
@@ -59,7 +66,7 @@ const LoginPopup = (props: Props) => {
               <i className="moreInfo">(Nếu bạn không học FPT, vui lòng điền tên trường - MSSV)</i>
               <div className="inputCtn">
                 <Input placeholder="SE190001" value={mssv} setValue={setMssv} uppercase />
-                <Button onClick={handleNext} showIcon={false} hideBorder>Tiếp</Button>
+                <Button style={{margin: '0 0 0 5px'}} onClick={handleNext} showIcon={false} hideBorder>Tiếp</Button>
               </div>
               <div className="caution">MSSV sẽ dùng để đổi quà & tham gia các hoạt động offline</div>
             </>

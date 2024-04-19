@@ -87,7 +87,7 @@ const Profile = () => {
                     <ul className="infoContainer">
                         <li>{user?.name}</li>
                         <li><MailOutlined className="icon" /> {user?.email}</li>
-                        <li><UserOutlined className="icon" /> {user?.mssv}</li>
+                        <li><UserOutlined className="icon" /> {user?.mssv} {user?.isCsgMember && <i className="csgMember">(CSG Member)</i>} </li>
                         <li><CalendarOutlined className="icon" /> {user?.joinDate}</li>
                     </ul>
                 </Col>

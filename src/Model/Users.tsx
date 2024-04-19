@@ -11,7 +11,8 @@ export interface IUser {
         game1: boolean;
         game2: boolean;
         game3: boolean;
-    }
+    },
+    isCsgMember: boolean;
 }
 
 // export class User implements IUser {
