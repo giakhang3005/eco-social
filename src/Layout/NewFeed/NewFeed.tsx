@@ -14,6 +14,7 @@ import { useSessionStorage } from "../../Services/CustomHooks/useSesstionStorage
 import { GlobalConstants } from "../../Share/Constants";
 import { ActivityData } from "../../Share/Data/ActivityData";
 import CurrentEvent from "./CurrentEvent";
+import Challenges from "../../Components/Challanges/Challenges";
 
 type Props = {}
 
@@ -196,6 +197,7 @@ const NewFeed = (props: Props) => {
             <button className="moreBtn" onClick={() => setCurrShowNewFeed(false)}>Xem chi tiết</button>
           </div>
           {currShowNewFeed && <Fact />}
+          <Challenges />
           <div className="postsContainer" ref={postContainerRef}>
             {/* Posts */}
             {

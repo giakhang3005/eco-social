@@ -11,6 +11,7 @@ import { GlobalConstants } from "../../Share/Constants"
 import { useNavigate } from "react-router-dom"
 import { useLoading } from "../../Services/CustomHooks/UseLoading"
 import { useLog } from "../../Services/CustomHooks/useLog"
+import ExportCsgPointsData from "./ExportCsgPointsData"
 
 type Props = {}
 
@@ -116,7 +117,7 @@ const Points = (props: Props) => {
     // Todo: Blocked edit email until finish (cancel or update completed)
     return (
         <div className="Points">
-            <div className="title">ĐIỂM MÔI TRƯỜNG</div>
+            <div className="title">Eco Points <ExportCsgPointsData /></div>
             <div className="InputContainer">
                 <div className="label">Email:</div>
                 <Input style={{ width: '90%' }} value={currentInput} setValue={setCurrentInput} onBlur={validateTargetUser} placeholder="cocsaigon@gmail.com" />

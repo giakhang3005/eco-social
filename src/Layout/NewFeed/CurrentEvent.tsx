@@ -9,7 +9,16 @@ const CurrentEvent = ({ act, viewEventDetail }: Props) => {
     const [time, setTime] = useState<any>();
 
     useEffect(() => {
-        convertTime()
+        const convertTimeInterval = setInterval(() => {
+            if (time === 'Đã kết thúc') {
+                clearInterval(convertTimeInterval);
+                return;
+            }
+            
+            convertTime();
+        }, 1000);
+
+        return () => clearInterval(convertTimeInterval);
     }, []);
 
     const calculateDiffrenceInTime = (time1: any, time2: any) => {
@@ -32,22 +41,22 @@ const CurrentEvent = ({ act, viewEventDetail }: Props) => {
 
         const { days, hours, minutes, seconds } = calculateDiffrenceInTime(now, start);
 
-        if (days > 0) {
+        if (days > 0 && now < start) {
             setTime(`Còn ${days} ngày ${hours} giờ`);
             return;
         }
 
-        if (days === 0 && hours > 0) {
+        if (days === 0 && hours > 0 && now < start) {
             setTime(`Còn ${hours} giờ ${minutes} phút`);
             return;
         }
 
-        if (days === 0 && hours === 0 && minutes > 0) {
+        if (days === 0 && hours === 0 && minutes > 0 && now < start) {
             setTime(`Còn ${minutes} phút ${seconds} giây`);
             return;
         }
 
-        if (days === 0 && hours === 0 && minutes === 0 && start <= now && now <= end) {
+        if (start <= now && now <= end) {
             setTime(`Đang diễn ra`);
             return;
         }

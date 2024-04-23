@@ -180,7 +180,7 @@ const Games = (props: Props) => {
             <div className="InputContainer">
                 <div className="label">Email:</div>
                 <Input style={{ width: '300px' }} value={currentInput} setValue={setCurrentInput} onBlur={validateTargetUser} placeholder="cocsaigon@gmail.com" />
-            </div>
+        </div>
             {
                 (targetUser && previousTargetUser) &&
                 <>

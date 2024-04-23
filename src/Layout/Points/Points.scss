@@ -11,11 +11,13 @@
   .title {
     font-size: 18px;
     font-weight: 600;
-    width: 150px;
+    width: 100%;
     border-bottom: 1px solid var(--text-color);
     color: var(--text-color);
     padding: 0 0 5px 0;
     margin: 0 0 30px 0;
+    display: flex;
+    align-items: center;
   }
 
   .InputContainer {
@@ -46,8 +48,9 @@
 @media screen and (min-width: App.$mobile) {
   .Points {
     .title {
-      font-size: 30px;
-      width: 300px;
+      font-size: 25px;
+      // width: 300px;
+
     }
     .InputContainer {
       .label {

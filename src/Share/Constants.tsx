@@ -15,6 +15,7 @@ export const GlobalConstants = {
         log: 'log', // view points, approval, booth update log
         booth: 'booth', // Update status of booth (finished/not yet)
         perm: 'perm', // Manage perms
+        export: 'export' //Export Data
     },
     topNavHeight: 47, //px
     unLoggedInMaximumScroll: 50, //px

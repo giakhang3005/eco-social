@@ -18,10 +18,6 @@ function App() {
     setIsAccessByFacebookAndMessengerBrowser(isFromMessAndFB);
   }, []);
 
-  useEffect(() => {
-    // debugger 
-  })
-
   return (
     <div className='app'>
       {isAccessByFacebookAndMessengerBrowser

@@ -1,0 +1,41 @@
+/** @format */
+@use "../../App.scss";
+
+.challenges {
+  width: 100%;
+  text-align: center;
+  color: var(--pill-text-color);
+  background-color: var(--secondary-text-color);
+  padding: 8px;
+  box-sizing: border-box;
+  border-radius: 4px;
+
+  .title {
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: underline;
+  }
+
+  .todayChallenge {
+    font-size: 15px;
+    margin: 8px 0 0 0;
+    line-height: 20px;
+  }
+}
+
+@media screen and (max-width: App.$mobile) {
+    .challenges {
+        padding: 4px 2px 6px 2px;
+        border-radius: 2px;
+
+        .title {
+            font-size: 13px;
+        }
+
+        .todayChallenge {
+            margin: 6px 0 0 0;
+            font-size: 11px;
+            line-height: 15px;
+        }
+    }
+}

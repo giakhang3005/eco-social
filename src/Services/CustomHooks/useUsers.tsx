@@ -285,5 +285,41 @@ export const useUsers = () => {
         return isCsgMember;
     }
 
-    return { checkCsgMemberByMssv, updateSomePropsOfUser, getUserThatHavePermission, getUserByEmail, getAllUsers, updateUser, getUserById, getUserByIdRealtime, addUserToBrowserAndState, getCurrentUser, getUserByEmailRealtime, initUserWhenRefresh }
+    const getCsgMember = () => {
+        const queryColRef = query(usersCollectionRef, where("isCsgMember", "==", true));
+
+        const csgMembersList = getDocs(queryColRef)
+            .then((data) => {
+                const csgMembers: IUser[] = []
+                data.forEach(doc => {
+                    const user = doc.data()
+                    const newUser = {
+                        name: user.name,
+                        email: user.email,
+                        mssv: user.mssv,
+                        permissions: user.permissions,
+                        imgUrl: user.imgUrl,
+                        points: user.points,
+                        joinDate: user.joinDate,
+                        id: doc.id,
+                        minigame: {
+                            game1: user?.minigame.game1,
+                            game2: user?.minigame.game2,
+                            game3: user?.minigame.game3
+                        },
+                        isCsgMember: user?.isCsgMember,
+                    }
+                    csgMembers.push(newUser)
+                })
+                return csgMembers;
+            })
+            .catch((err) => {
+                console.log(err);
+                message.error('Đã có lỗi xảy ra, vui lòng thử lại sau');
+            });
+
+        return csgMembersList;
+    }
+
+    return { getCsgMember, checkCsgMemberByMssv, updateSomePropsOfUser, getUserThatHavePermission, getUserByEmail, getAllUsers, updateUser, getUserById, getUserByIdRealtime, addUserToBrowserAndState, getCurrentUser, getUserByEmailRealtime, initUserWhenRefresh }
 }
