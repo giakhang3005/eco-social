@@ -10,6 +10,7 @@ import { useContext } from 'react';
 import { useLocalStorage } from './useLocalStorage';
 import { GlobalConstants } from '../../Share/Constants';
 import { useNavigate } from 'react-router-dom';
+import { message } from 'antd';
 
 export const usePosts = () => {
     const { setCurrentUserPosts, currentUserPosts } = useContext(Data) as IContext;
@@ -145,7 +146,13 @@ export const usePosts = () => {
                         : null
                 )
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+                console.log(err);
+                if (err.code === 'unavailable') {
+                    message.error('Mạng không ổn định, không thể tải bài viết, vui lòng thử lại sau');
+                    return err.code;
+                }
+            });
 
         return fetchedPost;
     }
@@ -281,5 +288,5 @@ export const usePosts = () => {
         return promisesAll;
     }
 
-    return { onRemovePost, getAllPostsRealtime, getAllPosts, addNewPost, initCurrentUserPost, handleViewPost, getPostToView, handleLikeUnlikePost, checkUserHaveLikedPost, setPost };
+    return { getPostById, onRemovePost, getAllPostsRealtime, getAllPosts, addNewPost, initCurrentUserPost, handleViewPost, getPostToView, handleLikeUnlikePost, checkUserHaveLikedPost, setPost };
 }

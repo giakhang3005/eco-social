@@ -23,7 +23,7 @@ const Post = (props: Props) => {
     const { setShowLogin, loading } = useContext(Data) as IContext;
 
     const { checkIsTablet, writeToClipboard } = useDeviceMethods();
-    const { getPostToView, handleLikeUnlikePost, checkUserHaveLikedPost, onRemovePost } = usePosts();
+    const { getPostById, handleLikeUnlikePost, checkUserHaveLikedPost, onRemovePost } = usePosts();
     const { getCurrentUser } = useUsers();
     const { updateLoading } = useLoading();
     const { id } = useParams();
@@ -34,6 +34,8 @@ const Post = (props: Props) => {
     const [isTablet, setIsTablet] = useState<boolean>(checkIsTablet());
 
     const [showConfirm, setShowConfirm] = useState<boolean>(false);
+
+    const [slowConnection, setSlowConnection] = useState<boolean>(false);
 
     useEffect(() => {
         initPost();
@@ -47,11 +49,17 @@ const Post = (props: Props) => {
         if (!id) return;
 
         updateLoading(true, "Đang tải bài viết...");
-        const post = await getPostToView(id);
 
-        if (post && (post.status === 1 || post.userData.userId === getCurrentUser()?.id)) {
+        const post = await getPostById(id);
+
+        if (post && typeof(post) === 'object' && (post.status === 1 || post.userData.userId === getCurrentUser()?.id)) {
             setCurrentPost(post);
         }
+
+        if (post === 'unavailable') {
+            setSlowConnection(true);
+        }
+
         updateLoading(false, "Đang tải bài viết...");
 
     }
@@ -133,7 +141,7 @@ const Post = (props: Props) => {
                             </>
                             :
                             <>
-                                {!loading.loading && <Empty content="Bài đăng không tồn tại" />}
+                                {!loading.loading && <Empty content={slowConnection ? 'Kết nối không ổn định, không thể tài bài đăng ' : 'Bài đăng không tồn tại'} />}
                             </>
                     }
                 </div>
