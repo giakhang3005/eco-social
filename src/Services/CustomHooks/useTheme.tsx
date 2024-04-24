@@ -1,6 +1,10 @@
+import { useContext } from "react"
 import { GlobalConstants } from "../../Share/Constants"
 import { avaiableThemeArr } from "../../Share/Theme/ThemeController"
 import { useLocalStorage } from "./useLocalStorage"
+import { Data } from "../../Layout/Layout"
+import { IContext } from "../../Model/Others"
+import { useUsers } from "./useUsers"
 
 export const useTheme = () => {
     const { setToLocalStorage, getFromLocalStorage } = useLocalStorage()
@@ -21,16 +25,19 @@ export const useTheme = () => {
             document.documentElement.style.setProperty(key, value)
         })
 
+        // setCurrentTheme(activeTheme.type)
+
         let browserMetaTheme = document.querySelector("meta[name=theme-color]")
         browserMetaTheme && browserMetaTheme.setAttribute("content", activeTheme.theme["--bg-color"]);
 
         // Save active theme to local storage
         setToLocalStorage(GlobalConstants.localStorageKeys.theme, activeTheme.name)
 
+        return activeTheme.type;
     }
 
     const initTheme = () => {
-        setActiveTheme(getActiveTheme())
+        return setActiveTheme(getActiveTheme())
     }
 
     return { setActiveTheme, getActiveTheme, initTheme }

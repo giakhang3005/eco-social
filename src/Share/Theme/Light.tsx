@@ -2,6 +2,7 @@ import { ITheme } from "../../Model/Others";
 
 export const LightTheme: ITheme = {
     name: 'lightTheme',
+    type: 'light',
     theme: {
         '--bg-color': '#fcfafa',
         '--primary-text-color': '#0B6343',

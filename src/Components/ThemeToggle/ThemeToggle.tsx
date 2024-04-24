@@ -1,13 +1,16 @@
 import { SunFilled, MoonFilled, CloudFilled } from '@ant-design/icons'
 import "./ThemeToggle.scss"
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useTheme } from '../../Services/CustomHooks/useTheme'
+import { Data } from '../../Layout/Layout';
+import { IContext } from '../../Model/Others';
 
 interface IProp {
     style?: object;
 }
 
 const ThemeToggle = ({ style }: IProp) => {
+    const { setCurrentTheme } = useContext(Data) as IContext;
     const { getActiveTheme, setActiveTheme } = useTheme()
 
     const [currTheme, setCurrTheme] = useState<string>(getActiveTheme())
@@ -19,7 +22,9 @@ const ThemeToggle = ({ style }: IProp) => {
         if (disableBtn) return
 
         const newTheme = currTheme === 'lightTheme' ? 'darkTheme' : 'lightTheme'
-        setActiveTheme(newTheme)
+        const themeType = setActiveTheme(newTheme);
+
+        themeType && setCurrentTheme(themeType);
 
         // Handle animation & update local state
         const icon = document.getElementById(currTheme)

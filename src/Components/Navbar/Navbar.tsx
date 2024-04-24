@@ -22,8 +22,13 @@ type Props = {
   setMobileTopNavBar: (value: number) => void;
 }
 
+const darkEcoEchoLogo = './Assets/Logo/EchoEcho.png';
+const lightEcoEchoLogo = './Assets/Logo/EchoEcho_black.png';
+const darkCsgLogo = './Assets/Logo/csg.png';
+const lightCsgLogo = './Assets/Logo/csg_black.png';
+
 const Navbar = ({ mobileTopNavBar, setMobileTopNavBar, safeZone }: Props) => {
-  const { postWaitingToApprove } = useContext(Data) as IContext;
+  const { postWaitingToApprove, currentTheme } = useContext(Data) as IContext;
 
   const { handleSigninWithGG, handleLogout } = useAuth();
   const { getCurrentUser, initUserWhenRefresh } = useUsers();
@@ -41,6 +46,7 @@ const Navbar = ({ mobileTopNavBar, setMobileTopNavBar, safeZone }: Props) => {
     // Init user with realtime connection
     initUserWhenRefresh();
   }, []);
+
 
   // Init current user posts
   useEffect(() => {
@@ -98,11 +104,13 @@ const Navbar = ({ mobileTopNavBar, setMobileTopNavBar, safeZone }: Props) => {
 
       {/* Nav PC */}
       <div className="navPC">
+        <img className="logo logoPc" src={currentTheme === 'dark' ? darkCsgLogo : lightCsgLogo} />
+        <img className="logo logoPc" src={currentTheme === 'dark' ? darkEcoEchoLogo : lightEcoEchoLogo} />
         {getCurrentUser() && (
-          <>
+          <div className="mainbtn">
             <Button tooltip="Bản tin" onClick={() => navigateToOtherPage('/')} style={{ margin: '0 0 14px 0' }} icon={<HomeFilled />} hideBorder active={location.pathname === "/"}></Button>
             <Button tooltip="Đăng bài" onClick={() => navigateToOtherPage('/new-post')} style={{ margin: '0 0 14px 0' }} icon={<PlusOutlined />} hideBorder active={location.pathname === "/new-post"}></Button>
-          </>
+          </div>
         )}
         {
           getCurrentUser()
@@ -138,7 +146,8 @@ const Navbar = ({ mobileTopNavBar, setMobileTopNavBar, safeZone }: Props) => {
       <div className="NavMobile">
         {/* Top Navbar */}
         <div className="NavMobileTop" style={Object.assign({ height: `calc(${GlobalConstants.topNavHeight}px + ${safeZone?.top}` }, { paddingTop: safeZone?.top }, { top: 0 - mobileTopNavBar }, { opacity: 1 - (mobileTopNavBar / (GlobalConstants.topNavHeight - 10)) })}>
-          <div>ECO</div>
+          <img className="logo logoMobile" src={currentTheme === 'dark' ? darkCsgLogo : lightCsgLogo} />
+          <img className="logo logoMobile" src={currentTheme === 'dark' ? darkEcoEchoLogo : lightEcoEchoLogo} />
           <div className="button">
             <ThemeToggle style={Object.assign({ right: getCurrentUser() ? '43px' : '8px' }, { top: '9px' })} />
             {

@@ -2,6 +2,7 @@ import { ITheme } from "../../Model/Others";
 
 export const DarkTheme: ITheme = {
     name: 'darkTheme',
+    type: 'dark',
     theme: {
         '--bg-color': '#181C18',
         '--primary-text-color': '#FFFFFF',

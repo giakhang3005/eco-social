@@ -20,6 +20,9 @@ export interface IContext {
 
     getNFPosts: () => void;
 
+    currentTheme: 'dark' | 'light';
+    setCurrentTheme: (value: 'dark' | 'light') => void;
+
     newFeedLoading: boolean;
     newFeedScroll: number;
 }
@@ -31,6 +34,7 @@ export interface ILoading {
 
 export interface ITheme {
     name: string;
+    type: 'dark' | 'light';
     theme: any
 }
 

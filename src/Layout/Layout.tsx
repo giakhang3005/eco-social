@@ -39,7 +39,7 @@ const Layout = () => {
 
     const [lastPosition, setLastPosition] = useState<number>(0);
 
-    // const [viewWidth, setViewWidth] = useState<number>(window.innerWidth);
+    const [currentTheme, setCurrentTheme] = useState<'dark' | 'light'>('dark');
 
     const [distanceFromTop, setDistanceFromTop] = useState<number>(0);
 
@@ -57,7 +57,9 @@ const Layout = () => {
 
     // Load Theme & add connection listener before layout loaded
     useLayoutEffect(() => {
-        initTheme();
+        const themeType = initTheme();
+
+        themeType && setCurrentTheme(themeType);
     }, []);
 
     useEffect(() => {
@@ -84,7 +86,7 @@ const Layout = () => {
         const fetchedPosts = await getAllPostsNoContext(1, GlobalConstants.numberOfPostPerReq);
 
         setNewFeedLoading(false);
-        
+
         if (!fetchedPosts) return;
         setNewFeedPosts(fetchedPosts);
     }
@@ -155,7 +157,7 @@ const Layout = () => {
     }
 
     return (
-        <Data.Provider value={{ setShowLogin, loading, setLoading, user, setUser, setCurrentUserPosts, currentUserPosts, postWaitingToApprove, newFeedPosts, newFeedScroll, setNewFeedPosts, getNFPosts, newFeedLoading }}>
+        <Data.Provider value={{ setCurrentTheme, currentTheme, setShowLogin, loading, setLoading, user, setUser, setCurrentUserPosts, currentUserPosts, postWaitingToApprove, newFeedPosts, newFeedScroll, setNewFeedPosts, getNFPosts, newFeedLoading }}>
             {/* {isMobileLandscape && <BlockedScreen />} */}
             <Modal open={showSigninModal} onCancel={() => setShowSigninModal(false)} footer={null}>
                 <LoginModal />

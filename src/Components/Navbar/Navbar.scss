@@ -1,5 +1,10 @@
 /** @format */
 
+.logo {
+  // filter: drop-shadow(0.8px 0.8px 0.8px var(--primary-text-color));
+  transition: all 0.12s linear;
+}
+
 .navPC {
   position: relative;
   display: flex;
@@ -12,6 +17,24 @@
   box-sizing: border-box;
   border-right: 1px solid var(--border-color);
   transition: all 0.12s linear;
+
+  .logoPc {
+    width: 100%;
+    box-sizing: border-box;
+
+    &:nth-child(1) {
+      padding: 5px 2px 5px 2px;
+    }
+
+    &:nth-child(2) {
+      padding: 5px 12px 20px 12px;
+      border-bottom: 1px solid gray;
+    }
+  }
+
+  .mainbtn {
+    margin: 12px 0 0 0;
+  }
 
   .footer {
     position: absolute;
@@ -26,7 +49,7 @@
   z-index: 999;
 
   .NavMobileTop,
-  .NavMobileBottom{
+  .NavMobileBottom {
     width: 100vw;
     position: fixed;
     background-color: var(--bg-color);
@@ -36,6 +59,19 @@
   .NavMobileTop {
     top: 0;
     box-shadow: 1px 1px 4px var(--background-hover-color);
+
+    .logoMobile {
+      height: 100%;
+      box-sizing: border-box;
+
+      &:nth-child(1) {
+        padding: 8px 0 5px 4.5vw;
+      }
+
+      &:nth-child(2) {
+        padding: 11px 0 12px 14px;
+      }
+    }
   }
 
   .NavMobileBottom {
