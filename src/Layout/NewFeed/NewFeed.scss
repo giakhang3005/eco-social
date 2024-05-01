@@ -97,7 +97,7 @@
         width: calc(100% / 3);
         padding: 1px;
         box-sizing: border-box;
-        transition: all 0.12s linear;
+        transition: opacity 0.12s linear;
         cursor: pointer;
 
         &:hover {
