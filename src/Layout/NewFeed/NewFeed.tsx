@@ -15,6 +15,7 @@ import { GlobalConstants } from "../../Share/Constants";
 import { ActivityData } from "../../Share/Data/ActivityData";
 import CurrentEvent from "./CurrentEvent";
 import Challenges from "../../Components/Challanges/Challenges";
+import { useUsers } from "../../Services/CustomHooks/useUsers";
 
 type Props = {}
 
@@ -25,6 +26,7 @@ const NewFeed = (props: Props) => {
   const { newFeedPosts, setNewFeedPosts, newFeedLoading, getNFPosts, newFeedScroll } = useContext(Data) as IContext;
 
   const { setToSessionStorage } = useSessionStorage();
+  const { getCurrentUser } = useUsers();
 
   const navigate = useNavigate();
 
@@ -33,9 +35,10 @@ const NewFeed = (props: Props) => {
   const [currShowNewFeed, setCurrShowNewFeed] = useState<boolean>(true);
   const [postHeight, setPostHeight] = useState<number>(0);
 
-  const [numOfImgLoaded, setNumOfImgLoaded] = useState<number>(0);
-
   const [currentViewActivity, setCurrentViewActivity] = useState<any>();
+
+  const [touchStartYLocation, setTouchStartYLocation] = useState<number | null>(null);
+  const [currentSwipeLocation, setCurrenSwipeLocation] = useState<number>(0);
 
   useEffect(() => {
     initPostHeight();
@@ -56,7 +59,9 @@ const NewFeed = (props: Props) => {
 
         if (!OutletContainer) return;
 
-        OutletContainer.scrollTo(0, newFeedScroll);
+        const currentUser = getCurrentUser();
+
+        OutletContainer.scrollTo(0,currentUser ? newFeedScroll : 0);
         clearTimeout(scrollTimeout);
       }, 150)
     }
@@ -78,25 +83,6 @@ const NewFeed = (props: Props) => {
   const viewEventDetail = (act: any) => {
     setCurrentViewActivity(act);
   }
-
-
-  // useEffect(() => {
-  //   fetchPost()
-  // }, []);
-
-  // const fetchPost = async () => {
-  //   setnewFeedLoading(true);
-
-  //   const signal = await getAllPosts(1);
-  //   if (signal) {
-  //     setPosts(signal);
-  //   }
-
-  //   setnewFeedLoading(false)
-  // }
-
-  const [touchStartYLocation, setTouchStartYLocation] = useState<number | null>(null);
-  const [currentSwipeLocation, setCurrenSwipeLocation] = useState<number>(0);
 
   const onTouchDown = (e: any) => {
     let YLocation;
@@ -140,12 +126,6 @@ const NewFeed = (props: Props) => {
       diff >= 0 && setCurrenSwipeLocation(0);
       diff <= -100 && setCurrenSwipeLocation(100);
     }
-  }
-
-
-
-  const onImgLoaded = () => {
-    setNumOfImgLoaded(prev => prev + 1);
   }
 
   return (
@@ -202,7 +182,7 @@ const NewFeed = (props: Props) => {
             {/* Posts */}
             {
               newFeedPosts.map((post, index) => {
-                return <img draggable={false} onLoad={onImgLoaded} onError={() => handlePostErr(post.postId)} key={index} className="post" src={post.imageUrl} style={{ height: `${postHeight / 3}px` }} onClick={() => handleViewPosts(post.postId)} />
+                return <img draggable={false} onError={() => handlePostErr(post.postId)} key={index} className="post" src={post.imageUrl} style={{ height: `${postHeight / 3}px` }} onClick={() => handleViewPosts(post.postId)} />
 
               })
             }
