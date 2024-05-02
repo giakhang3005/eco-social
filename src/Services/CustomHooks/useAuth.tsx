@@ -7,11 +7,13 @@ import { IContext } from "../../Model/Others"
 import { IUser } from "../../Model/Users"
 import { useUsers } from "./useUsers"
 import { useLoading } from "./UseLoading"
-import { extractMssvFromEmail } from "../Functions/StringValidation"
+import { extractMssvFromEmail } from "../Functions/StringValidation";
+import { useNavigate } from "react-router-dom"
 
 export const useAuth = () => {
     const { updateLoading } = useLoading();
-    const { getUserById, updateUser, addUserToBrowserAndState, getUserByIdRealtime, checkCsgMemberByMssv } = useUsers()
+    const { getUserById, updateUser, addUserToBrowserAndState, getUserByIdRealtime, checkCsgMemberByMssv } = useUsers();
+    const navigate = useNavigate();
 
     const handleSigninWithGG = async () => {
         updateLoading(true, 'Đang đăng nhập...');
@@ -92,6 +94,8 @@ export const useAuth = () => {
             }
         }
 
+        updateLoading(false, 'Đang đăng nhập...');
+
         // const loginTimeout = setTimeout(() => {
         //     window.location.reload();
         //     clearTimeout(loginTimeout);
@@ -102,6 +106,7 @@ export const useAuth = () => {
     const handleLogout = () => {
         addUserToBrowserAndState(null);
         message.success('Đã đăng xuất');
+        navigate('/');
         // const logoutTimeout = setTimeout(() => {
         //     window.location.reload();
         //     clearTimeout(logoutTimeout);

@@ -145,8 +145,8 @@ const Navbar = ({ mobileTopNavBar, setMobileTopNavBar, safeZone }: Props) => {
       {/* Nav Mobile */}
       <div className="NavMobile">
         {/* Top Navbar */}
-        {/* <div className="NavMobileTop" style={Object.assign({ height: `calc(${GlobalConstants.topNavHeight}px + ${safeZone?.top}` }, { paddingTop: safeZone?.top }, { top: 0 - mobileTopNavBar }, { opacity: 1 - (mobileTopNavBar / (GlobalConstants.topNavHeight - 10)) })}> */}
-        <div className="NavMobileTop" style={Object.assign({ height: `calc(${GlobalConstants.topNavHeight}px + ${safeZone?.top}` }, { paddingTop: safeZone?.top }, {top: 0})}>
+        <div className="NavMobileTop" style={Object.assign({ height: `calc(${GlobalConstants.topNavHeight}px + ${safeZone?.top}` }, { paddingTop: safeZone?.top }, { top: location.pathname !== '/' ? 0 : 0 - mobileTopNavBar }, { opacity: 1 - (mobileTopNavBar / (GlobalConstants.topNavHeight - 10)) })}>
+        {/* <div className="NavMobileTop" style={Object.assign({ height: `calc(${GlobalConstants.topNavHeight}px + ${safeZone?.top}` }, { paddingTop: safeZone?.top }, {top: 0})}> */}
           <img className="logo logoMobile" src={currentTheme === 'dark' ? darkCsgLogo : lightCsgLogo} />
           <img className="logo logoMobile" src={currentTheme === 'dark' ? darkEcoEchoLogo : lightEcoEchoLogo} />
           <div className="button">
@@ -169,8 +169,8 @@ const Navbar = ({ mobileTopNavBar, setMobileTopNavBar, safeZone }: Props) => {
         {/* Bottom Sub-Menu */}
         {
           (getCurrentUser() && checkHaveAnyPerm()) &&
-          // <div className="NavMobileBottom_SubMenu" style={Object.assign({ bottom: `calc(${47 - mobileTopNavBar}px + ${safeZone?.bottom})` }, { opacity: 1 - (mobileTopNavBar / (GlobalConstants.topNavHeight - 10)) })}>
-          <div className="NavMobileBottom_SubMenu" style={Object.assign({ bottom: `calc(${47}px + ${safeZone?.bottom})` })}>
+          <div className="NavMobileBottom_SubMenu" style={Object.assign({ bottom: location.pathname !== '/' ? `calc(47px + ${safeZone?.bottom}` : `calc(${47 - mobileTopNavBar}px + ${safeZone?.bottom})` }, { opacity: 1 - (mobileTopNavBar / (GlobalConstants.topNavHeight - 10)) })}>
+          {/* <div className="NavMobileBottom_SubMenu" style={Object.assign({ bottom: `calc(${47}px + ${safeZone?.bottom})` })}> */}
             {(checkHavePerm(GlobalConstants.permissionsKey.log)) && <Button onClick={() => navigateToOtherPage('/log')} icon={<BookFilled />} hideBorder active={location.pathname === "/log"}></Button>}
             {(checkHavePerm(GlobalConstants.permissionsKey.points)) && <Button onClick={() => navigateToOtherPage('/points')} icon={<StarFilled />} hideBorder active={location.pathname === "/points"}></Button>}
             {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.approval)) && <Button style={{ margin: '0 0 0 0' }} onClick={() => navigateToOtherPage('/approval')} icon={<CarryOutFilled />} hideBorder badge={postWaitingToApprove.length} active={location.pathname === "/approval"}></Button>}
