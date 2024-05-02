@@ -99,14 +99,13 @@ const NewFeed = (props: Props) => {
     // const YLocation = e.nativeEvent.pageY;
     const currentUser = getCurrentUser();
 
-    if (currentSwipeLocation >= 100) {
-      if (!currentUser) {
-        setShowLogin(true);
-        return;
-      }
-
+    if (currentSwipeLocation >= 100 && currentUser) {
       setNewFeedPosts([]);
       getNFPosts();
+    }
+
+    if (!currentUser) {
+      setShowLogin(true);
     }
 
     setCurrenSwipeLocation(0);
