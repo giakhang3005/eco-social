@@ -23,7 +23,7 @@ type Props = {}
 // TODO: Only fetch ... first, when user scroll down, fetch next ... posts and push to original post array
 
 const NewFeed = (props: Props) => {
-  const { newFeedPosts, setNewFeedPosts, newFeedLoading, getNFPosts, newFeedScroll } = useContext(Data) as IContext;
+  const { newFeedPosts, setNewFeedPosts, newFeedLoading, getNFPosts, newFeedScroll, setShowLogin } = useContext(Data) as IContext;
 
   const { setToSessionStorage } = useSessionStorage();
   const { getCurrentUser } = useUsers();
@@ -61,7 +61,7 @@ const NewFeed = (props: Props) => {
 
         const currentUser = getCurrentUser();
 
-        OutletContainer.scrollTo(0,currentUser ? newFeedScroll : 0);
+        OutletContainer.scrollTo(0, currentUser ? newFeedScroll : 0);
         clearTimeout(scrollTimeout);
       }, 150)
     }
@@ -97,8 +97,14 @@ const NewFeed = (props: Props) => {
 
   const onTouchUp = (e: any) => {
     // const YLocation = e.nativeEvent.pageY;
+    const currentUser = getCurrentUser();
 
     if (currentSwipeLocation >= 100) {
+      if (!currentUser) {
+        setShowLogin(true);
+        return;
+      }
+
       setNewFeedPosts([]);
       getNFPosts();
     }
