@@ -1,3 +1,5 @@
+import { GlobalConstants } from "../../Share/Constants";
+
 export const useSessionStorage = () => {
     const setToSessionStorage = (key: string, value: any) => {
         sessionStorage.setItem(key, JSON.stringify(value));
@@ -12,5 +14,11 @@ export const useSessionStorage = () => {
         sessionStorage.removeItem(key);
     }
 
-    return { setToSessionStorage, getFromSessionStorage, removeFromSessionStorage }
+    const removeAllFromSessionStorage = () => {
+        Object.keys(GlobalConstants.sessionStorageKeys).forEach((key) => {
+            sessionStorage.removeItem(key)
+        })
+    }
+
+    return { removeAllFromSessionStorage, setToSessionStorage, getFromSessionStorage, removeFromSessionStorage }
 }

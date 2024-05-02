@@ -9,9 +9,12 @@ import { useUsers } from "./useUsers"
 import { useLoading } from "./UseLoading"
 import { extractMssvFromEmail } from "../Functions/StringValidation";
 import { useNavigate } from "react-router-dom"
+import { useSessionStorage } from "./useSesstionStorage"
+import { GlobalConstants } from "../../Share/Constants"
 
 export const useAuth = () => {
     const { updateLoading } = useLoading();
+    const { removeAllFromSessionStorage } = useSessionStorage();
     const { getUserById, updateUser, addUserToBrowserAndState, getUserByIdRealtime, checkCsgMemberByMssv } = useUsers();
     const navigate = useNavigate();
 
@@ -40,9 +43,9 @@ export const useAuth = () => {
                             : 'Đã có lỗi xảy ra, vui lòng tải lại trang'
                 )
             })
-            // .finally(() => {
-            //     updateLoading(false)
-            // })
+        // .finally(() => {
+        //     updateLoading(false)
+        // })
 
         if (!currUserId) return
         const dbUser: IUser | null | void = await getUserById(currUserId)
@@ -62,11 +65,11 @@ export const useAuth = () => {
             // User is not existed
             let isCsgMember = false;
             const extractedEmail = extractMssvFromEmail(googleUser.email);
-            
-            if(extractedEmail) {
+
+            if (extractedEmail) {
                 isCsgMember = await checkCsgMemberByMssv(extractedEmail[0]);
             }
-            
+
             const currUser: IUser = {
                 id: currUserId,
                 name: googleUser.displayName,
@@ -95,22 +98,16 @@ export const useAuth = () => {
         }
 
         updateLoading(false, 'Đang đăng nhập...');
-
-        // const loginTimeout = setTimeout(() => {
-        //     window.location.reload();
-        //     clearTimeout(loginTimeout);
-        // }, 200);
     }
 
 
     const handleLogout = () => {
         addUserToBrowserAndState(null);
+        removeAllFromSessionStorage();
+
         message.success('Đã đăng xuất');
+
         navigate('/');
-        // const logoutTimeout = setTimeout(() => {
-        //     window.location.reload();
-        //     clearTimeout(logoutTimeout);
-        // }, 200);
     }
 
     return { handleSigninWithGG, handleLogout }
