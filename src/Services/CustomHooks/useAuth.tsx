@@ -92,20 +92,20 @@ export const useAuth = () => {
             }
         }
 
-        const loginTimeout = setTimeout(() => {
-            window.location.reload();
-            clearTimeout(loginTimeout);
-        }, 200);
+        // const loginTimeout = setTimeout(() => {
+        //     window.location.reload();
+        //     clearTimeout(loginTimeout);
+        // }, 200);
     }
 
 
     const handleLogout = () => {
         addUserToBrowserAndState(null);
         message.success('Đã đăng xuất');
-        const logoutTimeout = setTimeout(() => {
-            window.location.reload();
-            clearTimeout(logoutTimeout);
-        }, 200);
+        // const logoutTimeout = setTimeout(() => {
+        //     window.location.reload();
+        //     clearTimeout(logoutTimeout);
+        // }, 200);
     }
 
     return { handleSigninWithGG, handleLogout }
