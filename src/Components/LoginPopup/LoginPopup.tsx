@@ -62,7 +62,7 @@ const LoginPopup = (props: Props) => {
             </>
             : !getCurrentUser()?.mssv &&
             <>
-              <div className="text">MSSV của bạn là</div>
+              <div className="text">MSSV/User của bạn là</div>
               <i className="moreInfo">(Nếu bạn không học FPT, vui lòng điền tên trường - MSSV)</i>
               <div className="inputCtn">
                 <Input placeholder="SE190001" value={mssv} setValue={setMssv} uppercase />
