@@ -116,6 +116,10 @@ const NewFeed = (props: Props) => {
     if (!touchStartYLocation) return;
 
     let YLocation;
+    const outletContainer = document.querySelector('.OutletContainer');
+
+    if(!outletContainer) return;
+    if(outletContainer.scrollTop > 0) return;
 
     if (e.type === 'mousemove') {
       YLocation = e.clientY;
