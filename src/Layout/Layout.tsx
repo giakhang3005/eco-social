@@ -21,7 +21,7 @@ export const Data = createContext<IContext | null>(null);
 const Layout = () => {
     const { initTheme } = useTheme();
     const { getFromLocalStorage } = useLocalStorage();
-    const { getUnArppvalPostsRealtime, getAllPostsNoContext } = useApprovalPosts();
+    const { getUnArppvalPostsRealtime, getAllPostsNoContext, getAllPostsNoContextWithCursor } = useApprovalPosts();
     const { getFromSessionStorage, setToSessionStorage } = useSessionStorage();
     const { checkScrollFromTop, handleMainLayoutScroll, updateScrollForOutlet } = useDeviceMethods();
 
@@ -55,6 +55,8 @@ const Layout = () => {
 
     const [showLogin, setShowLogin] = useState<boolean>(false);
 
+    const [lastDocument, setLastDocument] = useState<any>(false);
+
     // Load Theme & add connection listener before layout loaded
     useLayoutEffect(() => {
         const themeType = initTheme();
@@ -83,7 +85,7 @@ const Layout = () => {
 
     const getNFPosts = async () => {
         setNewFeedLoading(true);
-        const fetchedPosts = await getAllPostsNoContext(1, GlobalConstants.numberOfPostPerReq);
+        const fetchedPosts = await getAllPostsNoContext(1, GlobalConstants.numberOfPostPerReq, setLastDocument);
 
         setNewFeedLoading(false);
 
@@ -137,9 +139,28 @@ const Layout = () => {
         // TODO: else, update current time to session storage
     }
 
-    const handleScroll = (e: any) => {
+    const handleScroll = async (e: any) => {
+
+        // handle scroll in new feed
         if (location.pathname === '/') {
             const fromTopValue = OutletContainer?.current?.scrollTop;
+            const currentScreenPos = fromTopValue + window.innerHeight;
+            const containerHeight = OutletContainer?.current?.scrollHeight;
+            const validatePostRange = newFeedPosts.length / GlobalConstants.numberOfPostPerReq;
+            
+            if( Number.isInteger(validatePostRange)  && containerHeight - currentScreenPos < 200 && !newFeedLoading) {
+                setNewFeedLoading(true);
+                const currentPost = [...newFeedPosts];
+                const nextPost = await getAllPostsNoContextWithCursor(1, GlobalConstants.numberOfPostPerReq, lastDocument, setLastDocument);
+            
+                if(nextPost) {
+                    const newPosts = [...currentPost, ...nextPost];
+                    setNewFeedPosts(newPosts);
+                }
+
+                setNewFeedLoading(false);
+            }
+
             setNewFeedScroll(fromTopValue);
         }
 
@@ -152,12 +173,12 @@ const Layout = () => {
 
         if (newValue === null) return
 
-        setLastPosition(newValue?.newLastPosition)
-        setMobileTopNavBar(newValue.newPosition)
+        setLastPosition(newValue?.newLastPosition);
+        setMobileTopNavBar(newValue.newPosition);
     }
 
     return (
-        <Data.Provider value={{ setCurrentTheme, currentTheme, setShowLogin, loading, setLoading, user, setUser, setCurrentUserPosts, currentUserPosts, postWaitingToApprove, newFeedPosts, newFeedScroll, setNewFeedPosts, getNFPosts, newFeedLoading }}>
+        <Data.Provider value={{ setLastDocument, setCurrentTheme, currentTheme, setShowLogin, loading, setLoading, user, setUser, setCurrentUserPosts, currentUserPosts, postWaitingToApprove, newFeedPosts, newFeedScroll, setNewFeedPosts, getNFPosts, newFeedLoading }}>
             {/* {isMobileLandscape && <BlockedScreen />} */}
             <Modal open={showSigninModal} onCancel={() => setShowSigninModal(false)} footer={null}>
                 <LoginModal />

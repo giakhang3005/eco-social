@@ -25,6 +25,8 @@ export interface IContext {
 
     newFeedLoading: boolean;
     newFeedScroll: number;
+
+    setLastDocument: (value: any) => void;
 }
 
 export interface ILoading {
