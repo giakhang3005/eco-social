@@ -91,7 +91,7 @@ export const useApprovalPosts = () => {
                         userData: fetchedData.userData
                     }
 
-                    posts.push(newPost);
+                    index > 0 && posts.push(newPost);
                     index++;
 
                     if(index === snapshot.docs.length - 1) {

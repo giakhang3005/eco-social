@@ -151,8 +151,8 @@ const Layout = () => {
             if( Number.isInteger(validatePostRange)  && containerHeight - currentScreenPos < 200 && !newFeedLoading) {
                 setNewFeedLoading(true);
                 const currentPost = [...newFeedPosts];
-                const nextPost = await getAllPostsNoContextWithCursor(1, GlobalConstants.numberOfPostPerReq, lastDocument, setLastDocument);
-            
+                const nextPost = await getAllPostsNoContextWithCursor(1, GlobalConstants.numberOfPostPerReq + 1, lastDocument, setLastDocument);
+                
                 if(nextPost) {
                     const newPosts = [...currentPost, ...nextPost];
                     setNewFeedPosts(newPosts);
