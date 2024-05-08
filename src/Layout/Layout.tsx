@@ -56,6 +56,7 @@ const Layout = () => {
     const [showLogin, setShowLogin] = useState<boolean>(false);
 
     const [lastDocument, setLastDocument] = useState<any>(false);
+    const [noMorePost, setNoMorePost] = useState<boolean>(false);
 
     // Load Theme & add connection listener before layout loaded
     useLayoutEffect(() => {
@@ -148,7 +149,7 @@ const Layout = () => {
             const containerHeight = OutletContainer?.current?.scrollHeight;
             const validatePostRange = newFeedPosts.length / GlobalConstants.numberOfPostPerReq;
             
-            if( Number.isInteger(validatePostRange)  && containerHeight - currentScreenPos < 200 && !newFeedLoading) {
+            if( Number.isInteger(validatePostRange)  && containerHeight - currentScreenPos < 200 && !newFeedLoading && !noMorePost) {
                 setNewFeedLoading(true);
                 const currentPost = [...newFeedPosts];
                 const nextPost = await getAllPostsNoContextWithCursor(1, GlobalConstants.numberOfPostPerReq + 1, lastDocument, setLastDocument);
@@ -156,6 +157,10 @@ const Layout = () => {
                 if(nextPost) {
                     const newPosts = [...currentPost, ...nextPost];
                     setNewFeedPosts(newPosts);
+                } 
+
+                if(nextPost && nextPost.length === 0) {
+                    setNoMorePost(true);
                 }
 
                 setNewFeedLoading(false);
