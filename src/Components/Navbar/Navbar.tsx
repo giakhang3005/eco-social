@@ -22,10 +22,10 @@ type Props = {
   setMobileTopNavBar: (value: number) => void;
 }
 
-const darkEcoEchoLogo = './Assets/Logo/EchoEcho.png';
-const lightEcoEchoLogo = './Assets/Logo/EchoEcho_black.png';
-const darkCsgLogo = './Assets/Logo/csg.png';
-const lightCsgLogo = './Assets/Logo/csg_black.png';
+const darkEcoEchoLogo = '/Assets/Logo/EchoEcho.png';
+const lightEcoEchoLogo = '/Assets/Logo/EchoEcho_black.png';
+const darkCsgLogo = '/Assets/Logo/csg.png';
+const lightCsgLogo = '/Assets/Logo/csg_black.png';
 
 const Navbar = ({ mobileTopNavBar, setMobileTopNavBar, safeZone }: Props) => {
   const { postWaitingToApprove, currentTheme } = useContext(Data) as IContext;
@@ -37,7 +37,7 @@ const Navbar = ({ mobileTopNavBar, setMobileTopNavBar, safeZone }: Props) => {
   const { getFromSessionStorage, removeFromSessionStorage } = useSessionStorage();
 
   const navigate = useNavigate();
-  const location = useLocation();
+  const hookLocation = useLocation();
 
   const [confirmLeaveModal, setConfirmLeaveModal] = useState<boolean>(false);
   const [destination, setDestination] = useState<string>('/')
@@ -54,10 +54,10 @@ const Navbar = ({ mobileTopNavBar, setMobileTopNavBar, safeZone }: Props) => {
   }, [getCurrentUser()]);
 
   useEffect(() => {
-    if (location.pathname !== '/') {
+    if (hookLocation.pathname !== '/') {
       setMobileTopNavBar(0);
     }
-  }, [location]);
+  }, [hookLocation]);
 
   const navigateToOtherPage = (path: string) => {
     const isNewPost = getFromSessionStorage(GlobalConstants.sessionStorageKeys.isCreateNewPost);
@@ -67,7 +67,7 @@ const Navbar = ({ mobileTopNavBar, setMobileTopNavBar, safeZone }: Props) => {
       return;
     }
 
-    if (path === location.pathname) {
+    if (path === hookLocation.pathname) {
       const OutletContainer = document.querySelector('.OutletContainer');
       OutletContainer?.scrollTo(0, 0);
 
@@ -108,23 +108,23 @@ const Navbar = ({ mobileTopNavBar, setMobileTopNavBar, safeZone }: Props) => {
         <img className="logo logoPc" src={currentTheme === 'dark' ? darkEcoEchoLogo : lightEcoEchoLogo} />
         {getCurrentUser() && (
           <div className="mainbtn">
-            <Button tooltip="Bản tin" onClick={() => navigateToOtherPage('/')} style={{ margin: '0 0 14px 0' }} icon={<HomeFilled />} hideBorder active={location.pathname === "/"}></Button>
-            <Button tooltip="Đăng bài" onClick={() => navigateToOtherPage('/new-post')} style={{ margin: '0 0 14px 0' }} icon={<PlusOutlined />} hideBorder active={location.pathname === "/new-post"}></Button>
+            <Button tooltip="Bản tin" onClick={() => navigateToOtherPage('/')} style={{ margin: '0 0 14px 0' }} icon={<HomeFilled />} hideBorder active={hookLocation.pathname === "/"}></Button>
+            <Button tooltip="Đăng bài" onClick={() => navigateToOtherPage('/new-post')} style={{ margin: '0 0 14px 0' }} icon={<PlusOutlined />} hideBorder active={hookLocation.pathname === "/new-post"}></Button>
           </div>
         )}
         {
           getCurrentUser()
-            ? <Avatar tooltip="Trang cá nhân" onClick={() => navigateToOtherPage('/profile')} src={getCurrentUser()?.imgUrl} hoverable active={location.pathname === "/profile"}></Avatar>
+            ? <Avatar tooltip="Trang cá nhân" onClick={() => navigateToOtherPage('/profile')} src={getCurrentUser()?.imgUrl} hoverable active={hookLocation.pathname === "/profile"}></Avatar>
             : <Button onClick={handleSigninWithGG} icon={<GoogleOutlined />} tooltip="Tham gia" showText={false} hideBorder />
         }
 
         {/* Footer */}
         <div className="footer">
-          {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.log)) && <Button tooltip="Log" onClick={() => navigateToOtherPage('/log')} style={{ margin: '6px 0 0 0' }} icon={<BookFilled />} hideBorder active={location.pathname === "/log"}></Button>}
-          {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.points)) && <Button tooltip="Điểm môi trường" style={{ margin: '6px 0 0 0' }} onClick={() => navigateToOtherPage('/points')} icon={<StarFilled />} hideBorder active={location.pathname === "/points"}></Button>}
-          {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.approval)) && <Button tooltip="Duyệt bài" style={{ margin: '6px 0 0 0' }} onClick={() => navigateToOtherPage('/approval')} icon={<CarryOutFilled />} hideBorder active={location.pathname === "/approval"} badge={postWaitingToApprove.length}></Button>}
-          {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.booth)) && <Button tooltip="Minigame" style={{ margin: '6px 0 0 0' }} onClick={() => navigateToOtherPage('/games')} icon={<MergeFilled />} hideBorder active={location.pathname === "/games"}></Button>}
-          {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.perm)) && <Button tooltip="Kiểm soát quyền" style={{ margin: '6px 0 0 0' }} onClick={() => navigateToOtherPage('/perm')} icon={<SignatureFilled />} hideBorder active={location.pathname === "/perm"}></Button>}
+          {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.log)) && <Button tooltip="Log" onClick={() => navigateToOtherPage('/log')} style={{ margin: '6px 0 0 0' }} icon={<BookFilled />} hideBorder active={hookLocation.pathname === "/log"}></Button>}
+          {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.points)) && <Button tooltip="Điểm môi trường" style={{ margin: '6px 0 0 0' }} onClick={() => navigateToOtherPage('/points')} icon={<StarFilled />} hideBorder active={hookLocation.pathname === "/points"}></Button>}
+          {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.approval)) && <Button tooltip="Duyệt bài" style={{ margin: '6px 0 0 0' }} onClick={() => navigateToOtherPage('/approval')} icon={<CarryOutFilled />} hideBorder active={hookLocation.pathname === "/approval"} badge={postWaitingToApprove.length}></Button>}
+          {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.booth)) && <Button tooltip="Minigame" style={{ margin: '6px 0 0 0' }} onClick={() => navigateToOtherPage('/games')} icon={<MergeFilled />} hideBorder active={hookLocation.pathname === "/games"}></Button>}
+          {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.perm)) && <Button tooltip="Kiểm soát quyền" style={{ margin: '6px 0 0 0' }} onClick={() => navigateToOtherPage('/perm')} icon={<SignatureFilled />} hideBorder active={hookLocation.pathname === "/perm"}></Button>}
         </div>
         <ThemeToggle style={Object.assign({ bottom: getCurrentUser() ? '58px' : '20px' })} />
 
@@ -145,7 +145,7 @@ const Navbar = ({ mobileTopNavBar, setMobileTopNavBar, safeZone }: Props) => {
       {/* Nav Mobile */}
       <div className="NavMobile">
         {/* Top Navbar */}
-        <div className="NavMobileTop" style={Object.assign({ height: `calc(${GlobalConstants.topNavHeight}px + ${safeZone?.top}` }, { paddingTop: safeZone?.top }, { top: location.pathname !== '/' ? 0 : 0 - mobileTopNavBar }, { opacity: 1 - (mobileTopNavBar / (GlobalConstants.topNavHeight - 10)) })}>
+        <div className="NavMobileTop" style={Object.assign({ height: `calc(${GlobalConstants.topNavHeight}px + ${safeZone?.top}` }, { paddingTop: safeZone?.top }, { top: hookLocation.pathname !== '/' ? 0 : 0 - mobileTopNavBar }, { opacity: 1 - (mobileTopNavBar / (GlobalConstants.topNavHeight - 10)) })}>
         {/* <div className="NavMobileTop" style={Object.assign({ height: `calc(${GlobalConstants.topNavHeight}px + ${safeZone?.top}` }, { paddingTop: safeZone?.top }, {top: 0})}> */}
           <img className="logo logoMobile" src={currentTheme === 'dark' ? darkCsgLogo : lightCsgLogo} />
           <img className="logo logoMobile" src={currentTheme === 'dark' ? darkEcoEchoLogo : lightEcoEchoLogo} />
@@ -169,13 +169,13 @@ const Navbar = ({ mobileTopNavBar, setMobileTopNavBar, safeZone }: Props) => {
         {/* Bottom Sub-Menu */}
         {
           (getCurrentUser() && checkHaveAnyPerm()) &&
-          <div className="NavMobileBottom_SubMenu" style={Object.assign({ bottom: location.pathname !== '/' ? `calc(47px + ${safeZone?.bottom}` : `calc(${47 - mobileTopNavBar}px + ${safeZone?.bottom})` }, { opacity: 1 - (mobileTopNavBar / (GlobalConstants.topNavHeight - 10)) })}>
+          <div className="NavMobileBottom_SubMenu" style={Object.assign({ bottom: hookLocation.pathname !== '/' ? `calc(47px + ${safeZone?.bottom}` : `calc(${47 - mobileTopNavBar}px + ${safeZone?.bottom})` }, { opacity: 1 - (mobileTopNavBar / (GlobalConstants.topNavHeight - 10)) })}>
           {/* <div className="NavMobileBottom_SubMenu" style={Object.assign({ bottom: `calc(${47}px + ${safeZone?.bottom})` })}> */}
-            {(checkHavePerm(GlobalConstants.permissionsKey.log)) && <Button onClick={() => navigateToOtherPage('/log')} icon={<BookFilled />} hideBorder active={location.pathname === "/log"}></Button>}
-            {(checkHavePerm(GlobalConstants.permissionsKey.points)) && <Button onClick={() => navigateToOtherPage('/points')} icon={<StarFilled />} hideBorder active={location.pathname === "/points"}></Button>}
-            {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.approval)) && <Button style={{ margin: '0 0 0 0' }} onClick={() => navigateToOtherPage('/approval')} icon={<CarryOutFilled />} hideBorder badge={postWaitingToApprove.length} active={location.pathname === "/approval"}></Button>}
-            {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.booth)) && <Button onClick={() => navigateToOtherPage('/games')} icon={<MergeFilled />} hideBorder active={location.pathname === "/games"}></Button>}
-            {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.perm)) && <Button onClick={() => navigateToOtherPage('/perm')} icon={<SignatureFilled />} hideBorder active={location.pathname === "/perm"}></Button>}
+            {(checkHavePerm(GlobalConstants.permissionsKey.log)) && <Button onClick={() => navigateToOtherPage('/log')} icon={<BookFilled />} hideBorder active={hookLocation.pathname === "/log"}></Button>}
+            {(checkHavePerm(GlobalConstants.permissionsKey.points)) && <Button onClick={() => navigateToOtherPage('/points')} icon={<StarFilled />} hideBorder active={hookLocation.pathname === "/points"}></Button>}
+            {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.approval)) && <Button style={{ margin: '0 0 0 0' }} onClick={() => navigateToOtherPage('/approval')} icon={<CarryOutFilled />} hideBorder badge={postWaitingToApprove.length} active={hookLocation.pathname === "/approval"}></Button>}
+            {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.booth)) && <Button onClick={() => navigateToOtherPage('/games')} icon={<MergeFilled />} hideBorder active={hookLocation.pathname === "/games"}></Button>}
+            {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.perm)) && <Button onClick={() => navigateToOtherPage('/perm')} icon={<SignatureFilled />} hideBorder active={hookLocation.pathname === "/perm"}></Button>}
           </div>
         }
 
@@ -183,9 +183,9 @@ const Navbar = ({ mobileTopNavBar, setMobileTopNavBar, safeZone }: Props) => {
         <div className="NavMobileBottom" style={Object.assign(!getCurrentUser() ? { justifyContent: 'center' } : {}, { paddingBottom: safeZone?.bottom }, { height: `calc(${GlobalConstants.topNavHeight}px + ${safeZone?.bottom}` })}>
           {getCurrentUser() && (
             <>
-              <Button onClick={() => navigateToOtherPage('/')} icon={<HomeFilled />} hideBorder active={location.pathname === "/"}></Button>
-              <Button onClick={() => navigateToOtherPage('/new-post')} icon={<PlusOutlined />} active={location.pathname === "/new-post"}></Button>
-              <Avatar onClick={() => navigateToOtherPage('/profile')} src={getCurrentUser()?.imgUrl} style={{ width: '27px' }} active={location.pathname === "/profile"}></Avatar>
+              <Button onClick={() => navigateToOtherPage('/')} icon={<HomeFilled />} hideBorder active={hookLocation.pathname === "/"}></Button>
+              <Button onClick={() => navigateToOtherPage('/new-post')} icon={<PlusOutlined />} active={hookLocation.pathname === "/new-post"}></Button>
+              <Avatar onClick={() => navigateToOtherPage('/profile')} src={getCurrentUser()?.imgUrl} style={{ width: '27px' }} active={hookLocation.pathname === "/profile"}></Avatar>
             </>
           )}
           {
