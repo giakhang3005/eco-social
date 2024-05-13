@@ -66,7 +66,7 @@ const Log = () => {
     return (
         <div className="pointsLogContainer">
             <Select value={currViewLog} onChange={(e) => setCurrViewLog(e)} options={viewValue.map((val) => ({ value: val, label: val }))} style={{ margin: '10px 0 0 20px', width: '110px' }} />
-            <Table style={{marginBottom: '200px'}} columns={currViewLog === 'points' ? pointsColumn : currViewLog === 'approval' ? approvalColumns : gameColumns} dataSource={currViewLog === 'points' ? pointsLog : currViewLog === 'approval' ? approvalLog : gameLog} />
+            <Table style={{marginBottom: '500px'}} columns={currViewLog === 'points' ? pointsColumn : currViewLog === 'approval' ? approvalColumns : gameColumns} dataSource={currViewLog === 'points' ? pointsLog : currViewLog === 'approval' ? approvalLog : gameLog} />
         </div>
     )
 }
