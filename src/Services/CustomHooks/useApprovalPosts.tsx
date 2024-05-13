@@ -59,7 +59,9 @@ export const useApprovalPosts = () => {
                     if(index === snapshot.docs.length - 1) {
                         setLastDocument(data);
                     }
-                })
+                });
+
+                (posts.length === 0) && message.error('Kết nối không ổn định, không thể tải bài viết, vui lòng thử lại sau')
 
                 return posts;
             })

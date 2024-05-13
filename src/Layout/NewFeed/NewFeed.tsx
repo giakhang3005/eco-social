@@ -118,8 +118,8 @@ const NewFeed = (props: Props) => {
     let YLocation;
     const outletContainer = document.querySelector('.OutletContainer');
 
-    if(!outletContainer) return;
-    if(outletContainer.scrollTop > 0) return;
+    if (!outletContainer) return;
+    if (outletContainer.scrollTop > 0) return;
 
     if (e.type === 'mousemove') {
       YLocation = e.clientY;
@@ -157,25 +157,28 @@ const NewFeed = (props: Props) => {
             <div className="NTT">
               <div className="rank">Nhà tài trợ kim cương</div>
               <div className="LogoCtn">
-                <img src="./Assets/Logo/oris.png" />
+                <div style={{ fontSize: '10px', textAlign: 'center', width: '100%' }}>Coming Soon</div>
+                {/* <img src="./Assets/Logo/oris.png" />
                 <img src="./Assets/Logo/ode.png" />
-                <img src="./Assets/Logo/coyen.png" />
+                <img src="./Assets/Logo/coyen.png" /> */}
               </div>
             </div>
             <div className="NTT">
               <div className="rank">Nhà tài trợ vàng</div>
               <div className="LogoCtn">
-                <img src="./Assets/Logo/oris.png" />
+                <div style={{ fontSize: '10px', textAlign: 'center', width: '100%' }}>Coming Soon</div>
+                {/* <img src="./Assets/Logo/oris.png" />
                 <img src="./Assets/Logo/ode.png" />
-                <img src="./Assets/Logo/coyen.png" />
+                <img src="./Assets/Logo/coyen.png" /> */}
               </div>
             </div>
             <div className="NTT">
               <div className="rank">Nhà tài trợ bạc</div>
               <div className="LogoCtn">
-                <img src="./Assets/Logo/oris.png" />
+                <div style={{ fontSize: '10px', textAlign: 'center', width: '100%' }}>Coming Soon</div>
+                {/* <img src="./Assets/Logo/oris.png" />
                 <img src="./Assets/Logo/ode.png" />
-                <img src="./Assets/Logo/coyen.png" />
+                <img src="./Assets/Logo/coyen.png" /> */}
               </div>
             </div>
           </div>
@@ -183,6 +186,7 @@ const NewFeed = (props: Props) => {
 
           <div className="quoteOnTop">{ActivityData.length} hoạt động đang diễn ra</div>
           <div className="bannerImg">
+            {/* <img src="./Assets/Img/Thumbnail.png" style={{width: '100%'}} /> */}
             <button className="moreBtn" onClick={() => setCurrShowNewFeed(false)}>Xem chi tiết</button>
           </div>
           {currShowNewFeed && <Fact />}

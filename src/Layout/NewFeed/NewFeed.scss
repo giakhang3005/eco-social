@@ -69,6 +69,7 @@
       width: 100%;
       height: 120px;
       background-color: rgb(210, 210, 210);
+      overflow: hidden;
 
       .moreBtn {
         position: absolute;
@@ -122,20 +123,24 @@
       text-align: center;
     }
 
+
+
     .bannerImg {
       display: block;
       position: relative;
       width: 100%;
       height: 120px;
       background-color: rgb(210, 210, 210);
-      border-radius: 7px;
+      border-radius: 12px;
       margin: 0 0 15px 0;
+      overflow: hidden;
 
       .countdown {
         position: absolute;
         bottom: 15px;
         left: 15px;
-        text-shadow: 0.5px 1px 2px var(--bg-color);
+        color: var(--pill-text-color);
+        // text-shadow: 0.5px 1px 2px var(--bg-color);
       }
 
       .moreBtn {
@@ -145,11 +150,12 @@
         outline: none;
         border: none;
         background-color: var(--pill-color);
+        border: 1px solid var(--pill-text-color);
         color: var(--pill-text-color);
         padding: 5px 15px 5px 15px;
         border-radius: 12px;
         font-size: 12px;
-        box-shadow: 2px 2px 5px var(--secondary-text-color);
+        // box-shadow: 2px 2px 5px var(--secondary-text-color);
         cursor: pointer;
       }
     }

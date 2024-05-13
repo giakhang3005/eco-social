@@ -66,6 +66,7 @@ const CurrentEvent = ({ act, viewEventDetail }: Props) => {
 
     return (
         <div className="bannerImg">
+            <img src={act.img} />
             <div className='countdown'>{time}</div>
             <button className="moreBtn" onClick={() => viewEventDetail(act)}>Xem chi tiết</button>
         </div>

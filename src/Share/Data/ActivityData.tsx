@@ -2,6 +2,7 @@ const time = { margin: '15px 0 15px 0', fontWeight: 600 }
 const content = {}
 const important = { color: 'var(--error-color)' }
 
+const imgSrc  = './Assets/Img/Event/'
 export const ActivityData = [
     {
         id: 'challenge',
@@ -19,7 +20,8 @@ export const ActivityData = [
         time: {
             start: new Date('2024-05-31 02:00:00').getTime(),
             end: new Date('2024-06-05 19:00:00').getTime(),
-        }
+        },
+        img: imgSrc + 'thuthach.png'
     },
     {
         id: 'quyengop',
@@ -44,7 +46,8 @@ export const ActivityData = [
         time: {
             start: new Date('2024-05-21 02:00:00').getTime(),
             end: new Date('2024-06-04 19:00:00').getTime(),
-        }
+        },
+        img: imgSrc + 'quyengop.png'
     },
     {
         id: 'gianhangkygui',
@@ -62,7 +65,8 @@ export const ActivityData = [
         time: {
             start: new Date('2024-05-21 02:00:00').getTime(),
             end: new Date('2024-06-01 19:00:00').getTime(),
-        }
+        },
+        img: imgSrc + 'kigui.png'
     },
     {
         id: 'quiz',
@@ -80,7 +84,8 @@ export const ActivityData = [
         time: {
             start: new Date('2024-05-21 02:00:00').getTime(),
             end: new Date('2024-06-03 19:00:00').getTime(),
-        }
+        },
+        img: imgSrc + 'kthuc.png'
     },
     {
         id: 'fashionshow',
@@ -98,7 +103,8 @@ export const ActivityData = [
         time: {
             start: new Date('2024-06-05 02:00:00').getTime(),
             end: new Date('2024-06-05 19:00:00').getTime(),
-        }
+        },
+        img: imgSrc + 'fashion.png'
     },
     {
         id: 'hayday',
@@ -116,7 +122,8 @@ export const ActivityData = [
         time: {
             start: new Date('2024-06-05 02:00:00').getTime(),
             end: new Date('2024-06-05 19:00:00').getTime(),
-        }
+        },
+        img: imgSrc + 'hayday.png'
     },
     {
         id: 'practicalworkshop',
@@ -138,7 +145,8 @@ export const ActivityData = [
         time: {
             start: new Date('2024-06-05 02:00:00').getTime(),
             end: new Date('2024-06-05 19:00:00').getTime(),
-        }
+        },
+        img: imgSrc + 'ws.png'
     },
     {
         id: 'minigame',
@@ -166,6 +174,7 @@ export const ActivityData = [
         time: {
             start: new Date('2024-06-05 02:00:00').getTime(),
             end: new Date('2024-06-05 19:00:00').getTime(),
-        }
+        },
+        img: imgSrc + 'game.png'
     },
 ]

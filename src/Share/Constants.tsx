@@ -26,7 +26,7 @@ export const GlobalConstants = {
         maxRatio: 2,
     },
     postOption: {
-        anonyImgUrl: 'https://previews.123rf.com/images/nadianb/nadianb1709/nadianb170900256/86443804-idyllic-landscape-in-mountains-rural-scene-beautiful-nature-image-toned-square.jpg',
+        anonyImgUrl: './Assets/Img/Avt/andanh.png',
         anonyName: 'Người dùng ECO',
     },
     numberOfPostPerReq: 15,
