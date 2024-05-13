@@ -71,6 +71,8 @@
       background-color: rgb(210, 210, 210);
       overflow: hidden;
 
+      
+
       .moreBtn {
         position: absolute;
         bottom: 8px;
@@ -129,11 +131,17 @@
       display: block;
       position: relative;
       width: 100%;
-      height: 120px;
+      height: 121px;
       background-color: rgb(210, 210, 210);
       border-radius: 12px;
       margin: 0 0 15px 0;
       overflow: hidden;
+
+      img {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
 
       .countdown {
         position: absolute;
