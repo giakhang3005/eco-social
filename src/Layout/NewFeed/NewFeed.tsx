@@ -186,7 +186,7 @@ const NewFeed = (props: Props) => {
 
           <div className="quoteOnTop">{ActivityData.length} hoạt động đang diễn ra</div>
           <div className="bannerImg">
-            {/* <img src="./Assets/Img/Thumbnail.png" style={{width: '100%'}} /> */}
+            <img src="./Assets/Img/Event/banner.png"/>
             <button className="moreBtn" onClick={() => setCurrShowNewFeed(false)}>Xem chi tiết</button>
           </div>
           {currShowNewFeed && <Fact />}
