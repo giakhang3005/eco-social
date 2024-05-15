@@ -67,15 +67,16 @@
       display: none;
       position: relative;
       width: calc(100% - 8px);
-      height: 140px;
+      height: 130px;
       background-color: rgb(210, 210, 210);
       overflow: hidden;
-      border-radius: 12px;
+      border-radius: 14px;
       margin: 5px 4px 0 4px;
       border: 1px solid var(--secondary-text-color);
 
       img {
         width: 100%;
+        height: 130px;
         margin: 0;
         padding: 0;
         border-radius: 14px;
@@ -83,15 +84,15 @@
 
       .moreBtn {
         position: absolute;
-        bottom: 8px;
+        bottom: 6px;
         right: 10px;
         outline: none;
         border: none;
         background-color: var(--pill-color);
         color: var(--pill-text-color);
-        padding: 5px 15px 5px 15px;
+        padding: 5px 13px 5px 13px;
         border-radius: 12px;
-        font-size: 12px;
+        font-size: 10px;
         box-shadow: 2px 2px 5px var(--secondary-text-color);
         cursor: pointer;
       }
