@@ -6,6 +6,7 @@ import { routers } from './Routers';
 import { useEffect, useState } from 'react';
 import BlockedScreen from './Components/BlockedScreen/BlockedScreen';
 import { useDeviceMethods } from './Services/CustomHooks/useDeviceMethods';
+import { checkDevTool } from './Services/Functions/PreventDevtools';
 
 
 function App() {
@@ -16,6 +17,10 @@ function App() {
   useEffect(() => {
     const isFromMessAndFB = isAccessUsingMessFBBrowser();
     setIsAccessByFacebookAndMessengerBrowser(isFromMessAndFB);
+  }, []);
+
+  useEffect(() => {
+    checkDevTool()
   }, []);
 
   return (
