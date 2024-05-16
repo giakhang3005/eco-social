@@ -1,3 +1,4 @@
+import { CSGLogo, anonymousImg } from "./Data/CSGLogo";
 
 export const GlobalConstants = {
     localStorageKeys: {
@@ -26,7 +27,7 @@ export const GlobalConstants = {
         maxRatio: 2,
     },
     postOption: {
-        anonyImgUrl: './Assets/Img/Avt/andanh.png',
+        anonyImgUrl: anonymousImg,
         anonyName: 'Người dùng ECO',
     },
     numberOfPostPerReq: 15,
