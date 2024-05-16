@@ -14,6 +14,7 @@ import { usePosts } from "../../Services/CustomHooks/usePosts"
 import { Data } from "../../Layout/Layout"
 import { useSessionStorage } from "../../Services/CustomHooks/useSesstionStorage"
 import { Modal } from "antd"
+import { CSGLogo, EcoEchoLogo } from "../../Share/Data/CSGLogo"
 
 type Props = {
   mobileTopNavBar: number;
@@ -22,10 +23,10 @@ type Props = {
   setMobileTopNavBar: (value: number) => void;
 }
 
-const darkEcoEchoLogo = '/Assets/Logo/EchoEcho.png';
-const lightEcoEchoLogo = '/Assets/Logo/EchoEcho_black.png';
-const darkCsgLogo = '/Assets/Logo/csg.png';
-const lightCsgLogo = '/Assets/Logo/csg_black.png';
+const darkEcoEchoLogo = EcoEchoLogo.white;
+const lightEcoEchoLogo = EcoEchoLogo.black;
+const darkCsgLogo = CSGLogo.white;
+const lightCsgLogo = CSGLogo.black;
 
 const Navbar = ({ mobileTopNavBar, setMobileTopNavBar, safeZone }: Props) => {
   const { postWaitingToApprove, currentTheme } = useContext(Data) as IContext;

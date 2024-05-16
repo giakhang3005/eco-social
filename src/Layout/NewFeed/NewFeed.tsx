@@ -17,7 +17,7 @@ import CurrentEvent from "./CurrentEvent";
 import Challenges from "../../Components/Challanges/Challenges";
 import { useUsers } from "../../Services/CustomHooks/useUsers";
 import NTTLogo from "./NTTLogo";
-import { KlairsLogo } from "../../Share/Data/NTTLogo";
+import { KlairsLogo, MrBrownLogo, ThyThoLogo } from "../../Share/Data/NTTLogo";
 
 type Props = {}
 
@@ -166,29 +166,20 @@ const NewFeed = (props: Props) => {
                 }
               </div>
             </div>
-            {/* 
+
             <div className="NTT">
-              <div className="rank">Nhà tài trợ vàng</div>
-              <div className="LogoCtn">
-                <img src="./Assets/Logo/oris.png" />
-                <img src="./Assets/Logo/ode.png" />
-                <img src="./Assets/Logo/coyen.png" />
-              </div>
-            </div> */}
-            {/* <div className="NTT">
               <div className="rank">Nhà tài trợ bạc</div>
               <div className="LogoCtn">
-                <div style={{ fontSize: '10px', textAlign: 'center', width: '100%' }}>Coming Soon</div>
-                <img src="./Assets/Logo/oris.png" />
-                <img src="./Assets/Logo/ode.png" />
-                <img src="./Assets/Logo/coyen.png" />
+                {
+                  <NTTLogo rootObj={ThyThoLogo} />
+                }
               </div>
-            </div> */}
-
+            </div>
+            
             <div className="NTT">
               <div className="rank">Nhà tài trợ đồng hành</div>
               <div className="LogoCtn">
-                <img src={`${imgRootUrl}mrbrown.jpg`} />
+                <NTTLogo rootObj={MrBrownLogo} />
               </div>
             </div>
           </div>
