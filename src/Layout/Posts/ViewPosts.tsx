@@ -30,9 +30,9 @@ const ViewPosts = ({ post, handleLikeUnlike, checkImgLoaded }: Props) => {
     return (
         <div className="post" id={post.postId}>
             <div className="header">
-                <img src={post.userData.userImg} className="avatar" />
+                <img src={post.isAnonymous ? GlobalConstants.postOption.anonyImgUrl :post.userData.userImg} className="avatar" />
                 <div className="info">
-                    <div className="name">{post.userData.userName}</div>
+                    <div className="name">{post.isAnonymous ? GlobalConstants.postOption.anonyName : post.userData.userName}</div>
                     <div className="time">{new Date(post.postTime).toLocaleString()}</div>
                 </div>
             </div>
