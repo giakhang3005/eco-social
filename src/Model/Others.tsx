@@ -46,3 +46,8 @@ export interface ISafeZone {
     left: string;
     right: string;
 }
+
+export interface INTT {
+    type: 'kc' | 'v' | 'b' | 'd' | 'dh' | 'bttt';
+    imgUrl: string;
+}

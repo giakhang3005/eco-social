@@ -20,7 +20,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    checkDevTool()
+    checkDevTool();
   }, []);
 
   return (

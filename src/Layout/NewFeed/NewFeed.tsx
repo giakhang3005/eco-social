@@ -16,14 +16,17 @@ import { ActivityData } from "../../Share/Data/ActivityData";
 import CurrentEvent from "./CurrentEvent";
 import Challenges from "../../Components/Challanges/Challenges";
 import { useUsers } from "../../Services/CustomHooks/useUsers";
+import NTTLogo from "./NTTLogo";
 
 type Props = {}
+
+const imgRootUrl = './Assets/Logo/NTT/'
 
 // TODO: Cache post array, only load new when user refresh or swipe down
 // TODO: Only fetch ... first, when user scroll down, fetch next ... posts and push to original post array
 
 const NewFeed = (props: Props) => {
-  const { newFeedPosts, setNewFeedPosts, newFeedLoading, getNFPosts, newFeedScroll, setShowLogin } = useContext(Data) as IContext;
+  const { newFeedPosts, setNewFeedPosts, newFeedLoading, getNFPosts, newFeedScroll, setShowLogin, currentTheme } = useContext(Data) as IContext;
 
   const { setToSessionStorage } = useSessionStorage();
   const { getCurrentUser } = useUsers();
@@ -157,28 +160,35 @@ const NewFeed = (props: Props) => {
             <div className="NTT">
               <div className="rank">Nhà tài trợ kim cương</div>
               <div className="LogoCtn">
-                <div style={{ fontSize: '10px', textAlign: 'center', width: '100%' }}>Coming Soon</div>
-                {/* <img src="./Assets/Logo/oris.png" />
-                <img src="./Assets/Logo/ode.png" />
-                <img src="./Assets/Logo/coyen.png" /> */}
+                {
+                  <NTTLogo rootName="klairs" scaleLight={0.8} scaleDark={1.4} />
+                }
+                
               </div>
             </div>
+            {/* 
             <div className="NTT">
               <div className="rank">Nhà tài trợ vàng</div>
               <div className="LogoCtn">
-                <div style={{ fontSize: '10px', textAlign: 'center', width: '100%' }}>Coming Soon</div>
-                {/* <img src="./Assets/Logo/oris.png" />
+                <img src="./Assets/Logo/oris.png" />
                 <img src="./Assets/Logo/ode.png" />
-                <img src="./Assets/Logo/coyen.png" /> */}
+                <img src="./Assets/Logo/coyen.png" />
               </div>
-            </div>
-            <div className="NTT">
+            </div> */}
+            {/* <div className="NTT">
               <div className="rank">Nhà tài trợ bạc</div>
               <div className="LogoCtn">
                 <div style={{ fontSize: '10px', textAlign: 'center', width: '100%' }}>Coming Soon</div>
-                {/* <img src="./Assets/Logo/oris.png" />
+                <img src="./Assets/Logo/oris.png" />
                 <img src="./Assets/Logo/ode.png" />
-                <img src="./Assets/Logo/coyen.png" /> */}
+                <img src="./Assets/Logo/coyen.png" />
+              </div>
+            </div> */}
+
+            <div className="NTT">
+              <div className="rank">Nhà tài trợ đồng hành</div>
+              <div className="LogoCtn">
+                <img src={`${imgRootUrl}mrbrown.jpg`} />
               </div>
             </div>
           </div>
@@ -186,7 +196,7 @@ const NewFeed = (props: Props) => {
 
           <div className="quoteOnTop">{ActivityData.length} hoạt động đang diễn ra</div>
           <div className="bannerImg">
-            <img src="./Assets/Img/Event/banner.png"/>
+            <img src="./Assets/Img/Event/banner.png" />
             <button className="moreBtn" onClick={() => setCurrShowNewFeed(false)}>Xem chi tiết</button>
           </div>
           {currShowNewFeed && <Fact />}

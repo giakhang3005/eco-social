@@ -30,11 +30,12 @@
 
     .NTTCtn {
       display: flex;
+      justify-content: center;
       margin: 0 0 15px 0;
 
       .NTT {
         width: calc(100% / 3);
-        padding: 0 15px 0 15px;
+        padding: 0 3vw 0 3vw;
         box-sizing: border-box;
 
         .rank {
@@ -45,10 +46,10 @@
         .LogoCtn {
           margin: 15px 0 0 0;
           display: flex;
-          justify-content: space-between;
+          justify-content: center;
 
           img {
-            height: 25px;
+            height: 30px;
           }
         }
       }
@@ -140,7 +141,7 @@
       width: 100%;
       // height: 122px;
       background-color: transparent;
-      border-radius: 12px;
+      border-radius: 15px;
       margin: 0 0 15px 0;
       overflow: hidden;
 
@@ -236,15 +237,12 @@
           .rank {
             font-weight: 600;
             font-size: 7px;
-            text-align: center;
           }
           .LogoCtn {
             margin: 8px 0 0 0;
-            display: flex;
-            justify-content: space-between;
 
             img {
-              height: 12px;
+              height: 17px;
             }
           }
         }
