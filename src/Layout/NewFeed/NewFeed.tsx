@@ -17,6 +17,7 @@ import CurrentEvent from "./CurrentEvent";
 import Challenges from "../../Components/Challanges/Challenges";
 import { useUsers } from "../../Services/CustomHooks/useUsers";
 import NTTLogo from "./NTTLogo";
+import { KlairsLogo } from "../../Share/Data/NTTLogo";
 
 type Props = {}
 
@@ -161,9 +162,8 @@ const NewFeed = (props: Props) => {
               <div className="rank">Nhà tài trợ kim cương</div>
               <div className="LogoCtn">
                 {
-                  <NTTLogo rootName="klairs" scaleLight={0.8} scaleDark={1.4} />
+                  <NTTLogo rootObj={KlairsLogo} scaleLight={0.8} scaleDark={1.4} />
                 }
-                
               </div>
             </div>
             {/* 

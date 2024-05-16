@@ -68,7 +68,7 @@ const ImageCrop = ({ file, setCroppedFile, onClearImage }: Props) => {
         if (!canvas) return;
 
         const dataUrl = canvas.toDataURL();
-        // console.log(dataUrl)
+        console.log(dataUrl)
 
         // const randName = new Date().getTime();
         // const currUser = getCurrentUser();
