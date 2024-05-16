@@ -28,7 +28,7 @@ export const ActivityData = [
         title: 'Cuộc đua quyên góp',
         content: (
             <>
-                <div style={Object.assign(time)}>Thời gian diễn ra: 21/05/2024 - 04/06/2024</div>
+                <div style={Object.assign(time)}>Thời gian diễn ra: 23/05/2024 - 31/05/2024</div>
                 <div style={Object.assign(content)}>
                     Người tham gia sẽ mang các vật dụng có thể tái chế được như: Chai nước, bìa carton, lon thiếc,... và đem đến booth thu gom để quy đổi thành điểm. Cách quy đổi điểm như sau:
                     <br />
@@ -44,8 +44,8 @@ export const ActivityData = [
             </>
         ),
         time: {
-            start: new Date('2024-05-21 02:00:00').getTime(),
-            end: new Date('2024-06-04 19:00:00').getTime(),
+            start: new Date('2024-05-23 02:00:00').getTime(),
+            end: new Date('2024-05-31 19:00:00').getTime(),
         },
         img: imgSrc + 'quyengop.png'
     },
@@ -54,7 +54,7 @@ export const ActivityData = [
         title: 'Gian hàng ký gửi',
         content: (
             <>
-                <div style={Object.assign(time)}>Thời gian diễn ra: 21/05/2024 - 01/06/2024</div>
+                <div style={Object.assign(time)}>Thời gian diễn ra: 23/05/2024 - 31/05/2024</div>
                 <div style={Object.assign(content)}>
                     BTC sẽ mở quầy ký gửi để nhận đồ và tính phí ký gửi. Toàn bộ quần áo ký gửi sẽ được trưng bày và bán tại ngày diễn ra sự kiện.
                     <br /><br />
@@ -63,8 +63,8 @@ export const ActivityData = [
             </>
         ),
         time: {
-            start: new Date('2024-05-21 02:00:00').getTime(),
-            end: new Date('2024-06-01 19:00:00').getTime(),
+            start: new Date('2024-05-23 02:00:00').getTime(),
+            end: new Date('2024-05-31 19:00:00').getTime(),
         },
         img: imgSrc + 'kigui.png'
     },
@@ -73,7 +73,7 @@ export const ActivityData = [
         title: 'So tài kiến thức',
         content: (
             <>
-                <div style={Object.assign(time)}>Thời gian diễn ra: 21/05/2024 - 03/06/2024</div>
+                <div style={Object.assign(time)}>Thời gian diễn ra: 23/05/2024 - 31/05/2024</div>
                 <div style={Object.assign(content)}>
                     Người tham gia sẽ trao đổi và mua bán quần áo secondhand (quần áo cũ còn giá trị sử dụng)
                     <br /><br />
@@ -82,8 +82,8 @@ export const ActivityData = [
             </>
         ),
         time: {
-            start: new Date('2024-05-21 02:00:00').getTime(),
-            end: new Date('2024-06-03 19:00:00').getTime(),
+            start: new Date('2024-05-23 02:00:00').getTime(),
+            end: new Date('2024-05-31 19:00:00').getTime(),
         },
         img: imgSrc + 'kthuc.png'
     },
