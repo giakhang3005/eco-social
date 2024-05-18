@@ -17,7 +17,7 @@ import CurrentEvent from "./CurrentEvent";
 import Challenges from "../../Components/Challanges/Challenges";
 import { useUsers } from "../../Services/CustomHooks/useUsers";
 import NTTLogo from "./NTTLogo";
-import { KlairsLogo, MrBrownLogo, ThyThoLogo } from "../../Share/Data/NTTLogo";
+import { DvtLogo, KlairsLogo, KoikeyaLogo, LongThanhLogo, MrBrownLogo, ThyThoLogo } from "../../Share/Data/NTTLogo";
 
 type Props = {}
 
@@ -161,25 +161,24 @@ const NewFeed = (props: Props) => {
             <div className="NTT">
               <div className="rank">Nhà tài trợ kim cương</div>
               <div className="LogoCtn">
-                {
-                  <NTTLogo rootObj={KlairsLogo} scaleLight={0.8} scaleDark={1.4} />
-                }
+                  <NTTLogo rootObj={KlairsLogo} />
               </div>
             </div>
 
             <div className="NTT">
               <div className="rank">Nhà tài trợ bạc</div>
               <div className="LogoCtn">
-                {
-                  <NTTLogo rootObj={ThyThoLogo} />
-                }
+                    <NTTLogo rootObj={ThyThoLogo} scaleDark={1.1} scaleLight={1.1} />
+                    <NTTLogo rootObj={LongThanhLogo} />
               </div>
             </div>
-            
+
             <div className="NTT">
               <div className="rank">Nhà tài trợ đồng hành</div>
               <div className="LogoCtn">
                 <NTTLogo rootObj={MrBrownLogo} />
+                <NTTLogo rootObj={KoikeyaLogo} />
+                <NTTLogo rootObj={DvtLogo} scaleDark={0.8} scaleLight={0.8} style={{marginLeft: 0}} />
               </div>
             </div>
           </div>
