@@ -28,8 +28,8 @@ const NTTLogo = ({ rootObj, scaleLight = 1,  scaleDark = 1, style = {}}: Props) 
         <>
             {imgLoaded &&
                 currentTheme === 'dark'
-                ? <img style={{ scale: `${scaleDark}`, margin: '0 15px 0 15px', ...style }} src={rootObj?.white}/>
-                : <img style={{ scale: `${scaleLight}`, margin: '0 15px 0 15px', ...style}} src={rootObj?.black} onLoad={handleFinishLoadedImg} />
+                ? <img style={{ scale: `${scaleDark}`, margin: '0 1vw 0 1vw', ...style }} src={rootObj?.white}/>
+                : <img style={{ scale: `${scaleLight}`, margin: '0 1vw 0 1vw', ...style}} src={rootObj?.black} onLoad={handleFinishLoadedImg} />
             }
         </>
     )
