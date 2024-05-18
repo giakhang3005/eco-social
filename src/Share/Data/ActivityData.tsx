@@ -2,7 +2,7 @@ const time = { margin: '15px 0 15px 0', fontWeight: 600 }
 const content = {}
 const important = { color: 'var(--error-color)' }
 
-const imgSrc  = './Assets/Img/Event/'
+const imgSrc = './Assets/Img/Event/'
 export const ActivityData = [
     {
         id: 'challenge',
@@ -75,9 +75,7 @@ export const ActivityData = [
             <>
                 <div style={Object.assign(time)}>Thời gian diễn ra: 23/05/2024 - 31/05/2024</div>
                 <div style={Object.assign(content)}>
-                    Người tham gia sẽ trao đổi và mua bán quần áo secondhand (quần áo cũ còn giá trị sử dụng)
-                    <br /><br />
-                    Cách tham gia: Mọi người sẽ mang những món secondhand (còn giá trị sử dụng) của mình có thể là quần áo, đồ điện tử,... Đem đến ký gửi ở gian hàng, gian hàng sẽ định giá và bán lại cho những bạn khác với <b style={important}>mức hoa hồng là 3/7 ( người bán hàng 7, gian hàng 3)</b>. Trường hợp gian hàng không bán được sẽ liên hệ để trả hàng, nếu không liên hệ được sẽ livestream trên group Gia Đình Cóc Sài Gòn.
+                    Một bộ câu hỏi gồm 15 câu về các vấn đề môi trường được thực hiện trên standee điện tử. Người tham gia hoàn thành đúng 12/15 câu trở lên sẽ được nhận phần thưởng trực tiếp tại quầy.
                 </div>
             </>
         ),
