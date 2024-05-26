@@ -18,6 +18,7 @@ import Challenges from "../../Components/Challanges/Challenges";
 import { useUsers } from "../../Services/CustomHooks/useUsers";
 import NTTLogo from "./NTTLogo";
 import { DvtLogo, KlairsLogo, KoikeyaLogo, LongThanhLogo, MrBrownLogo, ThyThoLogo } from "../../Share/Data/NTTLogo";
+import { HADLogo, HVMLSLogo, TVGDLogo, VALogo } from "../../Share/Data/BTTTLogo";
 
 type Props = {}
 
@@ -43,6 +44,16 @@ const NewFeed = (props: Props) => {
 
   const [touchStartYLocation, setTouchStartYLocation] = useState<number | null>(null);
   const [currentSwipeLocation, setCurrenSwipeLocation] = useState<number>(0);
+
+  const [showNTT, setShowNTT] = useState<boolean>(true);
+
+  useEffect(() => {
+    const updateNTTInterval = setInterval(() => {
+      setShowNTT(prev => !prev);
+    }, 5000);
+
+    return () => clearInterval(updateNTTInterval);
+  }, []);
 
   useEffect(() => {
     initPostHeight();
@@ -158,29 +169,44 @@ const NewFeed = (props: Props) => {
       <Row style={{ minHeight: '100vh' }}>
         <Col span={currShowNewFeed ? 24 : 0} md={16} className="postsZone" style={{ paddingTop: `${currentSwipeLocation}px` }} onMouseMove={onTouchMove} onMouseDown={onTouchDown} onMouseUp={onTouchUp} onTouchMove={onTouchMove} onTouchStart={onTouchDown} onTouchEnd={onTouchUp}>
           <div className="NTTCtn">
-            <div className="NTT">
-              <div className="rank">Nhà tài trợ kim cương</div>
-              <div className="LogoCtn">
-                  <NTTLogo rootObj={KlairsLogo} />
-              </div>
-            </div>
+            {
+              showNTT ?
+                <>
+                  <div className="NTT">
+                    <div className="rank">Nhà tài trợ kim cương</div>
+                    <div className="LogoCtn">
+                      <NTTLogo rootObj={KlairsLogo} />
+                    </div>
+                  </div>
 
-            <div className="NTT">
-              <div className="rank">Nhà tài trợ bạc</div>
-              <div className="LogoCtn">
-                    <NTTLogo rootObj={ThyThoLogo} scaleDark={1.1} scaleLight={1.1} />
-                    <NTTLogo rootObj={LongThanhLogo} />
-              </div>
-            </div>
+                  <div className="NTT">
+                    <div className="rank">Nhà tài trợ bạc</div>
+                    <div className="LogoCtn">
+                      <NTTLogo rootObj={ThyThoLogo} scaleDark={1.1} scaleLight={1.1} />
+                      <NTTLogo rootObj={LongThanhLogo} />
+                    </div>
+                  </div>
 
-            <div className="NTT">
-              <div className="rank">Nhà tài trợ đồng hành</div>
-              <div className="LogoCtn">
-                <NTTLogo rootObj={MrBrownLogo} />
-                <NTTLogo rootObj={KoikeyaLogo} />
-                <NTTLogo rootObj={DvtLogo} scaleDark={0.8} scaleLight={0.8} style={{marginLeft: 0}} />
-              </div>
-            </div>
+                  <div className="NTT">
+                    <div className="rank">Nhà tài trợ đồng hành</div>
+                    <div className="LogoCtn">
+                      <NTTLogo rootObj={MrBrownLogo} />
+                      <NTTLogo rootObj={KoikeyaLogo} />
+                      <NTTLogo rootObj={DvtLogo} scaleDark={0.8} scaleLight={0.8} style={{ marginLeft: 0 }} />
+                    </div>
+                  </div>
+                </>
+                :
+                <div className="NTT">
+                  <div className="rank">BẢO TRỢ TRUYỀN THÔNG</div>
+                  <div className="LogoCtn">
+                    <NTTLogo rootObj={TVGDLogo} scaleDark={1.2} scaleLight={1.2}/>
+                    <NTTLogo rootObj={VALogo} />
+                    <NTTLogo rootObj={HVMLSLogo} />
+                    <NTTLogo rootObj={HADLogo} />
+                  </div>
+                </div>
+            }
           </div>
 
 

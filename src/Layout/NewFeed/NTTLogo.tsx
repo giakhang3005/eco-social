@@ -11,7 +11,7 @@ type Props = {
 
 const imgRootUrl = './Assets/Logo/NTT/';
 
-const NTTLogo = ({ rootObj, scaleLight = 1,  scaleDark = 1, style = {}}: Props) => {
+const NTTLogo = ({ rootObj, scaleLight = 1, scaleDark = 1, style = {} }: Props) => {
     const { currentTheme } = useContext(Data) as IContext;
 
     const [imgLoaded, setImgLoaded] = useState<boolean>(false);
@@ -20,16 +20,13 @@ const NTTLogo = ({ rootObj, scaleLight = 1,  scaleDark = 1, style = {}}: Props) 
         setImgLoaded(false);
     }, [currentTheme]);
 
-    const handleFinishLoadedImg = () => {
-        setImgLoaded(true)
-    }
 
     return (
         <>
-            {imgLoaded &&
+            {
                 currentTheme === 'dark'
-                ? <img style={{ scale: `${scaleDark}`, margin: '0 1vw 0 1vw', ...style }} src={rootObj?.white}/>
-                : <img style={{ scale: `${scaleLight}`, margin: '0 1vw 0 1vw', ...style}} src={rootObj?.black} onLoad={handleFinishLoadedImg} />
+                    ? <img style={{ scale: `${scaleDark}`, margin: '0 1vw 0 1vw', ...style }} src={rootObj.white} />
+                    : <img style={{ scale: `${scaleLight}`, margin: '0 1vw 0 1vw', ...style }} src={rootObj.black} />
             }
         </>
     )
