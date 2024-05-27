@@ -43,6 +43,9 @@
           font-size: 11px;
           text-align: center;
         }
+        .bttt {
+          width: calc(100vw/7);
+        }
         .LogoCtn {
           margin: 15px 0 0 0;
           display: flex;
@@ -237,6 +240,9 @@
           .rank {
             font-weight: 600;
             font-size: 7px;
+          }
+          .bttt {
+            width: 100%;
           }
           .LogoCtn {
             margin: 8px 0 0 0;

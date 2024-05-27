@@ -198,7 +198,7 @@ const NewFeed = (props: Props) => {
                 </>
                 :
                 <div className="NTT">
-                  <div className="rank">BẢO TRỢ TRUYỀN THÔNG</div>
+                  <div className="rank bttt">BẢO TRỢ TRUYỀN THÔNG</div>
                   <div className="LogoCtn">
                     <NTTLogo rootObj={TVGDLogo} scaleDark={1.2} scaleLight={1.2}/>
                     <NTTLogo rootObj={VALogo} />
