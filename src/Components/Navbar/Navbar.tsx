@@ -146,32 +146,35 @@ const Navbar = ({ mobileTopNavBar, setMobileTopNavBar, safeZone }: Props) => {
       {/* Nav Mobile */}
       <div className="NavMobile">
         {/* Top Navbar */}
-        <div className="NavMobileTop" style={Object.assign({ height: `calc(${GlobalConstants.topNavHeight}px + ${safeZone?.top}` }, { paddingTop: safeZone?.top }, { top: hookLocation.pathname !== '/' ? 0 : 0 - mobileTopNavBar }, { opacity: 1 - (mobileTopNavBar / (GlobalConstants.topNavHeight - 10)) })}>
-        {/* <div className="NavMobileTop" style={Object.assign({ height: `calc(${GlobalConstants.topNavHeight}px + ${safeZone?.top}` }, { paddingTop: safeZone?.top }, {top: 0})}> */}
-          <img className="logo logoMobile" src={currentTheme === 'dark' ? darkCsgLogo : lightCsgLogo} />
-          <img className="logo logoMobile" src={currentTheme === 'dark' ? darkEcoEchoLogo : lightEcoEchoLogo} />
-          <div className="button">
-            <ThemeToggle style={Object.assign({ right: getCurrentUser() ? '43px' : '8px' }, { top: '9px' })} />
-            {
-              getCurrentUser() && <Button
-                icon={<LogoutOutlined />}
-                danger hideBorder
-                showText={false}
-                tooltip="Đăng xuất"
-                onClick={handleLogout}
-                style={Object.assign({ position: 'absolute', top: '9px', right: '3px' })}
-                iconColor="red"
-              >
-              </Button>
-            }
+        {
+          ['/posts', '/'].includes(hookLocation.pathname) &&
+          <div className="NavMobileTop" style={Object.assign({ height: `calc(${GlobalConstants.topNavHeight}px + ${safeZone?.top}` }, { paddingTop: safeZone?.top }, { top: hookLocation.pathname !== '/' ? 0 : 0 - mobileTopNavBar }, { opacity: 1 - (mobileTopNavBar / (GlobalConstants.topNavHeight - 10)) })}>
+            {/* <div className="NavMobileTop" style={Object.assign({ height: `calc(${GlobalConstants.topNavHeight}px + ${safeZone?.top}` }, { paddingTop: safeZone?.top }, {top: 0})}> */}
+            <img className="logo logoMobile" src={currentTheme === 'dark' ? darkCsgLogo : lightCsgLogo} />
+            <img className="logo logoMobile" src={currentTheme === 'dark' ? darkEcoEchoLogo : lightEcoEchoLogo} />
+            <div className="button">
+              <ThemeToggle style={Object.assign({ right: getCurrentUser() ? '43px' : '8px' }, { top: '9px' })} />
+              {
+                getCurrentUser() && <Button
+                  icon={<LogoutOutlined />}
+                  danger hideBorder
+                  showText={false}
+                  tooltip="Đăng xuất"
+                  onClick={handleLogout}
+                  style={Object.assign({ position: 'absolute', top: '9px', right: '3px' })}
+                  iconColor="red"
+                >
+                </Button>
+              }
+            </div>
           </div>
-        </div>
+        }
 
         {/* Bottom Sub-Menu */}
         {
           (getCurrentUser() && checkHaveAnyPerm()) &&
           <div className="NavMobileBottom_SubMenu" style={Object.assign({ bottom: hookLocation.pathname !== '/' ? `calc(47px + ${safeZone?.bottom}` : `calc(${47 - mobileTopNavBar}px + ${safeZone?.bottom})` }, { opacity: 1 - (mobileTopNavBar / (GlobalConstants.topNavHeight - 10)) })}>
-          {/* <div className="NavMobileBottom_SubMenu" style={Object.assign({ bottom: `calc(${47}px + ${safeZone?.bottom})` })}> */}
+            {/* <div className="NavMobileBottom_SubMenu" style={Object.assign({ bottom: `calc(${47}px + ${safeZone?.bottom})` })}> */}
             {(checkHavePerm(GlobalConstants.permissionsKey.log)) && <Button onClick={() => navigateToOtherPage('/log')} icon={<BookFilled />} hideBorder active={hookLocation.pathname === "/log"}></Button>}
             {(checkHavePerm(GlobalConstants.permissionsKey.points)) && <Button onClick={() => navigateToOtherPage('/points')} icon={<StarFilled />} hideBorder active={hookLocation.pathname === "/points"}></Button>}
             {(getCurrentUser() && checkHavePerm(GlobalConstants.permissionsKey.approval)) && <Button style={{ margin: '0 0 0 0' }} onClick={() => navigateToOtherPage('/approval')} icon={<CarryOutFilled />} hideBorder badge={postWaitingToApprove.length} active={hookLocation.pathname === "/approval"}></Button>}
