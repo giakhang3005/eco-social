@@ -17,5 +17,6 @@ export const extractMssvFromEmail = (email: string) => {
 export const validateMssv = (mssv: string) => {
     var regex = /^[A-Z]{2}\d{5,6}$/i;
 
-    return regex.test(mssv);
+    // return regex.test(mssv);
+    return mssv.length >= 6;
 }
