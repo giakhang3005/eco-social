@@ -17,8 +17,8 @@ import CurrentEvent from "./CurrentEvent";
 import Challenges from "../../Components/Challanges/Challenges";
 import { useUsers } from "../../Services/CustomHooks/useUsers";
 import NTTLogo from "./NTTLogo";
-import { DvtLogo, KlairsLogo, KoikeyaLogo, LongThanhLogo, MrBrownLogo, ThyThoLogo } from "../../Share/Data/NTTLogo";
-import { HADLogo, HVMLSLogo, TVGDLogo, VALogo } from "../../Share/Data/BTTTLogo";
+import { Antlia, DvtLogo, KlairsLogo, KoikeyaLogo, LongThanhLogo, MrBrownLogo, ThyThoLogo } from "../../Share/Data/NTTLogo";
+import { BeatVN, GMClub, HADLogo, HVMLSLogo, MarketingAI, Sng, TVGDLogo, VALogo } from "../../Share/Data/BTTTLogo";
 
 type Props = {}
 
@@ -193,6 +193,7 @@ const NewFeed = (props: Props) => {
                       <NTTLogo rootObj={MrBrownLogo} />
                       <NTTLogo rootObj={KoikeyaLogo} />
                       <NTTLogo rootObj={DvtLogo} scaleDark={0.8} scaleLight={0.8} style={{ marginLeft: 0 }} />
+                      <NTTLogo rootObj={Antlia} />
                     </div>
                   </div>
                 </>
@@ -200,7 +201,11 @@ const NewFeed = (props: Props) => {
                 <div className="NTT">
                   <div className="rank bttt">BẢO TRỢ TRUYỀN THÔNG</div>
                   <div className="LogoCtn">
-                    <NTTLogo rootObj={TVGDLogo} scaleDark={1.2} scaleLight={1.2}/>
+                    <NTTLogo rootObj={BeatVN} scaleDark={0.8} scaleLight={0.8} />
+                    <NTTLogo rootObj={Sng} scaleDark={1.5} scaleLight={1.5} />
+                    <NTTLogo rootObj={TVGDLogo} scaleDark={1.2} scaleLight={1.2} />
+                    <NTTLogo rootObj={GMClub} />
+                    <NTTLogo rootObj={MarketingAI} />
                     <NTTLogo rootObj={VALogo} />
                     <NTTLogo rootObj={HVMLSLogo} />
                     <NTTLogo rootObj={HADLogo} />

@@ -7,7 +7,7 @@ export const challenges = [
     {
         date: 1,
         month: 6,
-        challenge: 'tham gia hoạt động So tài kiến thức (Quiz) của sự kiện.'
+        challenge: 'cách bạn tận dụng lại các đồ dùng có thể tái sử dụng.'
     },
     {
         date: 2,
@@ -22,6 +22,6 @@ export const challenges = [
     {
         date: 4,
         month: 6,
-        challenge: 'tham gia hoạt động kí gửi các món đồ cũ (vẫn còn khả năng tái sử dụng) tại Gian hàng ký gửi của sự kiện hoặc tham gia hoạt động Cuộc đua quyên góp của sự kiện.'
+        challenge: 'story của bạn ở nền tảng MXH với caption thông điệp về môi trường.'
     },
 ]
