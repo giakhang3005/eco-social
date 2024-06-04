@@ -172,12 +172,12 @@ const NewFeed = (props: Props) => {
             {
               showNTT ?
                 <>
-                  <div className="NTT">
+                  {/* <div className="NTT">
                     <div className="rank">Nhà tài trợ kim cương</div>
                     <div className="LogoCtn">
                       <NTTLogo rootObj={KlairsLogo} />
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className="NTT">
                     <div className="rank">Nhà tài trợ bạc</div>
