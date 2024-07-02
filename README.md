@@ -41,20 +41,19 @@ Create post
 
 Admin
 
-Log
+<h5>Log</h5>
 <img width="760" alt="Ảnh màn hình 2024-07-03 lúc 00 37 20" src="https://github.com/giakhang3005/eco-social/assets/45289938/b53b618c-f2e4-470a-aad0-290a574b2f99">
 
-Points management
+<h5>Points management</h5>
 <img width="1510" alt="Ảnh màn hình 2024-07-03 lúc 00 38 06" src="https://github.com/giakhang3005/eco-social/assets/45289938/c1bf4780-de05-4efc-873a-187e42445a6a">
 
-Post approval
-
+<h5>Post approval</h5>
 <img width="757" alt="Ảnh màn hình 2024-07-03 lúc 00 38 40" src="https://github.com/giakhang3005/eco-social/assets/45289938/1136aae8-57a3-4cd6-9793-79cab2085dd8">
 
-Minigame progress management
+<h5>Minigame progress management</h5>
 <img width="1505" alt="Ảnh màn hình 2024-07-03 lúc 00 39 06" src="https://github.com/giakhang3005/eco-social/assets/45289938/d5c4632c-47d0-4bf3-bbbd-9da7b230f0b9">
 
-Permissions management
+<h5>Permissions management</h5>
 <img width="757" alt="Ảnh màn hình 2024-07-03 lúc 00 39 26" src="https://github.com/giakhang3005/eco-social/assets/45289938/8dc77a94-edd0-48de-9e9d-9a631a252c29">
 
 <h3>Connect me via khanggia85@gmail.com</h3>
