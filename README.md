@@ -1,46 +1,59 @@
-# Getting Started with Create React App
+# ECO SOCIAL WEB SITE
+<p>A mini social media network for ECO event at FPT University that have some main features</p>
+<ol>
+  <li>Sign in with Google</li>
+  <li>New feed & posts' details</li>
+  <li>Like & Share posts with URL</li>
+  <li>Profile page</li>
+  <li>Upload post (image crop, annonymous post...)</li>
+  <li>Embbed Points and Game's Progress</li>
+  <li>Light/Dark mode</li>
+</ol>
+For admin:
+<ol>
+  <li>Log</li>
+  <li>Post approval</li>
+  <li>Points management</li>
+  <li>Permissions management</li>
+  <li>Game progress management</li>
+  <li>Export Data as Excel</li>
+</ol>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Tech Stack
+<ol>
+  <li>Google Firebase</li>
+  <li>ReactJS - Typescript</li>
+  <li>SASS/SCSS</li>
+</ol>
 
-## Available Scripts
+# Images
+Newfeed
+<img width="763" alt="Ảnh màn hình 2024-07-03 lúc 00 34 34" src="https://github.com/giakhang3005/eco-social/assets/45289938/3e9334b4-f144-4dc4-90b4-623ec4629fa9">
+<img width="1506" alt="Ảnh màn hình 2024-07-03 lúc 00 35 19" src="https://github.com/giakhang3005/eco-social/assets/45289938/3976b117-4d52-4313-b74e-a8d40486a22d">
 
-In the project directory, you can run:
+Profile
+<img width="1506" alt="Ảnh màn hình 2024-07-03 lúc 00 35 49" src="https://github.com/giakhang3005/eco-social/assets/45289938/c769b6e0-c105-42e9-93ca-5dacbd22ce5f">
 
-### `npm start`
+Create post
+<img width="1511" alt="Ảnh màn hình 2024-07-03 lúc 00 36 11" src="https://github.com/giakhang3005/eco-social/assets/45289938/27d8ba86-dc62-4f99-88d2-6b4807fccd53">
+<img width="1505" alt="Ảnh màn hình 2024-07-03 lúc 00 36 30" src="https://github.com/giakhang3005/eco-social/assets/45289938/3a58b523-29a1-48a8-8eba-e1ded8d4aa3d">
+<img width="1509" alt="Ảnh màn hình 2024-07-03 lúc 00 36 43" src="https://github.com/giakhang3005/eco-social/assets/45289938/94ffbef5-b712-47ce-9bce-cacaa988cde4">
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Admin
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Log
+<img width="760" alt="Ảnh màn hình 2024-07-03 lúc 00 37 20" src="https://github.com/giakhang3005/eco-social/assets/45289938/b53b618c-f2e4-470a-aad0-290a574b2f99">
 
-### `npm test`
+Points management
+<img width="1510" alt="Ảnh màn hình 2024-07-03 lúc 00 38 06" src="https://github.com/giakhang3005/eco-social/assets/45289938/c1bf4780-de05-4efc-873a-187e42445a6a">
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Post approval
+<img width="757" alt="Ảnh màn hình 2024-07-03 lúc 00 38 40" src="https://github.com/giakhang3005/eco-social/assets/45289938/1136aae8-57a3-4cd6-9793-79cab2085dd8">
 
-### `npm run build`
+Minigame progress management
+<img width="1505" alt="Ảnh màn hình 2024-07-03 lúc 00 39 06" src="https://github.com/giakhang3005/eco-social/assets/45289938/d5c4632c-47d0-4bf3-bbbd-9da7b230f0b9">
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Permissions management
+<img width="757" alt="Ảnh màn hình 2024-07-03 lúc 00 39 26" src="https://github.com/giakhang3005/eco-social/assets/45289938/8dc77a94-edd0-48de-9e9d-9a631a252c29">
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+<h3>Connect me via khanggia85@gmail.com</h3>
