@@ -48,6 +48,7 @@ Points management
 <img width="1510" alt="Ảnh màn hình 2024-07-03 lúc 00 38 06" src="https://github.com/giakhang3005/eco-social/assets/45289938/c1bf4780-de05-4efc-873a-187e42445a6a">
 
 Post approval
+
 <img width="757" alt="Ảnh màn hình 2024-07-03 lúc 00 38 40" src="https://github.com/giakhang3005/eco-social/assets/45289938/1136aae8-57a3-4cd6-9793-79cab2085dd8">
 
 Minigame progress management
