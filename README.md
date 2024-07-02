@@ -28,7 +28,7 @@ For admin:
 
 # Images
 Newfeed
-<img width="763" alt="Ảnh màn hình 2024-07-03 lúc 00 34 34" src="https://github.com/giakhang3005/eco-social/assets/45289938/3e9334b4-f144-4dc4-90b4-623ec4629fa9">
+<img width="1505" alt="Ảnh màn hình 2024-07-03 lúc 00 40 19" src="https://github.com/giakhang3005/eco-social/assets/45289938/862afa79-c74b-4d87-84ca-b9ff0e2ad99d">
 <img width="1506" alt="Ảnh màn hình 2024-07-03 lúc 00 35 19" src="https://github.com/giakhang3005/eco-social/assets/45289938/3976b117-4d52-4313-b74e-a8d40486a22d">
 
 Profile
