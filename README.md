@@ -6,7 +6,7 @@
   <li>New feed & posts' details</li>
   <li>Like & Share posts with URL</li>
   <li>Profile page</li>
-  <li>Upload post (image crop, annonymous post...)</li>
+  <li>Upload post (image crop, anonymous post...)</li>
   <li>Embbed Points and Game's Progress</li>
   <li>Light/Dark mode</li>
 </ol>
